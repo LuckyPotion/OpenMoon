@@ -1,0 +1,178 @@
+{
+  "status": "passed_noninitializing_JVM_verification",
+  "archive": "repository:\\build\\runs\\4d580ac3-7afb-4a6a-803d-27cb2c0fe02a\\delivery\\runtime-R.jar",
+  "archive_sha256": "5C252A756F4CC87258064CB7D954DC816D1F6837D8AAC7B56C713917DAAD7068",
+  "owned_denominator": 4093,
+  "passed": 4093,
+  "failed": 0,
+  "entrypoint_verified": true,
+  "application_initialization_requested": false,
+  "application_methods_invoked": 0,
+  "client_started": false,
+  "java_home": "logical-jdk17-runtime:17.0.12",
+  "java_version": "17.0.12",
+  "ordered_providers": [
+    {
+      "path": "repository:\\vendor\\dependencies\\00-moon-client-external-deps-decoded.jar",
+      "sha256": "6C33B6A539DF8E1043CF08AD739EDD99365D056F2BF995DA6BF8BAE2C86953BC"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\01-guava-31.1-jre.jar",
+      "sha256": "A42EDC9CAB792E39FE39BB94F3FCA655ED157FF87A8AF78E1D6BA5B07C4A00AB"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\02-netty-all-4.1.68.Final.jar",
+      "sha256": "21E9D45194EE99B1415CC85463555417E494BAF87C5D285877A7584328122F02"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\03-protobuf-java-3.21.7.jar",
+      "sha256": "A204EC68748A7B26351AE37A311E8DE468F248D1916D5F8DBE812C1289D0A0FF"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\04-gson-2.10.jar",
+      "sha256": "0CDD163CE3598A20FC04EEE71B140B24F6F2A3B35F0A499DBBDD9852E83FBFAF"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\05-log4j-api-2.19.0.jar",
+      "sha256": "5CCB24AD9F92E768D0BC456D3061A737951262DF803E004D2CAD096B75A88D60"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\06-authlib-1.5.21.jar",
+      "sha256": "CE7A9C86EBEBF30B89929026F4A0A3C58CE0F4D47937D6DC086AE4FD0C77544A"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\07-commons-lang3-3.12.0.jar",
+      "sha256": "D919D904486C037F8D193412DA0C92E22A9FA24230B9D67A57855C5C31C7E94E"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\08-tinylog-api-2.5.0.jar",
+      "sha256": "9AF0F055AE6AA273C1F8DBC5B6BE7B6F032AD1D58CB699CD37CFD6C331BF4A90"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\09-htmlunit-3.0.0.jar",
+      "sha256": "CF092F9F6398D8E900CD020E413087256529F6B56AE97B402DBA59712A9CE486"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\10-jopt-simple-5.0.4.jar",
+      "sha256": "DF26CC58F235F477DB07F753BA5A3AB243EBE5789D9F89ECF68DD62EA9A66C28"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\11-soundsystem-20120107.jar",
+      "sha256": "2882D64550240DD0C026724DA664D9F97EF205C91D6A85273D10790D88608F34"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\12-brotli4j-1.11.0.jar",
+      "sha256": "5EFA039E073DC16D3054A43B385D425C1747CF01F5267E1A4A514EEC3A97AC3F"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\13-icu4j-72.1.jar",
+      "sha256": "3DF572B240A68D13B5CD778AD2393E885D26411434CD8F098AC5987EA2E64CE3"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\14-oshi-core-1.1.jar",
+      "sha256": "27901E5D4D60D3502571D5E6358FC89E3FCF874138B69D495D139BCC3E169404"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\15-Java-WebSocket-1.5.3.jar",
+      "sha256": "4D6FC21DC9B657E76DCD74969079D18F30E7796A563F34C9A61E659A485E7A3F"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\16-codecjorbis-20101023.jar",
+      "sha256": "6C4B4E50E608763564AFA1BDE2D25ECE9DD715E7C9129540FAA1FADED4896506"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\17-commons-codec-1.15.jar",
+      "sha256": "B3E9F6D63A790109BF0D056611FBED1CF69055826DEFEB9894A71369D246ED63"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\18-lwjgl-stb-3.3.1.jar",
+      "sha256": "64E5CCCE2FC7CBCF0C834A5BE8642D9E2498CE3FE31C14FF1DF741878A3F8121"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\19-adventure-api-4.12.0.jar",
+      "sha256": "BE47F1AC8F75EF1F3505F2303CB9347CF54DA5BFA2106550CC9D6F9B8C1E8A34"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\20-adventure-text-minimessage-4.12.0.jar",
+      "sha256": "CFB73D713A05565EAF1E69FC2E418D1BE6D143AFE00F355C0896875EBAA89DAC"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\21-adventure-text-serializer-gson-4.12.0.jar",
+      "sha256": "2288A776EAF4FAB67E3B7709F942A335E91245A96D1E1F41C1A29CE6195C128D"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\22-adventure-text-serializer-legacy-4.12.0.jar",
+      "sha256": "188EBCF24247F632DF6F051B7E6220CB26B495B244D673956A3D49A8B4396002"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\23-fuzzywuzzy-1.4.0.jar",
+      "sha256": "23A2DD1F54B910675944F4C8D4845D7EAF1B780DD0EA89763733FD0B43A8258A"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\24-commons-text-1.10.0.jar",
+      "sha256": "770CD903FA7B604D1F7EF7BA17F84108667294B2B478BE8ED1AF3BFFB4AE0018"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\25-failureaccess-1.0.1.jar",
+      "sha256": "A171EE4C734DD2DA837E4B16BE9DF4661AFAB72A41ADAF31EB84DFDAF936CA26"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\26-examination-api-1.3.0.jar",
+      "sha256": "C9237FFECB05428F6EFF86216246AC70CE0B47B04C08EA7CA35020FDE57F8492"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\27-examination-string-1.3.0.jar",
+      "sha256": "7D01FC25A4BB3AF0E1662685455F4541FBF4626216EA5846E455C1491E156B8C"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\28-commons-io-2.11.0.jar",
+      "sha256": "961B2F6D87DBACC5D54ABF45AB7A6E2495F89B75598962D8C723CEA9BC210908"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\29-lwjgl-jemalloc-3.3.1.jar",
+      "sha256": "EE49FC0A8D9456452E54CD6F777823EDA666E2C63FC14D65B2FD2CC2CFED5DBE"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\30-lwjgl-openal-3.3.1.jar",
+      "sha256": "7325EE1B91A8A10C0626C69B557A88F2DF6AC1BDCA0E52E2A92D324249F2CAD0"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\31-lwjgl-opengl-3.3.1.jar",
+      "sha256": "E436D2144F3A36FFF772FD64233316809B795F390DEFD4D55660FC686E7C2834"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\32-lwjgl-3.3.1.jar",
+      "sha256": "CF83F90E32FB973FF5EDFCA4EF35F55CA51BB70A579B6A1F290744F552E8E484"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\33-luaj-jse-3.0.1.jar",
+      "sha256": "9B1F0A3E8F68427C6D74C2BF00AE0E6DBFCE35994D3001FED4CEF6ECDA50BE55"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\34-ViaVersion-4.4.2.jar",
+      "sha256": "2E649D5587DE0007E758A6B4C53AF67F5BCC04D6114B09CCAC74C440567D4E4B"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\35-authentic-external-closure.jar",
+      "sha256": "E4BA16CE8D317E2293F9B683825C84A64B0543EB7A96F773F8410E7B31C753EC"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\36-httpclient-4.5.14.jar",
+      "sha256": "C8BC7E1C51A6D4CE72F40D2EBBABF1C4B68BFE76E732104B04381B493478E9D6"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\37-httpcore-4.4.16.jar",
+      "sha256": "6C9B3DD142A09DC468E23AD39AAD6F75A0F2B85125104469F026E52A474E464F"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\38-httpmime-4.5.14.jar",
+      "sha256": "D401243D5C6EAE928A37121B6E819158C8C32EA0584793E7285BB489AB2A3D17"
+    },
+    {
+      "path": "repository:\\vendor\\dependencies\\39-authentic-runtime-closure.jar",
+      "sha256": "7A5633D7FF87A031C2FD11ABFC69AE5E622DECDD173B204B074E52DAF4DB2E5C"
+    }
+  ],
+  "failure_groups": {},
+  "failures": []
+}

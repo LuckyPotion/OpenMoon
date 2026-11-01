@@ -32,43 +32,10 @@ public final class SourceDeclarationAdapter {
   static List<AnnotationNode> annotations(JsonObject row,String key){List<AnnotationNode> out=new ArrayList<>();for(var e:row.getAsJsonArray(key))out.add(annotation(e.getAsJsonObject()));return out.isEmpty()?null:out;}
   static List<TypeAnnotationNode> types(JsonObject row,String key){List<TypeAnnotationNode> out=new ArrayList<>();for(var e:row.getAsJsonArray(key))out.add((TypeAnnotationNode)annotation(e.getAsJsonObject()));return out.isEmpty()?null:out;}
   @SuppressWarnings("unchecked") static List<AnnotationNode>[] parameters(JsonObject row,String key){JsonArray input=row.getAsJsonArray(key);if(input.isEmpty())return null;List<AnnotationNode>[] out=(List<AnnotationNode>[])new List<?>[input.size()];for(int i=0;i<input.size();i++){List<AnnotationNode> values=new ArrayList<>();for(var a:input.get(i).getAsJsonArray())values.add(annotation(a.getAsJsonObject()));out[i]=values;}return out;}
-  static boolean reference(Type type){return type.getSort()==Type.OBJECT||type.getSort()==Type.ARRAY;}
-  static boolean pureForwarder(ClassNode owner,MethodNode method,Set<String> declaredMethods){return pureForwarder(owner,method,declaredMethods,new HashSet<>());}
-  static boolean pureForwarder(ClassNode owner,MethodNode method,Set<String> declaredMethods,Set<String> seen){
-    if(!seen.add(method.name+method.desc))return false;
-    if(method.name.startsWith("<")||(method.access&(Opcodes.ACC_ABSTRACT|Opcodes.ACC_NATIVE|Opcodes.ACC_SYNCHRONIZED))!=0||!method.tryCatchBlocks.isEmpty())return false;
-    List<AbstractInsnNode> ops=Arrays.stream(method.instructions.toArray()).filter(n->n.getOpcode()>=0).toList();
-    List<MethodInsnNode> invokes=ops.stream().filter(n->n instanceof MethodInsnNode).map(n->(MethodInsnNode)n).toList();
-    if(invokes.size()!=1)return false;MethodInsnNode call=invokes.get(0);
-    if(!call.owner.equals(owner.name)||!call.name.equals(method.name)||call.name.startsWith("<")||call.desc.equals(method.desc))return false;
-    List<MethodNode> targets=owner.methods.stream().filter(m->m.name.equals(call.name)&&m.desc.equals(call.desc)).toList();if(targets.size()!=1)return false;
-    if(!declaredMethods.contains(call.name+call.desc)&&!pureForwarder(owner,targets.get(0),declaredMethods,seen))return false;
-    MethodNode target=targets.get(0);boolean isStatic=(method.access&Opcodes.ACC_STATIC)!=0;
-    if(isStatic!=((target.access&Opcodes.ACC_STATIC)!=0))return false;
-    int expectedOpcode=isStatic?Opcodes.INVOKESTATIC:(owner.access&Opcodes.ACC_INTERFACE)!=0?Opcodes.INVOKEINTERFACE:(target.access&Opcodes.ACC_PRIVATE)!=0?Opcodes.INVOKESPECIAL:Opcodes.INVOKEVIRTUAL;
-    if(call.getOpcode()!=expectedOpcode||call.itf!=((owner.access&Opcodes.ACC_INTERFACE)!=0))return false;
-    Type[] arguments=Type.getArgumentTypes(method.desc),called=Type.getArgumentTypes(call.desc);
-    if(arguments.length!=called.length)return false;
-    int cursor=0,slot=isStatic?0:1;
-    if(!isStatic){if(cursor>=ops.size()||!(ops.get(cursor++) instanceof VarInsnNode v)||v.getOpcode()!=Opcodes.ALOAD||v.var!=0)return false;}
-    for(int i=0;i<arguments.length;i++){
-      Type from=arguments[i],to=called[i];
-      if(cursor>=ops.size()||!(ops.get(cursor++) instanceof VarInsnNode v)||v.getOpcode()!=from.getOpcode(Opcodes.ILOAD)||v.var!=slot)return false;
-      slot+=from.getSize();
-      if(!from.equals(to)&&!(reference(from)&&reference(to)))return false;
-      if(cursor<ops.size()&&ops.get(cursor) instanceof TypeInsnNode cast&&cast.getOpcode()==Opcodes.CHECKCAST){if(!reference(to)||!cast.desc.equals(to.getInternalName()))return false;cursor++;}
-      else if(reference(from)&&reference(to)&&!from.equals(to)&&!to.equals(Type.getType(Object.class)))return false;
-    }
-    if(cursor>=ops.size()||ops.get(cursor++)!=call)return false;
-    Type result=Type.getReturnType(call.desc),returned=Type.getReturnType(method.desc);
-    if(!result.equals(returned)&&!(reference(result)&&reference(returned)))return false;
-    if(cursor<ops.size()&&ops.get(cursor) instanceof TypeInsnNode cast&&cast.getOpcode()==Opcodes.CHECKCAST){if(!reference(returned)||!cast.desc.equals(returned.getInternalName()))return false;cursor++;}
-    // javac may omit CHECKCAST when the invoked return type is already a
-    // subtype of the bridge return type (for example Message.Builder to
-    // MessageLite.Builder).  The single-owner/single-call checks above keep
-    // this restricted to a pure covariant forwarder; the final audit runs a
-    // BasicVerifier pass over the emitted archive.
-    return cursor+1==ops.size()&&ops.get(cursor).getOpcode()==returned.getOpcode(Opcodes.IRETURN);
+  static SourceForwarderTypeProof forwarderTypeProof;
+  static boolean pureForwarder(ClassNode owner,MethodNode method,Set<String> declaredMethods){
+    if(forwarderTypeProof==null)throw new IllegalStateException("Explicit Code-free hierarchy proof context not initialized");
+    return forwarderTypeProof.prove(owner,method,declaredMethods).accepted();
   }
   static boolean implicitDefaultConstructor(ClassNode owner,MethodNode method){
     if(!method.name.equals("<init>")||!method.desc.equals("()V")||!method.tryCatchBlocks.isEmpty())return false;
@@ -77,17 +44,42 @@ public final class SourceDeclarationAdapter {
     if(!(ops.get(1) instanceof MethodInsnNode call&&call.getOpcode()==Opcodes.INVOKESPECIAL&&call.owner.equals("java/lang/Object")&&call.name.equals("<init>")&&call.desc.equals("()V")))return false;
     return ops.get(2).getOpcode()==Opcodes.RETURN;
   }
+  static final JsonArray enumBindings=new JsonArray();
+  static Object enumReference(Object value,String owner,Map<String,String> fields,Map<String,String> methods,int[] counts){
+    if(value instanceof Handle h){
+      String name=(h.getTag()<=Opcodes.H_PUTSTATIC?fields:methods).get(h.getName()+h.getDesc());
+      if(h.getOwner().equals(owner)&&name!=null){counts[2]++;return new Handle(h.getTag(),h.getOwner(),name,h.getDesc(),h.isInterface());}
+    }else if(value instanceof ConstantDynamic d){
+      Handle bootstrap=(Handle)enumReference(d.getBootstrapMethod(),owner,fields,methods,counts);
+      Object[] arguments=new Object[d.getBootstrapMethodArgumentCount()];
+      for(int i=0;i<arguments.length;i++)arguments[i]=enumReference(d.getBootstrapMethodArgument(i),owner,fields,methods,counts);
+      return new ConstantDynamic(d.getName(),d.getDescriptor(),bootstrap,arguments);
+    }
+    return value;
+  }
   static void normalizeEnumCompilerArtifacts(ClassNode c,JsonObject row){
     if((row.get("access").getAsInt()&Opcodes.ACC_ENUM)==0)return;
     JsonArray fields=row.getAsJsonArray("fields"), methods=row.getAsJsonArray("methods");
-    for(var e:fields){JsonObject f=e.getAsJsonObject();if(!s(f,"name").equals("a")||!s(f,"descriptor").startsWith("[L"))continue;String desc=s(f,"descriptor");List<FieldNode> synthetic=c.fields.stream().filter(x->x.name.equals("$VALUES")&&x.desc.equals(desc)).toList();List<FieldNode> exact=c.fields.stream().filter(x->x.name.equals("a")&&x.desc.equals(desc)).toList();if(exact.isEmpty()&&synthetic.size()==1){FieldNode x=synthetic.get(0);need((x.access&(Opcodes.ACC_STATIC|Opcodes.ACC_FINAL|Opcodes.ACC_SYNTHETIC))==(Opcodes.ACC_STATIC|Opcodes.ACC_FINAL|Opcodes.ACC_SYNTHETIC),"enum synthetic values field flags differ");x.name="a";}}
-    for(var e:methods){JsonObject m=e.getAsJsonObject();if(!s(m,"name").equals("a")||!s(m,"descriptor").startsWith("()[L"))continue;String desc=s(m,"descriptor");List<MethodNode> synthetic=c.methods.stream().filter(x->x.name.equals("$values")&&x.desc.equals(desc)).toList();List<MethodNode> exact=c.methods.stream().filter(x->x.name.equals("a")&&x.desc.equals(desc)).toList();if(exact.isEmpty()&&synthetic.size()==1){MethodNode x=synthetic.get(0);need((x.access&(Opcodes.ACC_PRIVATE|Opcodes.ACC_STATIC|Opcodes.ACC_SYNTHETIC))==(Opcodes.ACC_PRIVATE|Opcodes.ACC_STATIC|Opcodes.ACC_SYNTHETIC),"enum synthetic values method flags differ");x.name="a";}}
+    Map<String,String> fieldNames=new HashMap<>(),methodNames=new HashMap<>();
+    for(var e:fields){JsonObject f=e.getAsJsonObject();if(!s(f,"name").equals("a")||!s(f,"descriptor").equals("[L"+c.name+";"))continue;String desc=s(f,"descriptor");List<FieldNode> synthetic=c.fields.stream().filter(x->x.name.equals("$VALUES")&&x.desc.equals(desc)).toList();List<FieldNode> exact=c.fields.stream().filter(x->x.name.equals("a")&&x.desc.equals(desc)).toList();if(exact.isEmpty()&&synthetic.size()==1){FieldNode x=synthetic.get(0);need((x.access&(Opcodes.ACC_STATIC|Opcodes.ACC_FINAL|Opcodes.ACC_SYNTHETIC))==(Opcodes.ACC_STATIC|Opcodes.ACC_FINAL|Opcodes.ACC_SYNTHETIC),"enum synthetic values field flags differ");fieldNames.put(x.name+x.desc,"a");x.name="a";}}
+    for(var e:methods){JsonObject m=e.getAsJsonObject();if(!s(m,"name").equals("a")||!s(m,"descriptor").equals("()[L"+c.name+";"))continue;String desc=s(m,"descriptor");List<MethodNode> synthetic=c.methods.stream().filter(x->x.name.equals("$values")&&x.desc.equals(desc)).toList();List<MethodNode> exact=c.methods.stream().filter(x->x.name.equals("a")&&x.desc.equals(desc)).toList();if(exact.isEmpty()&&synthetic.size()==1){MethodNode x=synthetic.get(0);need((x.access&(Opcodes.ACC_PRIVATE|Opcodes.ACC_STATIC|Opcodes.ACC_SYNTHETIC))==(Opcodes.ACC_PRIVATE|Opcodes.ACC_STATIC|Opcodes.ACC_SYNTHETIC),"enum synthetic values method flags differ");methodNames.put(x.name+x.desc,"a");x.name="a";}}
+    int[] counts=new int[3];
+    for(MethodNode m:c.methods)for(AbstractInsnNode n:m.instructions){
+      if(n instanceof FieldInsnNode f&&f.owner.equals(c.name)&&fieldNames.containsKey(f.name+f.desc)){f.name=fieldNames.get(f.name+f.desc);counts[0]++;}
+      else if(n instanceof MethodInsnNode call&&call.owner.equals(c.name)&&methodNames.containsKey(call.name+call.desc)){call.name=methodNames.get(call.name+call.desc);counts[1]++;}
+      else if(n instanceof LdcInsnNode ldc)ldc.cst=enumReference(ldc.cst,c.name,fieldNames,methodNames,counts);
+      else if(n instanceof InvokeDynamicInsnNode indy){indy.bsm=(Handle)enumReference(indy.bsm,c.name,fieldNames,methodNames,counts);for(int i=0;i<indy.bsmArgs.length;i++)indy.bsmArgs[i]=enumReference(indy.bsmArgs[i],c.name,fieldNames,methodNames,counts);}
+    }
+    if(!fieldNames.isEmpty()||!methodNames.isEmpty()){
+      JsonObject binding=new JsonObject();binding.addProperty("owner",c.name);binding.addProperty("field_definitions",fieldNames.size());binding.addProperty("method_definitions",methodNames.size());binding.addProperty("field_instruction_references",counts[0]);binding.addProperty("method_instruction_references",counts[1]);binding.addProperty("handle_references",counts[2]);enumBindings.add(binding);
+    }
   }
   public static void main(String[]args)throws Exception{
-    need(args.length==4||args.length==5,"SourceDeclarationAdapter fresh.jar Code-free-declarations.json new.jar REPORT.json [decoded-runtime-declarations.json]");
+    need(args.length>=6,"SourceDeclarationAdapter fresh.jar Code-free-declarations.json new.jar REPORT.json decoded-runtime-declarations.json provider.jar...");
     Path output=Path.of(args[2]),reportPath=Path.of(args[3]);need(!Files.exists(output)&&!Files.exists(reportPath),"Outputs must be new");
     JsonObject metadata=JsonParser.parseString(Files.readString(Path.of(args[1]))).getAsJsonObject();Map<String,byte[]> entries=new TreeMap<>();
-    JsonObject runtime=args.length==5?JsonParser.parseString(Files.readString(Path.of(args[4]))).getAsJsonObject():null;
+    JsonObject runtime=JsonParser.parseString(Files.readString(Path.of(args[4]))).getAsJsonObject();
+    forwarderTypeProof=new SourceForwarderTypeProof(metadata,Arrays.stream(args).skip(5).map(Path::of).toList());
     try(var z=new ZipFile(args[0])){for(var e:Collections.list(z.entries()))if(!e.isDirectory()){need(!entries.containsKey(e.getName()),"Duplicate exact output identity");try(var in=z.getInputStream(e)){entries.put(e.getName(),in.readAllBytes());}}}
     int owners=0,fields=0,methods=0;JsonArray extras=new JsonArray(),implicitConstructors=new JsonArray();
     for(var e:metadata.entrySet()){
@@ -123,12 +115,13 @@ public final class SourceDeclarationAdapter {
         // An explicit covariant Java forwarding method can accompany its
         // original erased bridge. Record this source-engineering difference;
         // it must forward directly and contain no handlers or side effects.
-        need(pureForwarder(c,m,declaredMethods),"Unlisted non-forwarding method: "+owner+"."+m.name+m.desc);
-        JsonObject extra=new JsonObject();extra.addProperty("owner",owner);extra.addProperty("method",m.name+m.desc);extra.addProperty("role","explicit_fresh_covariant_Java_forwarder");extras.add(extra);
+        var proof=forwarderTypeProof.prove(c,m,declaredMethods);
+        need(proof.accepted(),"Unlisted or unproven forwarding method: "+owner+"."+m.name+m.desc+" : "+proof.reason());
+        JsonObject extra=new JsonObject();extra.addProperty("owner",owner);extra.addProperty("method",m.name+m.desc);extra.addProperty("role","explicit_fresh_covariant_Java_forwarder");extra.addProperty("access",m.access);extra.addProperty("signature",m.signature);extra.add("forwarding_chain",new Gson().toJsonTree(proof.chain()));extras.add(extra);
       }
       ClassWriter writer=new ClassWriter(0);c.accept(writer);entries.put(owner+".class",writer.toByteArray());owners++;
     }
     try(var z=new ZipOutputStream(Files.newOutputStream(output,StandardOpenOption.CREATE_NEW))){for(var e:entries.entrySet()){var entry=new ZipEntry(e.getKey());entry.setTimeLocal(LocalDateTime.of(2000,1,1,0,0));z.putNextEntry(entry);z.write(e.getValue());z.closeEntry();}}
-    JsonObject report=new JsonObject();report.addProperty("owners",owners);report.addProperty("fields",fields);report.addProperty("methods",methods);report.addProperty("source_compile_access_projection_shipped",false);report.addProperty("old_implementation_inputs",0);report.addProperty("application_classes_loaded",0);report.add("extra_covariant_forwarders",extras);report.add("implicit_default_constructors_removed",implicitConstructors);Files.writeString(reportPath,new GsonBuilder().setPrettyPrinting().create().toJson(report));System.out.println(report);
+    JsonObject report=new JsonObject();report.add("enum_compiler_artifact_bindings",enumBindings);report.addProperty("owners",owners);report.addProperty("fields",fields);report.addProperty("methods",methods);report.addProperty("source_compile_access_projection_shipped",false);report.addProperty("old_implementation_inputs",0);report.addProperty("application_classes_loaded",0);report.add("extra_covariant_forwarders",extras);report.add("forwarder_type_proof",forwarderTypeProof.evidence());report.add("implicit_default_constructors_removed",implicitConstructors);Files.writeString(reportPath,new GsonBuilder().setPrettyPrinting().create().toJson(report));System.out.println(report);
   }
 }

@@ -90,6 +90,8 @@ try {
 
     $moonToolLock=Get-Content (Join-Path $moonRoot 'vendor/BUILD_TOOLS.lock.json') -Raw|ConvertFrom-Json
 
+    $moonRuntimeLock=Get-Content (Join-Path $moonRoot 'vendor/RUNTIME_DEPENDENCIES.lock.json') -Raw|ConvertFrom-Json
+
     foreach($moonBootstrap in @($moonToolLock.bootstrap_sources)+@($moonToolLock.bootstrap_metadata)) {
 
         if((Get-FileHash (Join-Path $moonRoot $moonBootstrap.path) -Algorithm SHA256).Hash -ne $moonBootstrap.sha256){throw "Bootstrap tool SHA mismatch: $($moonBootstrap.path)"}
@@ -102,7 +104,7 @@ try {
 
     if($moonProviders.Count -ne $moonLock.required_provider_count){throw 'Locked provider count mismatch.'}
 
-    foreach($moonRow in @($moonProviders)+@($moonLock.resources)+@($moonToolLock.tools)+@($moonToolLock.metadata)+@($moonToolLock.sources)+@($moonToolLock.frontend_sources)+@($moonToolLock.audit_sources)){
+    foreach($moonRow in @($moonProviders)+@($moonRuntimeLock.providers)+@($moonLock.resources)+@($moonToolLock.tools)+@($moonToolLock.metadata)+@($moonToolLock.sources)+@($moonToolLock.frontend_sources)+@($moonToolLock.audit_sources)+@($moonToolLock.adapter_sources)+@($moonToolLock.plans)){
 
         if((Get-FileHash (Join-Path $moonRoot $moonRow.path) -Algorithm SHA256).Hash -ne $moonRow.sha256){throw "SHA mismatch: $($moonRow.path)"}
 
@@ -430,7 +432,7 @@ try {
 
     $moonDeclaredArchive=Join-Path $moonRun 'declaration-restored-classes.jar'
 
-    $moonDeclarationArgs=@('-Xmx6g','-classpath',($moonTools+[IO.Path]::PathSeparator+$moonToolCp),'SourceDeclarationAdapter',$moonReceipt.archive,(Join-Path $moonRoot 'build-tools/declarations.json'),$moonDeclaredArchive,(Join-Path $moonRun 'DECLARATION_RESULT.json'),(Join-Path $moonRoot 'build-tools/runtime-declarations.json'))
+    $moonDeclarationArgs=@('-Xmx6g','-classpath',($moonTools+[IO.Path]::PathSeparator+$moonToolCp),'SourceDeclarationAdapter',$moonReceipt.archive,(Join-Path $moonRoot 'build-tools/declarations.json'),$moonDeclaredArchive,(Join-Path $moonRun 'DECLARATION_RESULT.json'),(Join-Path $moonRoot 'build-tools/runtime-declarations.json'))+@($moonProviders|ForEach-Object {Join-Path $moonRoot $_.path})
 
     [ordered]@{argv=$moonDeclarationArgs;fresh_archive_sha256=$moonReceipt.archive_sha256;metadata_sha256=(Get-FileHash (Join-Path $moonRoot 'build-tools/declarations.json') -Algorithm SHA256).Hash;compile_only_access_view_must_not_ship=$true}|ConvertTo-Json -Depth 5|Set-Content (Join-Path $moonRun 'DECLARATION_COMMAND.json') -Encoding utf8
 
@@ -463,12 +465,34 @@ try {
     & $moonJava '-classpath' ($moonTools+[IO.Path]::PathSeparator+$moonToolCp) 'SourceIntrinsicAdapter' '--validate-final' $moonReceipt.archive 1>(Join-Path $moonRun 'intrinsic-final-check.stdout.json') 2>(Join-Path $moonRun 'intrinsic-final-check.stderr.txt')
 
     if($LASTEXITCODE -ne 0){throw "Compiler scalar helper remains; evidence: $moonRun"}
-    & $moonJava '-Xmx6g' '-classpath' ($moonTools+[IO.Path]::PathSeparator+$moonToolCp) 'FinalArchiveAudit' $moonReceipt.archive (Join-Path $moonRoot 'build-tools/declarations.json') (Join-Path $moonRun 'DECLARATION_RESULT.json') (Join-Path $moonRun 'FINAL_AUDIT.json') 1>(Join-Path $moonRun 'final-audit.stdout.txt') 2>(Join-Path $moonRun 'final-audit.stderr.txt')
+    $moonAuditArgs=@('-Xmx6g','-classpath',($moonTools+[IO.Path]::PathSeparator+$moonToolCp),'FinalArchiveAudit',$moonReceipt.archive,(Join-Path $moonRoot 'build-tools/declarations.json'),(Join-Path $moonRun 'DECLARATION_RESULT.json'),(Join-Path $moonRun 'FINAL_AUDIT.json'))+@($moonProviders|ForEach-Object {Join-Path $moonRoot $_.path})
+    [ordered]@{argv=$moonAuditArgs;input_archive_sha256=$moonReceipt.archive_sha256;ordered_providers=@($moonProviders);audit_source_sha256=(Get-FileHash (Join-Path $moonRoot 'build-tools/FinalArchiveAudit.java') -Algorithm SHA256).Hash}|ConvertTo-Json -Depth 8|Set-Content (Join-Path $moonRun 'FINAL_AUDIT_COMMAND.json') -Encoding utf8
+    & $moonJava @moonAuditArgs 1>(Join-Path $moonRun 'final-audit.stdout.txt') 2>(Join-Path $moonRun 'final-audit.stderr.txt')
     if($LASTEXITCODE -ne 0){throw "Final owned identity/declaration/bytecode audit failed; evidence: $moonRun"}
+
+    $moonDeliveryRoot=Join-Path $moonRun 'delivery'
+    $moonDeliveryArgs=@('-Xmx6g','-classpath',($moonTools+[IO.Path]::PathSeparator+$moonToolCp),'ClientDelivery',$moonRoot,$moonReceipt.archive,(Join-Path $moonRun 'DECLARATION_RESULT.json'),$moonDeliveryRoot)
+    [ordered]@{argv=$moonDeliveryArgs;source_S_sha256=$moonReceipt.archive_sha256}|ConvertTo-Json -Depth 6|Set-Content (Join-Path $moonRun 'CLIENT_DELIVERY_COMMAND.json') -Encoding utf8
+    & $moonJava @moonDeliveryArgs 1>(Join-Path $moonRun 'client-delivery.stdout') 2>(Join-Path $moonRun 'client-delivery.stderr')
+    if($LASTEXITCODE -ne 0){throw "Final runtime client delivery validation failed; evidence: $moonRun"}
+    $moonDelivery=Get-Content (Join-Path $moonDeliveryRoot 'CLIENT_DELIVERY.json') -Raw|ConvertFrom-Json
+    $moonReceipt.source_archive=$moonReceipt.archive;$moonReceipt.source_archive_sha256=$moonReceipt.archive_sha256
+    $moonReceipt.archive=$moonDelivery.client_archive;$moonReceipt.archive_sha256=$moonDelivery.client_sha256
+    $moonReceipt.runtime_archive=$moonDelivery.runtime_R_archive;$moonReceipt.runtime_archive_sha256=$moonDelivery.runtime_R_sha256
+    $moonReceipt.client_delivery=(Join-Path $moonDeliveryRoot 'CLIENT_DELIVERY.json');$moonReceipt.client_JVM_failures=$moonDelivery.JVM_client_failures;$moonReceipt.client_static_member_failures=$moonDelivery.static_member_failures
 
     $moonReceipt|ConvertTo-Json|Set-Content (Join-Path $moonRun 'RESULT.json') -Encoding utf8
 
-    if(-not $SkipLastSuccess){$moonReceipt|ConvertTo-Json|Set-Content (Join-Path $moonRoot 'build/LAST_SUCCESS.json') -Encoding utf8}
+    if(-not $SkipLastSuccess){
+        $moonReceipt|ConvertTo-Json|Set-Content (Join-Path $moonRoot 'build/LAST_SUCCESS.json') -Encoding utf8
+        $moonDist=Join-Path $moonRoot 'dist';New-Item -ItemType Directory -Force -Path $moonDist|Out-Null
+        Copy-Item -LiteralPath (Join-Path $moonDeliveryRoot 'openmoon-client.jar') -Destination $moonDist -Force
+        Copy-Item -LiteralPath (Join-Path $moonDeliveryRoot 'lib') -Destination $moonDist -Recurse -Force
+        Copy-Item -LiteralPath (Join-Path $moonDeliveryRoot 'CLIENT_DELIVERY.json') -Destination $moonDist -Force
+        Copy-Item -LiteralPath (Join-Path $moonDeliveryRoot 'JVM_CLIENT.json') -Destination $moonDist -Force
+        Copy-Item -LiteralPath (Join-Path $moonDeliveryRoot 'RUNTIME_IDENTITY.json') -Destination $moonDist -Force
+        Copy-Item -LiteralPath (Join-Path $moonDeliveryRoot 'RUNTIME_MEMBER_CLOSURE.json') -Destination $moonDist -Force
+    }
 
     $moonReceipt.archive
 

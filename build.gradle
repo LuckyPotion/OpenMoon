@@ -20,11 +20,13 @@ def inputLock=new JsonSlurper().parse(file('vendor/DEPENDENCIES.lock.json'))
 
 def orderedProviders=inputLock.providers.collect { file(it.path) }
 
+def runtimeInputLock=new JsonSlurper().parse(file('vendor/RUNTIME_DEPENDENCIES.lock.json'))
+
 def buildToolLock=new JsonSlurper().parse(file('vendor/BUILD_TOOLS.lock.json'))
 
 def buildToolJars=buildToolLock.tools.collect {file(it.path)}
 
-dependencies { implementation files(orderedProviders); runtimeOnly files(inputLock.resources.collect {file(it.path)}) }
+dependencies { implementation files(orderedProviders); runtimeOnly files(runtimeInputLock.providers.collect {file(it.path)}) }
 
 application { mainClass='moom.iP' }
 
@@ -94,7 +96,7 @@ tasks.register('verifyVendor') {
 
     dependsOn 'assembleOriginalResources'
 
-    doLast { (inputLock.providers+inputLock.resources+buildToolLock.tools+(buildToolLock.metadata ?: [])+(buildToolLock.sources ?: [])+(buildToolLock.frontend_sources ?: [])+(buildToolLock.audit_sources ?: [])).each {r->
+    doLast { (inputLock.providers+runtimeInputLock.providers+inputLock.resources+buildToolLock.tools+(buildToolLock.metadata ?: [])+(buildToolLock.sources ?: [])+(buildToolLock.frontend_sources ?: [])+(buildToolLock.audit_sources ?: [])+(buildToolLock.adapter_sources ?: [])+(buildToolLock.plans ?: [])).each {r->
 
         if(!file(r.path).isFile() || fileSha(file(r.path))!=r.sha256) throw new GradleException('Missing input or SHA mismatch: '+r.path)
 
@@ -373,7 +375,7 @@ tasks.register('compileExactSources') {
 
         def declarationOutput=new File(runDir,'declaration-restored-classes.jar')
 
-        def declarationArgs=[launcher.toString(),'-Xmx6g','-classpath',toolsCp,'SourceDeclarationAdapter',receipt.archive,file('build-tools/declarations.json').toString(),declarationOutput.toString(),new File(runDir,'DECLARATION_RESULT.json').toString(),file('build-tools/runtime-declarations.json').toString()]
+        def declarationArgs=[launcher.toString(),'-Xmx6g','-classpath',toolsCp,'SourceDeclarationAdapter',receipt.archive,file('build-tools/declarations.json').toString(),declarationOutput.toString(),new File(runDir,'DECLARATION_RESULT.json').toString(),file('build-tools/runtime-declarations.json').toString()]+orderedProviders.collect {it.toString()}
 
         new File(runDir,'DECLARATION_COMMAND.json').text=JsonOutput.prettyPrint(JsonOutput.toJson([argv:declarationArgs,input_archive_sha256:receipt.archive_sha256,compile_only_access_view_must_not_ship:true]))
 
@@ -432,10 +434,25 @@ tasks.register('compileExactSources') {
         intrinsicCheck.redirectOutput(new File(runDir,'intrinsic-final-check.stdout.json'));intrinsicCheck.redirectError(new File(runDir,'intrinsic-final-check.stderr.txt'))
 
         if(intrinsicCheck.start().waitFor()!=0)throw new GradleException('Compiler scalar helper remains: '+runDir)
-        def auditProcess=new ProcessBuilder([launcher.toString(),'-Xmx6g','-classpath',checkCp,'FinalArchiveAudit',receipt.archive,file('build-tools/declarations.json').toString(),new File(runDir,'DECLARATION_RESULT.json').toString(),new File(runDir,'FINAL_AUDIT.json').toString()] as String[]).directory(projectDir)
+        def auditArgs=[launcher.toString(),'-Xmx6g','-classpath',checkCp,'FinalArchiveAudit',receipt.archive,file('build-tools/declarations.json').toString(),new File(runDir,'DECLARATION_RESULT.json').toString(),new File(runDir,'FINAL_AUDIT.json').toString()]+orderedProviders.collect {it.toString()}
+        new File(runDir,'FINAL_AUDIT_COMMAND.json').text=JsonOutput.prettyPrint(JsonOutput.toJson([argv:auditArgs,input_archive_sha256:receipt.archive_sha256,ordered_providers:inputLock.providers,audit_source_sha256:fileSha(file('build-tools/FinalArchiveAudit.java'))]))
+        def auditProcess=new ProcessBuilder(auditArgs as String[]).directory(projectDir)
         ['JAVA_TOOL_OPTIONS','_JAVA_OPTIONS','JDK_JAVA_OPTIONS','CLASSPATH'].each {auditProcess.environment().remove(it)}
         auditProcess.redirectOutput(new File(runDir,'final-audit.stdout.txt'));auditProcess.redirectError(new File(runDir,'final-audit.stderr.txt'))
         if(auditProcess.start().waitFor()!=0)throw new GradleException('Final owned identity/declaration/bytecode audit failed: '+runDir)
+
+        def deliveryDir=new File(runDir,'delivery')
+        def deliveryArgs=[launcher.toString(),'-Xmx6g','-classpath',checkCp,'ClientDelivery',projectDir.toString(),receipt.archive,new File(runDir,'DECLARATION_RESULT.json').toString(),deliveryDir.toString()]
+        new File(runDir,'CLIENT_DELIVERY_COMMAND.json').text=JsonOutput.prettyPrint(JsonOutput.toJson([argv:deliveryArgs,source_S_sha256:receipt.archive_sha256]))
+        def deliveryProcess=new ProcessBuilder(deliveryArgs as String[]).directory(projectDir)
+        ['JAVA_TOOL_OPTIONS','_JAVA_OPTIONS','JDK_JAVA_OPTIONS','CLASSPATH'].each {deliveryProcess.environment().remove(it)}
+        deliveryProcess.redirectOutput(new File(runDir,'client-delivery.stdout'));deliveryProcess.redirectError(new File(runDir,'client-delivery.stderr'))
+        if(deliveryProcess.start().waitFor()!=0)throw new GradleException('Runtime client delivery validation failed: '+runDir)
+        def delivery=new JsonSlurper().parse(new File(deliveryDir,'CLIENT_DELIVERY.json'))
+        receipt.source_archive=receipt.archive;receipt.source_archive_sha256=receipt.archive_sha256
+        receipt.archive=delivery.client_archive;receipt.archive_sha256=delivery.client_sha256
+        receipt.runtime_archive=delivery.runtime_R_archive;receipt.runtime_archive_sha256=delivery.runtime_R_sha256
+        receipt.client_delivery=new File(deliveryDir,'CLIENT_DELIVERY.json').toString();receipt.client_JVM_failures=delivery.JVM_client_failures;receipt.client_static_member_failures=delivery.static_member_failures
 
         new File(runDir,'RESULT.json').text=JsonOutput.prettyPrint(JsonOutput.toJson(receipt))
 
@@ -447,7 +464,7 @@ tasks.register('compileExactSources') {
 
 tasks.named('classes'){dependsOn 'compileExactSources'}
 
-tasks.named('jar'){enabled=false}
+tasks.named('jar'){enabled=false;archiveFileName='openmoon-client.jar'}
 
 tasks.register('packageClient') {
 
@@ -457,9 +474,18 @@ tasks.register('packageClient') {
 
         def r=new JsonSlurper().parse(file('build/LAST_SUCCESS.json'))
 
-        def target=tasks.named('jar').get().archiveFile.get().asFile;target.parentFile.mkdirs()
+        if(r.client_JVM_failures!=0 || r.client_static_member_failures!=0 || fileSha(file(r.archive))!=r.archive_sha256)throw new GradleException('Only a JVM-verified client receipt may be published.')
+        def jarTarget=tasks.named('jar').get().archiveFile.get().asFile
+        jarTarget.parentFile.mkdirs()
+        java.nio.file.Files.copy(file(r.archive).toPath(),jarTarget.toPath(),java.nio.file.StandardCopyOption.REPLACE_EXISTING)
+        copy { from new File(file(r.archive).parentFile,'lib'); into new File(jarTarget.parentFile,'lib') }
 
-        java.nio.file.Files.copy(file(r.archive).toPath(),target.toPath(),java.nio.file.StandardCopyOption.REPLACE_EXISTING)
+
+        copy {
+            from file(r.archive).parentFile
+            into file('dist')
+            include 'openmoon-client.jar','lib/**','CLIENT_DELIVERY.json','JVM_CLIENT.json','RUNTIME_IDENTITY.json','RUNTIME_MEMBER_CLOSURE.json'
+        }
 
     }
 

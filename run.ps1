@@ -15,7 +15,7 @@ try {
     & (Join-Path $moonRoot 'build.ps1') -JavaHome $JavaHome -VerifyOnly
     $moonLatest = Get-Content -LiteralPath (Join-Path $moonRoot 'build/LAST_SUCCESS.json') -Raw | ConvertFrom-Json
     if ((Get-FileHash $moonLatest.archive -Algorithm SHA256).Hash -ne $moonLatest.archive_sha256) { throw 'Built archive SHA mismatch.' }
-    $moonLock = Get-Content -LiteralPath (Join-Path $moonRoot 'vendor/DEPENDENCIES.lock.json') -Raw | ConvertFrom-Json
+    $moonLock = Get-Content -LiteralPath (Join-Path $moonRoot 'vendor/RUNTIME_DEPENDENCIES.lock.json') -Raw | ConvertFrom-Json
     $moonClasspath = @($moonLatest.archive)
     $moonClasspath += @($moonLock.providers | Sort-Object index | ForEach-Object { Join-Path $moonRoot $_.path })
     $moonClasspath += @($moonLock.resources | ForEach-Object { Join-Path $moonRoot $_.path })

@@ -1,0 +1,222 @@
+{
+  "schema": 1,
+  "role": "Code-free ConstantValue metadata from independently authenticated original R headers; no implementation bytes",
+  "original_R_reference": {
+    "logical_id": "authenticated-original-R3911",
+    "sha256": "EC46307CA242A37D70A80872852E8F51B9EFD0A59A03F2A10C51810C6A5DF04B"
+  },
+  "derivation_audit": {
+    "logical_id": "runtime-identity-001",
+    "sha256": "C27B12E5C38006A7ACCCE944AD09248E2388F2DF729D682E96177FFBE3D14A82"
+  },
+  "constant_values": [
+    {
+      "R_owner": "moom/BS",
+      "R_field": "j",
+      "descriptor": "Ljava/lang/String;",
+      "value": "",
+      "S_owner": "net/minecraft/server/network/NetHandlerLoginServer",
+      "S_field": "j",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/Bl",
+      "R_field": "m",
+      "descriptor": "I",
+      "value": -1,
+      "S_owner": "moom/Bl",
+      "S_field": "m",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/Dd",
+      "R_field": "d",
+      "descriptor": "F",
+      "value": 0.75,
+      "S_owner": "moom/Dd",
+      "S_field": "d",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/Do",
+      "R_field": "e",
+      "descriptor": "F",
+      "value": 0.75,
+      "S_owner": "moom/Do",
+      "S_field": "e",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/EY",
+      "R_field": "aI",
+      "descriptor": "I",
+      "value": 0,
+      "S_owner": "moom/EY",
+      "S_field": "aI",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/EY",
+      "R_field": "aJ",
+      "descriptor": "I",
+      "value": 1,
+      "S_owner": "moom/EY",
+      "S_field": "aJ",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/fM",
+      "R_field": "p",
+      "descriptor": "Z",
+      "value": 1,
+      "S_owner": "net/minecraft/client/Minecraft",
+      "S_field": "p",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/fM",
+      "R_field": "C",
+      "descriptor": "J",
+      "value": 0,
+      "S_owner": "net/minecraft/client/Minecraft",
+      "S_field": "C",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/gS",
+      "R_field": "x",
+      "descriptor": "Z",
+      "value": 0,
+      "S_owner": "net/minecraft/client/gui/GuiGameOver",
+      "S_field": "x",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/gV",
+      "R_field": "E",
+      "descriptor": "Z",
+      "value": 1,
+      "S_owner": "net/minecraft/client/gui/GuiMainMenu",
+      "S_field": "E",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/ha",
+      "R_field": "C",
+      "descriptor": "F",
+      "value": 0.5,
+      "S_owner": "net/minecraft/client/gui/GuiWinGame",
+      "S_field": "C",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/jn",
+      "R_field": "v",
+      "descriptor": "F",
+      "value": 0.0,
+      "S_owner": "moom/jn",
+      "S_field": "v",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/kV",
+      "R_field": "l",
+      "descriptor": "F",
+      "value": 4.0,
+      "S_owner": "net/minecraft/client/renderer/EntityRenderer",
+      "S_field": "l",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/kV",
+      "R_field": "m",
+      "descriptor": "Z",
+      "value": 1,
+      "S_owner": "net/minecraft/client/renderer/EntityRenderer",
+      "S_field": "m",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/kV",
+      "R_field": "n",
+      "descriptor": "Z",
+      "value": 1,
+      "S_owner": "net/minecraft/client/renderer/EntityRenderer",
+      "S_field": "n",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/kV",
+      "R_field": "u",
+      "descriptor": "I",
+      "value": 0,
+      "S_owner": "net/minecraft/client/renderer/EntityRenderer",
+      "S_field": "u",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/kV",
+      "R_field": "v",
+      "descriptor": "Z",
+      "value": 0,
+      "S_owner": "net/minecraft/client/renderer/EntityRenderer",
+      "S_field": "v",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/kV",
+      "R_field": "w",
+      "descriptor": "D",
+      "value": 1.0,
+      "S_owner": "net/minecraft/client/renderer/EntityRenderer",
+      "S_field": "w",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/kV",
+      "R_field": "x",
+      "descriptor": "Z",
+      "value": 0,
+      "S_owner": "net/minecraft/client/renderer/EntityRenderer",
+      "S_field": "x",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/ny",
+      "R_field": "e",
+      "descriptor": "F",
+      "value": 1.0,
+      "S_owner": "net/minecraft/client/renderer/entity/layers/LayerArmorBase",
+      "S_field": "e",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/ny",
+      "R_field": "f",
+      "descriptor": "F",
+      "value": 1.0,
+      "S_owner": "net/minecraft/client/renderer/entity/layers/LayerArmorBase",
+      "S_field": "f",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/ny",
+      "R_field": "g",
+      "descriptor": "F",
+      "value": 1.0,
+      "S_owner": "net/minecraft/client/renderer/entity/layers/LayerArmorBase",
+      "S_field": "g",
+      "access": 18
+    },
+    {
+      "R_owner": "moom/ny",
+      "R_field": "h",
+      "descriptor": "F",
+      "value": 1.0,
+      "S_owner": "net/minecraft/client/renderer/entity/layers/LayerArmorBase",
+      "S_field": "h",
+      "access": 18
+    }
+  ],
+  "retain_JDK17_generated_class_versions": true
+}

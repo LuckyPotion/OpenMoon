@@ -1,11 +1,13 @@
+运行补充（2026-11-01）：源码查询的39份provider不变；`vendor/RUNTIME_DEPENDENCIES.lock.json`在原顺序后追加 `vendor/dependencies/39-authentic-runtime-closure.jar`，含1333份原包真实外部定义，owned/已有provider重叠均0。它不是新stock替代库，原材料许可沿原来源保留；不得将其当作本仓库新许可授权。新增构建工具ASM commons 9.9.1与已有ASM系列同源，作为build-only工具，不进入客户端owned实现。原provider许可证材料和NOTICE继续保存在各自原JAR内。
+
 # 第三方材料
 
-这里列出独立构建使用的第三方依赖及随包许可证条目。原项目与各依赖的许可范围分别保留；本仓库没有为原客户端材料另行授予 MIT 许可。
+这里列出本恢复工程随仓库保存的固定二进制输入及其可见许可证条目。它们不是通用 Maven 缓存，也不因被提交到仓库就获得新的许可证。原项目与各依赖的许可范围分别保留；本仓库没有为原客户端材料另行授予 MIT 许可。
 
 范围：`vendor/DEPENDENCIES.lock.json` 锁定的 39 个 provider，按锁定顺序检查 JAR ZIP 条目。
 本次只读取条目名称和锁定元数据；依赖自身的 LICENSE/NOTICE/POM 原材料保持在各自 JAR 中，未改写、未重签、未把客户端源码归类为 MIT。
 
-核验结果：39/39 provider 的锁定大小与 SHA-256 匹配；2/2 build metadata、6/6 resource parts、2/2 resource archive 记录匹配。盘点输出不包含原始哈希、key、token 或其他高熵秘密值。
+构建脚本会按 `vendor/DEPENDENCIES.lock.json` 和 `vendor/BUILD_TOOLS.lock.json` 校验文件大小、SHA-256、角色和顺序。资源分卷的字节校验由 `ResourceAssembler` 执行。盘点输出不包含解密 key、token 或其他高熵秘密值。
 
 |序号|GAV|JAR|META-INF/LICENSE*|META-INF/NOTICE*|META-INF/maven POM|其他根级 LICENSE*|
 |---:|---|---|---|---|---|---|
@@ -56,4 +58,4 @@
 - 未从 GAV、类名或源码注释推断 MIT/Apache/GPL 等授权；发布前应按每个上游项目的原始许可证和 NOTICE 完成法律复核。
 - `src/main/java`、`src/compileSupport/java`、`vendor/dependencies/00-moon-client-external-deps-decoded.jar` 和 `35-authentic-external-closure.jar` 不因本表获得 MIT 或其他新授权。
 - StylesFoundation/Moon 仅作为参考链接策略，不复制其源码，也不把其许可证外推到本候选仓库。
-- 本草稿不表示客户端可运行或功能验收通过；普通 strict javac 未通过，JDK17 自定义 JVM 异常前端仍在验证。
+- 本清单不表示客户端可运行或功能验收通过，也不构成任何上游许可证的法律复核。源码编译入口使用项目自有的 JDK17 前端策略；它不等同于普通 strict javac 的许可证或兼容性声明。

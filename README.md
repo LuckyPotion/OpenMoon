@@ -1,63 +1,65 @@
 # OpenMoon
 
-独立恢复的 Moon 客户端源码工程。源码、可读生成规则、锁定依赖和构建工具放在同一仓库；不以旧 owned class 归档代替源码实现。公开的 StylesFoundation/Moon 仅为参考链接，没有复制其源码补全本工程。
+Independent Moon client source recovery with a source-derived runtime JAR. The repository includes all selected Java sources, recovery adapters, fixed external providers, Code-free metadata and split original resources required by the build. External source repositories are references only; their source is not imported.
 
-## 当前构建状态
+[中文说明](README.zh-CN.md) · [Runtime setup](RUNNING.md) · [Recovery details](docs/RECOVERY_JOURNEY.zh-CN.md) · [Validation](docs/BUILD_VALIDATION.json)
 
-- 覆盖 4093 个原类身份，显式编译 4097 个 Java 单元（含构建时辅助单元）。
-- SourceOnly 源码构建入口已通过一次全量验证：4097/4097 源码单元、0 个 javac 错误，生成 7601 个精确类条目和 32.8 MiB 的客户端源码构建 JAR；结果以 `dist/SOURCE_ONLY_RESULT.json` 和 `dist/openmoon-source-only.jar` 为准。
-- 该 JAR 是源码编译产物。构造器、枚举运行适配、异常处理、调用指令、ABI、声明恢复和 FinalArchiveAudit 属于独立的精确恢复审计，当前不把它们冒充为标准源码构建门槛，也不宣称完整客户端功能已验收。
-- 构建使用明确的 JVM 异常源策略，不等同于普通 javac 严格模式：只将 JVM 允许的受检异常传播和 catch 可达性诊断单独记录，保留原 throw/catch、控制流及其他编译错误门槛。
-- 客户端功能由用户人工验收；当前源码入口与原保护加载器之间的区别见 `RUNNING.md`。
+## Build
 
-## 构建
-
-需要 JDK17。Windows 标准源码构建：
-
-```powershell
-./build.ps1 -SourceOnly -JavaHome 'C:/path/to/jdk-17'
-```
-
-该命令会校验 39 个锁定依赖、六份资源分卷，使用 `source-units.json` 打包 4097 个显式 Java 单元，并生成 `build/libs/openmoon-source-only.jar`。它只运行源码编译和基础归档检查；每次运行的完整证据在被 Git 忽略的 `build/` 中，稳定交付副本位于 `dist/`。
-
-精确恢复审计入口仍是：
+Use JDK 17 and PowerShell 7 on Windows:
 
 ```powershell
 ./build.ps1 -JavaHome 'C:/path/to/jdk-17'
 ```
 
-Gradle Wrapper 固定版本与分发 SHA，首次可下载 Gradle 本身；客户端依赖均已锁定在本地，不通过 Maven 随机解析：
+Or use the pinned Gradle wrapper and JDK 17:
 
 ```powershell
 ./gradle-build.ps1 -JavaHome 'C:/path/to/jdk-17' -Tasks @('build', '--offline')
 ```
 
-Linux/macOS 使用 `./gradlew build --offline`，预先选择 JDK17 并清除 `JAVA_TOOL_OPTIONS`、`_JAVA_OPTIONS`、`JDK_JAVA_OPTIONS`、`CLASSPATH` 注入变量。Windows 入口会临时清理并恢复这些变量。
+On Linux/macOS select JDK 17 and use `./gradlew build --offline`. Clear `JAVA_TOOL_OPTIONS`, `_JAVA_OPTIONS`, `JDK_JAVA_OPTIONS` and `CLASSPATH` when invoking Gradle directly. The Windows wrappers isolate and restore those variables. Only Windows is covered by the recorded build runs.
 
-精确审计的顺序是：核验并恢复资源 → 编译工具 → 全量源码编译 → 构造器／枚举／异常处理／调用指令适配 → 原声明恢复 → 全量归档审计。所有失败阻断精确审计成功回执。两种入口的命令、SHA、诊断及中间归档都保存在被 Git 忽略的 `build/` 中。
+Successful full builds produce:
 
-## 工程布局
-
-| 路径 | 内容 |
+| Output | Purpose |
 |---|---|
-| `src/main/java/<identity>/` | 可编辑生产源码；独立目录保留 Windows 大小写冲突身份 |
-| `source-units.json` | 每个源码路径、精确 Java ZIP 条目、原类身份与 SHA |
-| `build-tools/` | 可读编译前端、适配器、声明元数据和源配方 |
-| `*_PLAN.json` | 构造、枚举、异常区域、精确调用和方法别名规则 |
-| `vendor/dependencies/` | 按固定顺序使用的 39 个真实 provider |
-| `vendor/resources/parts/` | 六个资源分卷；每份不超过 50 MiB |
-| `vendor/*lock.json` | 输入大小、SHA 和次序锁 |
-| `docs/RECOVERY_JOURNEY.zh-CN.md` | 独立恢复的过程与失败记录说明 |
-| `docs/THIRD_PARTY.md` | 第三方依赖材料与许可证条目盘点 |
+| `dist/openmoon-client.jar` | Source-derived R classes, all 5152 original resource entries, explicit `moom.iP` main |
+| `dist/lib/` | 40 SHA-locked runtime providers in manifest order; keep beside the JAR |
+| `build/runs/<id>/` | Fresh compiler/adapters, source and runtime audits, JVM verification and packaging receipts |
 
-原资源包超过 GitHub 单文件限制。两套构建入口均使用纯 Java17 的 `ResourceAssembler` 校验六份分卷，再重组出原字节、原 SHA 的 `vendor/resources/original-resources.jar`；该重组文件不提交。源码和构建规则也使用原字节 SHA，`.gitattributes` 禁止 Git 自动换行转换。
+The JAR is a client delivery artifact, not the old SourceOnly compilation snapshot. `-SourceOnly` remains a diagnostic mode and does not produce an accepted client delivery.
 
-## 手工运行
+## What the build verifies
 
-先完成构建，再参考 `RUNNING.md`，把 `run.example.json` 复制为被忽略的 `run.local.json`。当前可指认的源码客户端入口是 `moom.iP`。用户需在本地提供真实 game/assets 路径、认证会话和已审的原生运行配置。
+4097 selected source units cover 4093 owned identities. The build preserves case-sensitive names through indexed source ZIPs and writes class output directly into JARs, supporting case-insensitive file systems.
 
-仓库不保存用户账号、token 或解密 key。构建成功不代表原 Launcher、保护启动层、services、JNI 或客户端模块已完成功能验收；已有合同缺口会单列，不能用局部成功替代。
+JDK 17 compilation uses the documented narrow JVM checked-exception source policy; ordinary strict javac acceptance is not claimed. Fresh constructor, enum, handler, intrinsic, ABI and declaration stages are followed by the final source archive audit and an evidenced S-to-R namespace projection.
 
-## 来源
+The runtime projection preserves all 48329 original source declarations. Of 1198 explicitly proved added source forwarders, 764 map onto existing original R slots and are coalesced; 434 remain separately accounted for. The coalescence check covers 765 owned receiver cases. All original class/member access flags and sealed permits are retained. Twenty-three non-static ConstantValue attributes are restored from Code-free original R metadata. JDK17 output retains 13 class-version differences from the original R headers.
 
-本仓库保留自身的独立恢复路径。外部参考：[StylesFoundation/Moon](https://github.com/StylesFoundation/Moon)。不声称两者版本一致，也不把第三方或原客户端材料统一重新授权为 MIT。
+An independent Code-free audit checks the 3911 original R owners, 23419 fields and 47965 methods; 182 source-generated helper owners remain explicitly separate. Both the class archive and the fully packaged JAR must pass `-Xverify:all` loading/declaration queries for all 4093 owned classes. No client initializer or client main is invoked by the build.
+
+## Recorded final validation
+
+PowerShell and Gradle each completed a new full selected-source build on Windows / JDK 17.0.12. The source S, runtime R and client JAR hashes match across both entrypoints; every locked input remained unchanged. The Gradle application ZIP also contains the verified client plus all 40 runtime providers, with both start scripts checked.
+
+The runtime static member gate checks 354237 method instructions, 158393 field instructions and 38987 method-handle sites, with zero failures or unresolved header types. It prevents packaging if a member is missing. Twenty-two enum compiler-helper renames now update their 44 field and 22 method references together; an independent 4093-class comparison found no unrelated ASM structure changes. A negative control rejects all 66 known pre-fix missing references before packaging. This static gate does not execute arbitrary bootstraps, prove protected receiver values or establish business behavior.
+
+Final client SHA-256: `14EAE7DAF15299AFC1A3A61F8A382A9147323125A0F9679202B8F5F05B34CD9D`. See `docs/BUILD_VALIDATION.json` and `docs/validation/FRESH_SOURCE_REPLAYS.json` for actual counters and replay boundaries.
+
+## Inputs and provenance
+
+`vendor/DEPENDENCIES.lock.json` retains the original 39 compiler-query providers. `vendor/RUNTIME_DEPENDENCIES.lock.json` appends the authenticated original external runtime closure as provider 39, giving 40 runtime providers without replacing or reordering the original 39.
+
+`vendor/BUILD_TOOLS.lock.json` pins build tools, source adapters, metadata and plans. The six resource parts reconstruct the exact original 5152-entry resource archive using Java 17; the assembled resource JAR and generated client distribution are ignored by Git. No captured key, original encrypted client archive or external workspace is required to build the checked-in source.
+
+Historical machine locator leaves in handler recipes use logical provenance IDs. Their hashes and the transformation ledger remain in `docs/provenance/PORTABLE_RECIPES.json`; source, AST, instruction and opaque string payloads are preserved. Historical formal acceptance evidence is not rewritten.
+
+## Run and remaining acceptance
+
+Use the real local assets, native libraries and authenticated session settings described in [RUNNING.md](RUNNING.md). Keep `dist/lib` next to the JAR. The generated manifest points to the recovered `moom.iP` entry, rather than claiming that the historical Launcher/Bootstrap/Start chain has been restored.
+
+Functional game/module/rendering/network/Via acceptance is performed manually by the user. Build, metadata and noninitializing JVM checks do not claim complete native/services behavior or arbitrary-state equivalence. The original `moom/lN` forwarding self-cycle is retained because it also exists in the formal S comparison; it is not silently repaired. Existing S/R difference contracts remain documented.
+
+See [third-party notices](docs/THIRD_PARTY.md) before redistributing bundled materials. The recovered client and its dependencies retain their respective licensing terms; this repository does not grant a new MIT license to the original client.

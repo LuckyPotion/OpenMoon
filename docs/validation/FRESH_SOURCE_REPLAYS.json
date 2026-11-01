@@ -1,0 +1,56 @@
+{
+  "status": "both_entrypoints_same_S_R_client_hashes",
+  "runs": [
+    {
+      "entrypoint": "powershell",
+      "evidence_id": "full-powershell-002",
+      "source_S_sha256": "FC9B8E06EB3C7EA00F737CD353B30A9400FB5E02515BBE6BA635A4263FF327D4",
+      "runtime_R_sha256": "5C252A756F4CC87258064CB7D954DC816D1F6837D8AAC7B56C713917DAAD7068",
+      "client_sha256": "14EAE7DAF15299AFC1A3A61F8A382A9147323125A0F9679202B8F5F05B34CD9D",
+      "exit_code": 0,
+      "input_count": 7719,
+      "input_drift_count": 0,
+      "source_units": 4097,
+      "owned_classes": 4093,
+      "static_member_failures": 0,
+      "JVM_class_failures": 0,
+      "JVM_client_failures": 0,
+      "source_generation": "Fresh complete selected source compilation and adapters; no accepted owned archive/Code/frame production input",
+      "client_started": false
+    },
+    {
+      "entrypoint": "gradle",
+      "evidence_id": "full-gradle-003",
+      "source_S_sha256": "FC9B8E06EB3C7EA00F737CD353B30A9400FB5E02515BBE6BA635A4263FF327D4",
+      "runtime_R_sha256": "5C252A756F4CC87258064CB7D954DC816D1F6837D8AAC7B56C713917DAAD7068",
+      "client_sha256": "14EAE7DAF15299AFC1A3A61F8A382A9147323125A0F9679202B8F5F05B34CD9D",
+      "exit_code": 0,
+      "input_count": 7719,
+      "input_drift_count": 0,
+      "source_units": 4097,
+      "owned_classes": 4093,
+      "static_member_failures": 0,
+      "JVM_class_failures": 0,
+      "JVM_client_failures": 0,
+      "source_generation": "Fresh complete selected source compilation and adapters; no accepted owned archive/Code/frame production input",
+      "client_started": false
+    }
+  ],
+  "between_run_input_change": {
+    "path": "build.gradle",
+    "change": "CR-only formatting after PowerShell completed, before Gradle; non-CR bytes identical",
+    "source_and_adapter_inputs_unchanged": true,
+    "final_PowerShell_entrypoint_bytes_tested": true
+  },
+  "gradle_distribution": {
+    "jar_files_verified": 41,
+    "client_jars": 1,
+    "runtime_providers": 40,
+    "start_scripts_checked": 2,
+    "main_class": "moom.iP"
+  },
+  "limits": [
+    "Windows JDK17.0.12 actual execution; other platforms not executed.",
+    "Explicit dependency/input graph and hash locks; not an OS/native IO trace."
+  ]
+}

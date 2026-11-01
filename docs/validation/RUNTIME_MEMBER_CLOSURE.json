@@ -1,0 +1,15 @@
+{
+  "status": "passed_static_owned_member_reference_existence_kind_access",
+  "owned_classes": 4093,
+  "method_instruction_sites": 354237,
+  "field_instruction_sites": 158393,
+  "method_handle_sites": 38987,
+  "signature_polymorphic_matches": 1,
+  "array_clone_matches": 290,
+  "failure_count": 0,
+  "failures": [],
+  "unresolved_header_types": [],
+  "client_classes_defined": 0,
+  "client_initialized": false,
+  "scope": "Static member existence, class/interface tags, staticness and declared access/nest checks. Does not prove dynamic invocation selection, protected receiver values, arbitrary bootstrap execution or business behavior."
+}

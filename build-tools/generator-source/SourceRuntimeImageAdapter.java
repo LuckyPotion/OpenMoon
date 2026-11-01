@@ -1,0 +1,56 @@
+import com.google.gson.*;
+import org.objectweb.asm.*;
+import org.objectweb.asm.commons.*;
+import org.objectweb.asm.tree.*;
+import java.nio.file.*;
+import java.util.*;
+import java.util.zip.*;
+
+/** Fresh source S to evidenced R namespace; no original owned implementation input. */
+public final class SourceRuntimeImageAdapter implements Opcodes {
+ static String k(String o,String n,String d){return o+"\t"+n+"\t"+d;}
+ static String id(MethodNode m){return m.name+m.desc;}
+ static JsonObject runtimeMetadata;
+ static void restoreClassMetadata(ClassNode c,Path path)throws Exception{
+  if(runtimeMetadata==null)runtimeMetadata=read(path);
+  for(var value:runtimeMetadata.getAsJsonArray("constant_values")){
+   var row=value.getAsJsonObject();if(!row.get("R_owner").getAsString().equals(c.name))continue;
+   String name=row.get("R_field").getAsString(),descriptor=row.get("descriptor").getAsString();
+   var found=c.fields.stream().filter(f->f.name.equals(name)&&f.desc.equals(descriptor)).toList();
+   if(found.size()!=1)throw new IllegalArgumentException("Runtime ConstantValue field absent/duplicate");
+   var f=found.get(0);if(f.access!=row.get("access").getAsInt()||f.value!=null)throw new IllegalArgumentException("Runtime ConstantValue precondition changed");
+   var v=row.get("value");f.value=switch(descriptor){case "Z","B","C","S","I"->v.getAsInt();case "J"->v.getAsLong();case "F"->v.getAsFloat();case "D"->v.getAsDouble();case "Ljava/lang/String;"->v.getAsString();default->throw new IllegalArgumentException("Unsupported ConstantValue descriptor");};
+  }
+ }
+ static JsonObject read(Path p)throws Exception{return JsonParser.parseString(Files.readString(p)).getAsJsonObject();}
+ static final Map<String,String>cs=new HashMap<>(),ms=new HashMap<>(),fs=new HashMap<>();
+ static final Remapper remap=new Remapper(ASM9){public String map(String n){return cs.getOrDefault(n,n);}public String mapMethodName(String o,String n,String d){return ms.getOrDefault(k(o,n,d),n);}public String mapFieldName(String o,String n,String d){return fs.getOrDefault(k(o,n,d),n);}};
+ static String mapped(String o,MethodNode m){return remap.mapMethodName(o,m.name,m.desc)+remap.mapMethodDesc(m.desc);}
+ static boolean simple(MethodNode m){if(!m.tryCatchBlocks.isEmpty())return false;int calls=0;for(var n:m.instructions){int op=n.getOpcode();if(op<0)continue;if(n instanceof MethodInsnNode)calls++;else if(!(n instanceof VarInsnNode)&&!(n instanceof TypeInsnNode&&op==CHECKCAST)&&!(op>=IRETURN&&op<=RETURN))return false;}return calls==1;}
+ static Set<String> cycles(Map<String,MethodNode>methods){Map<String,String>edges=new HashMap<>();for(var e:methods.entrySet())if(simple(e.getValue()))for(var n:e.getValue().instructions)if(n instanceof MethodInsnNode call){String target=call.owner+"."+call.name+call.desc;if(methods.containsKey(target))edges.put(e.getKey(),target);}Set<String>result=new TreeSet<>();for(String start:edges.keySet()){List<String>path=new ArrayList<>();String at=start;while(edges.containsKey(at)&&!path.contains(at)){path.add(at);at=edges.get(at);}int index=path.indexOf(at);if(index>=0)result.addAll(path.subList(index,path.size()));}return result;}
+ public static void main(String[]a)throws Exception{
+  if(a.length<8)throw new IllegalArgumentException("map fresh-S declarations declaration-report Code-free-metadata new-R new-report providers...");
+  Path out=Path.of(a[5]),report=Path.of(a[6]);if(Files.exists(out)||Files.exists(report))throw new IllegalArgumentException("New outputs required");
+  for(String l:Files.readAllLines(Path.of(a[0]))){String[]p=l.split("\t",-1);Map<String,String> map=p[0].equals("C")?cs:p[0].equals("M")?ms:fs;String key=p[0].equals("C")?p[1]:k(p[1],p[2],p[3]);if(map.put(key,p[p.length-1])!=null)throw new IllegalArgumentException("Duplicate transport key");}
+  if(cs.size()!=4093||new HashSet<>(cs.values()).size()!=4093)throw new IllegalArgumentException("Complete bijective class transport required");
+  JsonObject declarations=read(Path.of(a[2])),dr=read(Path.of(a[3]));Map<String,JsonObject>extraRows=new HashMap<>();for(var e:dr.getAsJsonArray("extra_covariant_forwarders")){JsonObject r=e.getAsJsonObject();String key=r.get("owner").getAsString()+"."+r.get("method").getAsString();if(extraRows.put(key,r)!=null)throw new IllegalArgumentException("Duplicate extra identity");}
+  List<Path>providers=new ArrayList<>();for(int i=7;i<a.length;i++)providers.add(Path.of(a[i]));SourceForwarderTypeProof proof=new SourceForwarderTypeProof(declarations,providers);
+  Map<String,ClassNode>classes=new TreeMap<>();try(var zip=new ZipFile(a[1])){for(var es=zip.entries();es.hasMoreElements();){var e=es.nextElement();if(!e.getName().endsWith(".class"))throw new IllegalArgumentException("Non-class boundary");ClassNode c=new ClassNode();try(var in=zip.getInputStream(e)){new ClassReader(in.readAllBytes()).accept(c,0);}if(!e.getName().equals(c.name+".class")||classes.put(c.name,c)!=null)throw new IllegalArgumentException("Class identity mismatch");}}
+  if(!classes.keySet().equals(declarations.keySet())||!cs.keySet().equals(classes.keySet()))throw new IllegalArgumentException("Owned identity mismatch");
+  JsonArray collisions=new JsonArray(),extras=new JsonArray();Map<String,ClassNode>mappedClasses=new TreeMap<>();int originalCount=0,extraCount=0,coalesced=0,fields=0;
+  for(var c:classes.values()){
+   Set<String>original=new HashSet<>();for(var e:declarations.getAsJsonObject(c.name).getAsJsonArray("methods")){var m=e.getAsJsonObject();original.add(m.get("name").getAsString()+m.get("descriptor").getAsString());}
+   Map<String,List<MethodNode>>groups=new LinkedHashMap<>();Map<String,SourceForwarderTypeProof.Proof>proved=new HashMap<>();
+   for(var m:c.methods){String key=c.name+"."+id(m);if(!original.contains(id(m))){if(!extraRows.containsKey(key))throw new IllegalStateException("Unreported extra "+key);var p=proof.prove(c,m,original);if(!p.accepted())throw new IllegalStateException("Extra proof failed "+key+": "+p.reason());proved.put(id(m),p);extraCount++;}else originalCount++;groups.computeIfAbsent(mapped(c.name,m),x->new ArrayList<>()).add(m);}
+   Set<MethodNode>drop=Collections.newSetFromMap(new IdentityHashMap<>());
+   for(var group:groups.entrySet())if(group.getValue().size()>1){List<MethodNode> originals=group.getValue().stream().filter(m->original.contains(id(m))).toList();if(originals.size()!=1)throw new IllegalStateException("Original-original or extra-only transport collision "+c.name+"."+group.getKey());MethodNode keep=originals.get(0);for(var m:group.getValue())if(m!=keep){if(!proved.containsKey(id(m)))throw new IllegalStateException("Not a proven source forwarder");drop.add(m);coalesced++;JsonObject row=new JsonObject();row.addProperty("S_owner",c.name);row.addProperty("R_owner",remap.map(c.name));row.addProperty("R_method",group.getKey());row.addProperty("kept_original_S_method",id(keep));row.addProperty("coalesced_extra_S_method",id(m));row.addProperty("kept_original_access",keep.access);row.addProperty("extra_access",m.access);row.add("extra_fresh_forwarding_chain",new Gson().toJsonTree(proved.get(id(m)).chain()));row.addProperty("policy","original R declaration always retained; compiler-only added same-R-slot forwarder coalesced; no original access widening");collisions.add(row);}}
+   ClassNode filtered=new ClassNode();c.accept(filtered);filtered.methods.removeIf(m->drop.stream().anyMatch(x->id(x).equals(id(m))));
+   ClassNode r=new ClassNode();filtered.accept(new ClassRemapper(r,remap));Set<String>names=new HashSet<>();for(var m:r.methods)if(!names.add(id(m)))throw new IllegalStateException("Duplicate mapped method "+r.name+"."+id(m));Set<String>fnames=new HashSet<>();for(var f:r.fields)if(!fnames.add(f.name+f.desc))throw new IllegalStateException("Duplicate mapped field");fields+=r.fields.size();if(mappedClasses.put(r.name,r)!=null)throw new IllegalStateException("Class collision");
+   for(var m:c.methods)if(proved.containsKey(id(m))&&!drop.contains(m)){JsonObject x=new JsonObject();x.addProperty("S_owner",c.name);x.addProperty("S_method",id(m));x.addProperty("R_owner",r.name);x.addProperty("R_method",mapped(c.name,m));extras.add(x);}
+  }
+  if(extraCount!=extraRows.size())throw new IllegalStateException("Extra inventory incomplete");
+  Map<String,MethodNode>all=new HashMap<>(),sourceMethods=new HashMap<>();Map<String,String>sourceIdentities=new HashMap<>();for(var c:mappedClasses.values())for(var m:c.methods)all.put(c.name+"."+id(m),m);for(var c:classes.values())for(var m:c.methods){String key=c.name+"."+id(m);sourceMethods.put(key,m);sourceIdentities.put(key,remap.map(c.name)+"."+mapped(c.name,m));}Set<String>mappedCycles=cycles(all),sourceCycles=cycles(sourceMethods),permittedCycles=new TreeSet<>();for(String key:sourceCycles)permittedCycles.add(sourceIdentities.get(key));Set<String>newCycles=new TreeSet<>(mappedCycles);newCycles.removeAll(permittedCycles);if(!newCycles.isEmpty())throw new IllegalStateException("New mapped pure-forwarding cycles: "+newCycles);
+  try(var zip=new ZipOutputStream(Files.newOutputStream(out,StandardOpenOption.CREATE_NEW))){for(var c:mappedClasses.values()){restoreClassMetadata(c,Path.of(a[4]));ClassWriter w=new ClassWriter(0);c.accept(w);ZipEntry e=new ZipEntry(c.name+".class");e.setTime(0);zip.putNextEntry(e);zip.write(w.toByteArray());zip.closeEntry();}}
+  JsonObject result=new JsonObject();result.addProperty("status","fresh_runtime_image_transport_complete_pending_independent_audit");result.addProperty("classes",mappedClasses.size());result.addProperty("fields",fields);result.addProperty("original_methods_retained",originalCount);result.addProperty("source_extra_forwarders_proved",extraCount);result.addProperty("coalesced_same_R_identity_compiler_forwarders",coalesced);result.addProperty("remaining_explicit_extra_forwarders",extras.size());result.add("coalescence_ledger",collisions);result.add("remaining_extras",extras);result.add("source_forwarder_type_proof",proof.evidence());result.add("retained_original_source_cycles",new Gson().toJsonTree(sourceCycles));result.add("mapped_cycles",new Gson().toJsonTree(mappedCycles));result.addProperty("new_pure_forwarding_cycles",newCycles.size());result.addProperty("original_access_flags_changed",0);result.addProperty("permits_removed",0);result.addProperty("original_owned_Code_frame_donors",0);result.addProperty("application_classes_loaded",0);result.addProperty("limit","This projection restores evidenced R declarations and retains original methods. Same-slot added source forwarders are coalesced by the declared transport; arbitrary-state implementation/stack-trace equivalence is not inferred from type proof or JVM loading. Preexisting source cycles are preserved, not silently repaired.");Files.writeString(report,new GsonBuilder().setPrettyPrinting().create().toJson(result),StandardOpenOption.CREATE_NEW);System.out.println(new Gson().toJson(Map.of("classes",mappedClasses.size(),"original_methods",originalCount,"extra_proofs",extraCount,"coalesced",coalesced,"remaining_extras",extras.size())));
+ }
+}

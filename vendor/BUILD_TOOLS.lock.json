@@ -22,6 +22,11 @@
       "size": 51963
     },
     {
+      "path": "vendor/build-tools/asm-commons-9.9.1.jar",
+      "sha256": "C2319E014CE7199F2B7F7D56D6BB991863168C3F4B6CD6C9F542A4937EF7EF88",
+      "role": "ASM runtime namespace transport tool"
+    },
+    {
       "path": "vendor/build-tools/generation-toolkit.zip",
       "sha256": "1D56FFB3A14E29A84ADC2D8BF50D7078A3369D7E2D47BD73B030C977D55EC0DC",
       "size": 522375,
@@ -43,6 +48,31 @@
       "sha256": "4FCEDB0CC19C1C7CFFE15D946F302E34D6B42A76BF46CAADD08C88D308B237FF",
       "size": 26528215,
       "role": "Decoded declaration annotations/constants/nests only; no implementation Code or frames"
+    },
+    {
+      "path": "build-tools/RUNTIME_S_TO_R.tsv",
+      "sha256": "A3BF5AF904CF648733F773C285D77C8F8503A209F50477EDA7820669B49AB91B",
+      "role": "Code-free runtime declaration/namespace/delivery contract input"
+    },
+    {
+      "path": "build-tools/RuntimeRDeclarations.json",
+      "sha256": "474E415FC85CA5AF1A0D983D1A1C1526F8481A52CC95403BD1DACD0C14CF9F41",
+      "role": "Code-free runtime declaration/namespace/delivery contract input"
+    },
+    {
+      "path": "build-tools/RuntimeOriginalMetadata.json",
+      "sha256": "E859EC61B47A6CB27A5A66809153676F6A21AB1DE221D87BF60E11E54FCFDB71",
+      "role": "Code-free runtime declaration/namespace/delivery contract input"
+    },
+    {
+      "path": "build-tools/RuntimeProjectionContract.json",
+      "sha256": "7D86DBAD45CEA4432EF334AE158860F551F85C614F58781B4F7D30B6E20AF74C",
+      "role": "Code-free runtime declaration/namespace/delivery contract input"
+    },
+    {
+      "path": "vendor/RUNTIME_DEPENDENCIES.lock.json",
+      "sha256": "E0F894C1BE64FADA7C3221A7869A636D802BD72E178E12F5A0A707D6DD8C0729",
+      "role": "Code-free runtime declaration/namespace/delivery contract input"
     }
   ],
   "sources": [
@@ -183,6 +213,42 @@
       "role": "tracked_fresh_compiled_generator_source",
       "sha256": "7F469980C6194AA9B5CF53912467D4FB036BB2E92DFC40BAC7A2FD3E2ACBFF70",
       "size": 3625
+    },
+    {
+      "path": "build-tools/generator-source/SourceForwarderTypeProof.java",
+      "sha256": "40BF007531F90BE6A34214EA3C73AEE6938E70EA8700A0CAB0E88458E0FE19FF",
+      "size": 13621,
+      "role": "fresh_compiled_Code_free_forwarder_type_proof_no_application_class_loading"
+    },
+    {
+      "path": "build-tools/generator-source/SourceRuntimeImageAdapter.java",
+      "sha256": "FD3E9118F55BE3E317F1EBFC91D0368530A6C64DD94723F1E78DA9AAF3E4E7DB",
+      "role": "Fresh runtime delivery tool source; build-only and excluded from client owned implementation"
+    },
+    {
+      "path": "build-tools/generator-source/RuntimeArchiveAudit.java",
+      "sha256": "96A15708ADB5E640DA0A6FDA533CBC0F92A84A453A9BBFAD612B66F1C7DE0F8C",
+      "role": "Fresh runtime delivery tool source; build-only and excluded from client owned implementation"
+    },
+    {
+      "path": "build-tools/generator-source/ClientJarPackager.java",
+      "sha256": "2A63E44126D5438DD9DC153BC58402E703E860DBDE06732DCCB1AECE7DE4DFC0",
+      "role": "Fresh runtime delivery tool source; build-only and excluded from client owned implementation"
+    },
+    {
+      "path": "build-tools/generator-source/ClientDelivery.java",
+      "sha256": "918588F58BE6D09804EC32F35A3E7FE0C29F430374166359316D2792674654F7",
+      "role": "Fresh runtime delivery tool source; build-only and excluded from client owned implementation"
+    },
+    {
+      "path": "build-tools/generator-source/NonInitializingJarVerifier.java",
+      "sha256": "0A76294612D34CB09B61EA39013CFEB33026ABEB37CCF917D3E41120F5BCA170",
+      "role": "Fresh runtime delivery tool source; build-only and excluded from client owned implementation"
+    },
+    {
+      "path": "build-tools/generator-source/RuntimeMemberClosure.java",
+      "sha256": "F420DE5157981BA85E287FF3C9FCA1661B936983C3B0EBACAE2531F697B43B4D",
+      "role": "Fresh static member reference closure gate; build-only, no client class definition or initialization"
     }
   ],
   "bootstrap_sources": [
@@ -212,9 +278,85 @@
   "audit_sources": [
     {
       "path": "build-tools/FinalArchiveAudit.java",
-      "sha256": "DE85CC85A5E35BEA49CE64C9CF07F3B3901E44BBB4414E71274CBAF7C0682A3B",
-      "size": 22685,
+      "sha256": "8FA432D4E96BCEE538C592A00233FB4CE96B68C084235A52F4608D25B15B3F11",
+      "size": 20265,
       "role": "whole fresh archive identity, declaration, forbidden-helper and ASM BasicVerifier gate without client classloading"
+    }
+  ],
+  "adapter_sources": [
+    {
+      "path": "build-tools/ZipSourceCompiler.java",
+      "sha256": "F753AC8A2E233345CD295466640E33422082B2C40781815C74786210D72875EA",
+      "size": 42952,
+      "role": "fresh_compiled_main_source_adapter_direct_input_lock"
+    },
+    {
+      "path": "build-tools/SourceIntrinsicAdapter.java",
+      "sha256": "B391AE7CD80E6FAF4A95BF6AC77297A0F86AEE12BD51B6520013CE2EC8CBA1EA",
+      "size": 27160,
+      "role": "fresh_compiled_main_source_adapter_direct_input_lock"
+    },
+    {
+      "path": "build-tools/ConstructorSourceAdapter.java",
+      "sha256": "C1263CF063D1244E8230DAA742BBA70D91CF35A6F644E2649734A06185ABF8D1",
+      "size": 21436,
+      "role": "fresh_compiled_main_source_adapter_direct_input_lock"
+    },
+    {
+      "path": "build-tools/EnumSourceAdapter.java",
+      "sha256": "62F6B98CE3AFB172728C390B1E2E6234A295F91B190527B4CF621467AA932801",
+      "size": 28132,
+      "role": "fresh_compiled_main_source_adapter_direct_input_lock"
+    },
+    {
+      "path": "build-tools/SourceDeclarationAdapter.java",
+      "sha256": "687619D67431400B1C25ADFFE5BA80CBF044BBF625CA6B4F4D35792A0240C8CF",
+      "size": 14541,
+      "role": "fresh_compiled_main_source_adapter_direct_input_lock"
+    },
+    {
+      "path": "build-tools/PortableHandlerAdapter.java",
+      "sha256": "03EABFC0F2EA9C253C7F1B2143B68E50E61C0C4DFAEF70F3921F4B1CADA94708",
+      "size": 37991,
+      "role": "fresh_compiled_main_source_adapter_direct_input_lock"
+    },
+    {
+      "path": "build-tools/SourceAbiAdapter.java",
+      "sha256": "C73E6765AA5E0FD2C52E924F006186E7BB033F47261DDD0437407EF5502F493F",
+      "size": 25767,
+      "role": "fresh_compiled_main_source_adapter_direct_input_lock"
+    }
+  ],
+  "plans": [
+    {
+      "path": "CONSTRUCTOR_PLAN.json",
+      "sha256": "DC8B6B25BBE338C2DDF1182E15313BBD1D4200F97FA3FA52172B80E9563FA900",
+      "size": 1581711,
+      "role": "Code_free_saved_source_operation_and_declaration_plan"
+    },
+    {
+      "path": "ENUM_PLAN.json",
+      "sha256": "4B6866615C198841A5412F96C9178050CFEC1CC6857A924F8DD795AD0A603C23",
+      "size": 876376,
+      "role": "Code_free_saved_source_operation_and_declaration_plan"
+    },
+    {
+      "path": "HANDLER_PLAN.json",
+      "sha256": "884F06A6AA674B00784F036B45B741A7B54C9707E3C05EC5B15FAD651D992D87",
+      "size": 7648475,
+      "role": "Code_free_saved_source_operation_and_declaration_plan"
+    },
+    {
+      "path": "INTRINSIC_PLAN.json",
+      "sha256": "C2AB78E445DE06B713ABC5014B98252D94762F90A616A4274B960A71FB1FB540",
+      "size": 19443954,
+      "role": "Code_free_saved_source_operation_and_declaration_plan"
+    },
+    {
+      "path": "ABI_ALIAS_PLAN.json",
+      "sha256": "6A6BECD820A64E349F28817D464F365084B014E04F8974FF64B33DAA86B501C6",
+      "size": 993985,
+      "role": "Code_free_saved_source_operation_and_declaration_plan"
     }
   ]
 }
