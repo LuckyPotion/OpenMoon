@@ -3,6 +3,5 @@
   "workingDirectory": "run",
   "nativeDirectory": "",
   "jvmArguments": [],
-  "programArguments": [],
-  "notes": "Current saved-source client startup entry is moom.iP (formal main recipe), not a proven rename of the original loader Main. This example is incomplete: copy to ignored run.local.json and provide the existing approved runtime/native setup, game/assets paths and session arguments locally. See RUNNING.md; source build success does not establish startup or functional acceptance."
+  "programArguments": []
 }

@@ -1,9 +1,0 @@
-{
-  "status": "known_broken_pre_fix_archive_rejected_before_packaging",
-  "old_client_sha256": "86961A3EC3986C8F646CF4A8227DCCEF11A0F4006B46E0CED87CBFC1A958721D",
-  "failure_count": 66,
-  "expected_failures": 66,
-  "enum_classes": 22,
-  "client_packaged": false,
-  "old_failure_evidence_preserved": true
-}
