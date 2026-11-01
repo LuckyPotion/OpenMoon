@@ -76,9 +76,9 @@
     },
     {
       "path": "vendor/RUNTIME_DEPENDENCIES.lock.json",
-      "sha256": "E0F894C1BE64FADA7C3221A7869A636D802BD72E178E12F5A0A707D6DD8C0729",
+      "sha256": "738ACC56B658A4737829A4692AC736CEE583051D25F20ECEE676F71ECF7AF800",
       "role": "Code-free runtime declaration/namespace/delivery contract input",
-      "size": 14389
+      "size": 14546
     }
   ],
   "sources": [
@@ -240,21 +240,21 @@
     },
     {
       "path": "build-tools/generator-source/ClientJarPackager.java",
-      "sha256": "DFFFF9C17A833B589B25BC951D827080BFA980DA94C912FDD573DB278026F913",
+      "sha256": "EA1A3E79499EB0554C17CFB56E9969C8401F7C9F8B94B4E3DC427632E58C19CF",
       "role": "Fresh runtime delivery tool source; build-only and excluded from client owned implementation",
-      "size": 5415
+      "size": 5537
     },
     {
       "path": "build-tools/generator-source/ClientDelivery.java",
-      "sha256": "4F98F985AF9FA37020AC1BCABD188A626229B7093194638A655DA8345D69A5EA",
+      "sha256": "BA07D4D317757D45349A501AEEA132830923B9A2F5054229E6CCC0D7370E3A38",
       "role": "Fresh runtime delivery tool source; build-only and excluded from client owned implementation",
-      "size": 5582
+      "size": 6323
     },
     {
       "path": "build-tools/generator-source/NonInitializingJarVerifier.java",
-      "sha256": "0A76294612D34CB09B61EA39013CFEB33026ABEB37CCF917D3E41120F5BCA170",
+      "sha256": "69965A7812544B1F6ED8B9BC9996094F03E9E62BD52C0239F42650B147010586",
       "role": "Fresh runtime delivery tool source; build-only and excluded from client owned implementation",
-      "size": 4225
+      "size": 4592
     },
     {
       "path": "build-tools/generator-source/RuntimeMemberClosure.java",
@@ -267,6 +267,12 @@
       "role": "Freshly compiled production/reference isolation gate; build only",
       "sha256": "834ABE20DA15A8B41B6B3DE1126135DDCAD1B0AF1D5D0B6D93F64E3090A2856E",
       "size": 9762
+    },
+    {
+      "path": "build-tools/generator-source/RuntimeDependencyBoundary.java",
+      "sha256": "B4FADE01EB43845B6196B5098AF3F1D2D4F4B0A18C4D7047548E7F498C3D22B4",
+      "size": 4602,
+      "role": "Runtime R ownership boundary, exact external slice derivation and classpath shadowing rejection; build only"
     }
   ],
   "bootstrap_sources": [

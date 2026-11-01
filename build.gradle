@@ -26,7 +26,7 @@ def buildToolLock=new JsonSlurper().parse(file('vendor/BUILD_TOOLS.lock.json'))
 
 def buildToolJars=buildToolLock.tools.collect {file(it.path)}
 
-dependencies { implementation files(orderedProviders); runtimeOnly files(runtimeInputLock.providers.collect {file(it.path)}) }
+dependencies { compileOnly files(orderedProviders); runtimeOnly files(runtimeInputLock.providers.collect {file(it.path)}) }
 
 application { mainClass='moom.iP' }
 
@@ -100,7 +100,7 @@ tasks.register('verifyVendor') {
 
         if(!file(r.path).isFile() || fileSha(file(r.path))!=r.sha256) throw new GradleException('Missing input or SHA mismatch: '+r.path)
 
-    }; logger.lifecycle('Verified '+inputLock.providers.size()+' ordered providers and original 5152-entry resources.') }
+    }; def expectedRuntime=runtimeInputLock.providers.collect {file(it.path).canonicalPath}.toSet(); def actualRuntime=configurations.runtimeClasspath.files.collect {it.canonicalPath}.toSet(); if(actualRuntime!=expectedRuntime)throw new GradleException('Compile-only providers leaked into runtimeClasspath.'); logger.lifecycle('Verified '+inputLock.providers.size()+' ordered providers and original 5152-entry resources; exact runtime-only dependency set.') }
 
 }
 
@@ -488,7 +488,7 @@ tasks.register('packageClient') {
         copy {
             from file(r.archive).parentFile
             into file('dist')
-            include 'openmoon-client.jar','lib/**','CLIENT_DELIVERY.json','JVM_CLIENT.json','RUNTIME_IDENTITY.json','RUNTIME_MEMBER_CLOSURE.json'
+            include 'openmoon-client.jar','lib/**','CLIENT_DELIVERY.json','JVM_CLIENT.json','RUNTIME_IDENTITY.json','RUNTIME_MEMBER_CLOSURE.json','RUNTIME_PROVIDER_BOUNDARY.json'
         }
 
     }

@@ -324,13 +324,16 @@
     },
     {
       "index": 35,
-      "path": "vendor/dependencies/35-authentic-external-closure.jar",
-      "sha256": "E4BA16CE8D317E2293F9B683825C84A64B0543EB7A96F773F8410E7B31C753EC",
-      "size": 2039802,
+      "path": "vendor/runtime/35-authentic-external-only.jar",
+      "sha256": "DC7AA384507A0D970C8C92D12CBB9F672055EADC3CC83F2F1191CBC43C9F2C1D",
+      "size": 51177,
       "gav": "moon-client:authentic-external-closure:1.0",
-      "ordinary_class_entries": 518,
+      "ordinary_class_entries": 24,
       "owned_class_overlap": 0,
-      "role": "Missing external definitions recovered from original archive using existing reviewed cipher/key; no owned Code implementation and no provider replacements"
+      "role": "R-namespace runtime slice: 24 original external definitions; 494 client-owned definitions excluded",
+      "slice_source_path": "vendor/dependencies/35-authentic-external-closure.jar",
+      "slice_source_sha256": "E4BA16CE8D317E2293F9B683825C84A64B0543EB7A96F773F8410E7B31C753EC",
+      "excluded_R_owned_definitions": 494
     },
     {
       "index": 36,

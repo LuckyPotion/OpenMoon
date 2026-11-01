@@ -494,6 +494,7 @@ try {
         Copy-Item -LiteralPath (Join-Path $moonDeliveryRoot 'JVM_CLIENT.json') -Destination $moonDist -Force
         Copy-Item -LiteralPath (Join-Path $moonDeliveryRoot 'RUNTIME_IDENTITY.json') -Destination $moonDist -Force
         Copy-Item -LiteralPath (Join-Path $moonDeliveryRoot 'RUNTIME_MEMBER_CLOSURE.json') -Destination $moonDist -Force
+        Copy-Item -LiteralPath (Join-Path $moonDeliveryRoot 'RUNTIME_PROVIDER_BOUNDARY.json') -Destination $moonDist -Force
     }
 
     $moonReceipt.archive
