@@ -1,0 +1,7 @@
+.gradle/
+build/
+run.local.json
+run/
+.idea/
+*.iml
+vendor/resources/original-resources.jar

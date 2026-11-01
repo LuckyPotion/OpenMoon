@@ -1,0 +1,473 @@
+import groovy.json.JsonSlurper
+
+import groovy.json.JsonOutput
+
+import java.security.MessageDigest
+
+import java.util.zip.ZipOutputStream
+
+import java.util.zip.ZipEntry
+
+plugins { id 'java'; id 'application' }
+
+group='com.moon'
+
+version='0.2.0-source'
+
+java { toolchain { languageVersion=JavaLanguageVersion.of(17) } }
+
+def inputLock=new JsonSlurper().parse(file('vendor/DEPENDENCIES.lock.json'))
+
+def orderedProviders=inputLock.providers.collect { file(it.path) }
+
+def buildToolLock=new JsonSlurper().parse(file('vendor/BUILD_TOOLS.lock.json'))
+
+def buildToolJars=buildToolLock.tools.collect {file(it.path)}
+
+dependencies { implementation files(orderedProviders); runtimeOnly files(inputLock.resources.collect {file(it.path)}) }
+
+application { mainClass='moom.iP' }
+
+def fileSha={ f ->
+
+    def d=MessageDigest.getInstance('SHA-256')
+
+    f.withInputStream { s -> byte[] b=new byte[1024*1024]; int n; while((n=s.read(b))>0) d.update(b,0,n) }
+
+    d.digest().encodeHex().toString().toUpperCase()
+
+}
+
+tasks.register('compileResourceAssembler',JavaCompile) {
+
+    source=files((buildToolLock.bootstrap_sources ?: []).collect {it.path})
+
+    classpath=files()
+
+    destinationDirectory=layout.buildDirectory.dir('resource-tool-classes')
+
+    javaCompiler=javaToolchains.compilerFor {languageVersion=JavaLanguageVersion.of(17)}
+
+    options.encoding='UTF-8';options.release=17;options.annotationProcessorPath=files();options.sourcepath=files()
+
+    options.compilerArgs+=['-proc:none','-implicit:none']
+
+    doFirst { (buildToolLock.bootstrap_sources ?: []).each {row->
+
+        if(fileSha(file(row.path))!=row.sha256)throw new GradleException('Bootstrap source SHA mismatch: '+row.path)
+
+    } }
+
+}
+
+tasks.register('assembleOriginalResources') {
+
+    dependsOn 'compileResourceAssembler'
+
+    outputs.upToDateWhen {false}
+
+    doLast {
+
+        (buildToolLock.bootstrap_metadata ?: []).each {row->
+
+            if(fileSha(file(row.path))!=row.sha256)throw new GradleException('Bootstrap metadata SHA mismatch: '+row.path)
+
+        }
+
+        def launcher=javaToolchains.launcherFor {languageVersion=JavaLanguageVersion.of(17)}.get().executablePath.asFile
+
+        def argv=[launcher.toString(),'-classpath',layout.buildDirectory.dir('resource-tool-classes').get().asFile.toString(),'ResourceAssembler','--manifest',file('vendor/resources/resource-manifest.json').toString()]
+
+        def process=new ProcessBuilder(argv as String[]).directory(projectDir)
+
+        ['JAVA_TOOL_OPTIONS','_JAVA_OPTIONS','JDK_JAVA_OPTIONS','CLASSPATH'].each {process.environment().remove(it)}
+
+        process.inheritIO()
+
+        if(process.start().waitFor()!=0)throw new GradleException('Original resource reassembly failed.')
+
+    }
+
+}
+
+tasks.register('verifyVendor') {
+
+    dependsOn 'assembleOriginalResources'
+
+    doLast { (inputLock.providers+inputLock.resources+buildToolLock.tools+(buildToolLock.metadata ?: [])+(buildToolLock.sources ?: [])+(buildToolLock.frontend_sources ?: [])+(buildToolLock.audit_sources ?: [])).each {r->
+
+        if(!file(r.path).isFile() || fileSha(file(r.path))!=r.sha256) throw new GradleException('Missing input or SHA mismatch: '+r.path)
+
+    }; logger.lifecycle('Verified '+inputLock.providers.size()+' ordered providers and original 5152-entry resources.') }
+
+}
+
+tasks.register('compileBuildTools',JavaCompile) {
+
+    source=files(['build-tools/ZipSourceCompiler.java','build-tools/JvmExceptionSourcePolicy.java','build-tools/SourceIntrinsicAdapter.java','build-tools/ConstructorSourceAdapter.java','build-tools/EnumSourceAdapter.java','build-tools/SourceDeclarationAdapter.java','build-tools/PortableHandlerAdapter.java','build-tools/SourceAbiAdapter.java','build-tools/FinalArchiveAudit.java']+(buildToolLock.sources ?: []).collect {it.path}); classpath=files(buildToolJars)
+
+    destinationDirectory=layout.buildDirectory.dir('build-tool-classes')
+
+    javaCompiler=javaToolchains.compilerFor {languageVersion=JavaLanguageVersion.of(17)}
+
+    options.encoding='UTF-8';sourceCompatibility='17';targetCompatibility='17';options.annotationProcessorPath=files();options.sourcepath=files()
+
+    options.compilerArgs+=['-proc:none','-implicit:none','--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED','--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED']
+
+}
+
+// Preserve exact-case JVM identities without materializing colliding class paths.
+
+tasks.named('compileJava'){enabled=false}
+
+tasks.register('compileExactSources') {
+
+    dependsOn 'verifyVendor','compileBuildTools'
+
+    outputs.upToDateWhen {false}
+
+    doLast {
+
+        def indexFile=file(providers.gradleProperty('sourceIndex').getOrElse('source-units.json'))
+
+        if(!indexFile.isFile()) throw new GradleException('Missing source-units.json; complete source integration first.')
+
+        def units=new JsonSlurper().parse(indexFile).units
+
+        if(!units) throw new GradleException('No explicit production Java units.')
+
+        def runDir=layout.buildDirectory.dir('runs/'+UUID.randomUUID().toString()).get().asFile;runDir.mkdirs()
+
+        def sourceZip=new File(runDir,'sources.zip');def seen=new HashSet<String>();def rows=[]
+
+        new ZipOutputStream(new FileOutputStream(sourceZip)).withCloseable {z-> units.each {u->
+
+            def entry=u.entry as String
+
+            if(!entry.endsWith('.java') || entry.startsWith('/') || entry.contains('\\') || entry.contains(':') || entry.split('/').any {it in ['.','..','']}) throw new GradleException('Noncanonical source entry.')
+
+            if(!seen.add(entry)) throw new GradleException('Duplicate source entry: '+entry)
+
+            def sourceFile=file(u.path)
+
+            if(!sourceFile.canonicalFile.toPath().startsWith(projectDir.canonicalFile.toPath())) throw new GradleException('Source outside repository.')
+
+            def ze=new ZipEntry(entry);ze.setTimeLocal(java.time.LocalDateTime.of(2000,1,1,0,0));z.putNextEntry(ze)
+
+            sourceFile.withInputStream {it.transferTo(z)};z.closeEntry()
+
+            rows << [path:u.path,entry:entry,sha256:fileSha(sourceFile)]
+
+        }}
+
+        new File(runDir,'SOURCE_INPUTS.json').text=JsonOutput.prettyPrint(JsonOutput.toJson(rows))
+
+        def launcher=javaToolchains.launcherFor {languageVersion=JavaLanguageVersion.of(17)}.get().executablePath.asFile
+
+        def argv=[launcher.toString(),'-Xmx6g','-Xss16m','-Dmoon.sourceAccessProjection=true','--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED','--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED','-classpath',layout.buildDirectory.dir('build-tool-classes').get().asFile.toString(),'ZipSourceCompiler','--root',projectDir.toString(),'--sources',sourceZip.toString(),'--out',new File(runDir,'compile').toString(),'--mode','compile','--release','17','--debug','all','--unreadable','fail']
+
+        def enumPlan=file(providers.gradleProperty('enumPlan').getOrElse('ENUM_PLAN.json'))
+
+        def toolsCp=([layout.buildDirectory.dir('build-tool-classes').get().asFile]+buildToolJars).collect {it.toString()}.join(File.pathSeparator)
+
+        def enumSymbol=new File(runDir,'compile-only-enum-symbol.jar')
+
+        if(enumPlan.isFile()) {
+
+            def symbol=new ProcessBuilder([launcher.toString(),'-classpath',toolsCp,'EnumSourceAdapter','symbol',enumSymbol.toString()] as String[]).directory(projectDir)
+
+            ['JAVA_TOOL_OPTIONS','_JAVA_OPTIONS','JDK_JAVA_OPTIONS','CLASSPATH'].each {symbol.environment().remove(it)}
+
+            symbol.redirectOutput(new File(runDir,'enum-symbol.stdout.txt'));symbol.redirectError(new File(runDir,'enum-symbol.stderr.txt'))
+
+            if(symbol.start().waitFor()!=0)throw new GradleException('Enum compile-only symbol generation failed: '+runDir)
+
+        }
+
+        orderedProviders.each {argv+=['--classpath',it.toString()]}
+
+        if(enumPlan.isFile())argv+=['--classpath',enumSymbol.toString()]
+
+        new File(runDir,'COMMAND.json').text=JsonOutput.prettyPrint(JsonOutput.toJson([argv:argv,source_index_sha256:fileSha(indexFile),sources_zip_sha256:fileSha(sourceZip)]))
+
+        def pb=new ProcessBuilder(argv as String[]).directory(projectDir)
+
+        ['JAVA_TOOL_OPTIONS','_JAVA_OPTIONS','JDK_JAVA_OPTIONS','CLASSPATH'].each {pb.environment().remove(it)}
+
+        pb.redirectOutput(new File(runDir,'compile.stdout.txt'));pb.redirectError(new File(runDir,'compile.stderr.txt'))
+
+        int code=pb.start().waitFor()
+
+        if(code!=0) throw new GradleException("Source javac failed (${code}); evidence: ${runDir}/compile")
+
+        def r=new JsonSlurper().parse(new File(runDir,'compile/result.json'))
+
+        def receipt=[archive:r.output_jar,archive_sha256:r.output_sha256,class_count:r.class_count,source_count:units.size(),javac_exit:0,run:runDir.toString()]
+
+        def constructorPlan=file(providers.gradleProperty('constructorPlan').getOrElse('CONSTRUCTOR_PLAN.json'))
+
+        if(constructorPlan.isFile()) {
+
+            def output=new File(runDir,'constructor-classes.jar')
+
+            def cp=([layout.buildDirectory.dir('build-tool-classes').get().asFile]+buildToolJars).collect {it.toString()}.join(File.pathSeparator)
+
+            def argvCtor=[launcher.toString(),'-Xmx6g','-classpath',cp,'ConstructorSourceAdapter',receipt.archive,constructorPlan.toString(),output.toString()]+orderedProviders.collect {it.toString()}
+
+            if(enumPlan.isFile())argvCtor+=['--enum-plan',enumPlan.toString(),enumSymbol.toString()]
+
+            new File(runDir,'CONSTRUCTOR_COMMAND.json').text=JsonOutput.prettyPrint(JsonOutput.toJson([argv:argvCtor,plan_sha256:fileSha(constructorPlan),fresh_archive_sha256:receipt.archive_sha256,tool_source_sha256:fileSha(file('build-tools/ConstructorSourceAdapter.java'))]))
+
+            def ctor=new ProcessBuilder(argvCtor as String[]).directory(projectDir)
+
+            ['JAVA_TOOL_OPTIONS','_JAVA_OPTIONS','JDK_JAVA_OPTIONS','CLASSPATH'].each {ctor.environment().remove(it)}
+
+            ctor.redirectOutput(new File(runDir,'constructor.stdout.json'));ctor.redirectError(new File(runDir,'constructor.stderr.txt'))
+
+            int cc=ctor.start().waitFor()
+
+            if(cc!=0)throw new GradleException("Constructor source adapter failed (${cc}); evidence: ${runDir}")
+
+            def stats=new JsonSlurper().parse(new File(runDir,'constructor.stdout.json'))
+
+            receipt.raw_archive=receipt.archive;receipt.raw_archive_sha256=receipt.archive_sha256
+
+            receipt.archive=output.toString();receipt.archive_sha256=fileSha(output);receipt.class_count=stats.output_entries
+
+            receipt.constructor_exit=0;receipt.constructor_plan_sha256=fileSha(constructorPlan)
+
+        }
+
+        if(enumPlan.isFile()) {
+
+            def output=new File(runDir,'enum-classes.jar')
+
+            def enumAbiPlan=file(providers.gradleProperty('abiPlan').getOrElse('ABI_ALIAS_PLAN.json'))
+            def ea=[launcher.toString(),'-Xmx6g','-classpath',toolsCp,'EnumSourceAdapter',receipt.archive,enumPlan.toString(),output.toString(),new File(runDir,'ENUM_RESULT.json').toString()]
+            if(enumAbiPlan.isFile())ea.add(enumAbiPlan.toString())
+
+            new File(runDir,'ENUM_COMMAND.json').text=JsonOutput.prettyPrint(JsonOutput.toJson([argv:ea,plan_sha256:fileSha(enumPlan),input_archive_sha256:receipt.archive_sha256,compile_only_symbol_sha256:fileSha(enumSymbol),abi_alias_plan_sha256:enumAbiPlan.isFile()?fileSha(enumAbiPlan):null]))
+
+            def ep=new ProcessBuilder(ea as String[]).directory(projectDir)
+
+            ['JAVA_TOOL_OPTIONS','_JAVA_OPTIONS','JDK_JAVA_OPTIONS','CLASSPATH'].each {ep.environment().remove(it)}
+
+            ep.redirectOutput(new File(runDir,'enum.stdout.json'));ep.redirectError(new File(runDir,'enum.stderr.txt'))
+
+            if(ep.start().waitFor()!=0)throw new GradleException('Enum source adapter failed: '+runDir)
+
+            if(receipt.containsKey('constructor_exit')){receipt.constructor_archive=receipt.archive;receipt.constructor_archive_sha256=receipt.archive_sha256}
+
+            else{receipt.raw_archive=receipt.archive;receipt.raw_archive_sha256=receipt.archive_sha256}
+
+            receipt.archive=output.toString();receipt.archive_sha256=fileSha(output);receipt.enum_exit=0;receipt.enum_plan_sha256=fileSha(enumPlan)
+
+        }
+
+        def handlerPlan=file(providers.gradleProperty('handlerPlan').getOrElse('HANDLER_PLAN.json'))
+
+        if(handlerPlan.isFile()) {
+
+            def output=new File(runDir,'handler-classes.jar')
+
+            def ha=[launcher.toString(),'-Xmx6g','-classpath',toolsCp,'PortableHandlerAdapter',receipt.archive,handlerPlan.toString(),output.toString(),new File(runDir,'HANDLER_RESULT.json').toString(),file('build-tools/declarations.json').toString()]+orderedProviders.collect {it.toString()}
+
+            new File(runDir,'HANDLER_COMMAND.json').text=JsonOutput.prettyPrint(JsonOutput.toJson([argv:ha,plan_sha256:fileSha(handlerPlan),input_archive_sha256:receipt.archive_sha256,tool_source_sha256:fileSha(file('build-tools/PortableHandlerAdapter.java')),build_only_tools:buildToolLock.tools,fresh_generator_sources:buildToolLock.sources,Code_free_declarations:buildToolLock.metadata,toolkit_role:'tracked generator sources compiled fresh take priority over 149 fixed binary tools; not client owned implementation; no comparison main; never runtime classpath']))
+
+            def hp=new ProcessBuilder(ha as String[]).directory(projectDir)
+
+            ['JAVA_TOOL_OPTIONS','_JAVA_OPTIONS','JDK_JAVA_OPTIONS','CLASSPATH'].each {hp.environment().remove(it)}
+
+            hp.redirectOutput(new File(runDir,'handler.stdout.json'));hp.redirectError(new File(runDir,'handler.stderr.txt'))
+
+            int hc=hp.start().waitFor()
+
+            if(hc!=0){new File(runDir,'HANDLER_FAILURE.json').text=JsonOutput.toJson([handler_exit:hc,run:runDir.toString()]);throw new GradleException("Source handler adapter failed (${hc}); evidence: ${runDir}")}
+
+            if(receipt.containsKey('enum_exit')){receipt.enum_archive=receipt.archive;receipt.enum_archive_sha256=receipt.archive_sha256}
+
+            else if(receipt.containsKey('constructor_exit')){receipt.constructor_archive=receipt.archive;receipt.constructor_archive_sha256=receipt.archive_sha256}
+
+            else{receipt.raw_archive=receipt.archive;receipt.raw_archive_sha256=receipt.archive_sha256}
+
+            def stats=new JsonSlurper().parse(new File(runDir,'HANDLER_RESULT.json'))
+
+            receipt.archive=output.toString();receipt.archive_sha256=fileSha(output);receipt.class_count=stats.output_entries
+
+            receipt.handler_exit=0;receipt.handler_plan_sha256=fileSha(handlerPlan)
+
+        }
+
+        def plan=file(providers.gradleProperty('intrinsicPlan').getOrElse('INTRINSIC_PLAN.json'))
+
+        if(plan.isFile()) {
+
+            def adapted=new File(runDir,'runtime-classes.jar')
+
+            def adapterCp=([layout.buildDirectory.dir('build-tool-classes').get().asFile]+buildToolJars).collect {it.toString()}.join(File.pathSeparator)
+
+            def adapterArgv=[launcher.toString(),'-Xmx6g','-classpath',adapterCp,'SourceIntrinsicAdapter',receipt.archive,plan.toString(),adapted.toString()]
+            def completedHandlerPlan=file(providers.gradleProperty('handlerPlan').getOrElse('HANDLER_PLAN.json'));def completedHandlerReceipt=new File(runDir,'HANDLER_RESULT.json');if(completedHandlerPlan.isFile()&&completedHandlerReceipt.isFile())adapterArgv.addAll([completedHandlerPlan.toString(),completedHandlerReceipt.toString()])
+
+            new File(runDir,'ADAPTER_COMMAND.json').text=JsonOutput.prettyPrint(JsonOutput.toJson([argv:adapterArgv,plan_sha256:fileSha(plan),fresh_archive_sha256:r.output_sha256,adapter_source_sha256:fileSha(file('build-tools/SourceIntrinsicAdapter.java')),build_only_tools:buildToolLock.tools]))
+
+            def ap=new ProcessBuilder(adapterArgv as String[]).directory(projectDir)
+
+            ['JAVA_TOOL_OPTIONS','_JAVA_OPTIONS','JDK_JAVA_OPTIONS','CLASSPATH'].each {ap.environment().remove(it)}
+
+            ap.redirectOutput(new File(runDir,'adapter.stdout.json'));ap.redirectError(new File(runDir,'adapter.stderr.txt'))
+
+            int ac=ap.start().waitFor()
+
+            if(ac!=0)throw new GradleException("Source intrinsic adapter failed (${ac}); evidence: ${runDir}")
+
+            def stats=new JsonSlurper().parse(new File(runDir,'adapter.stdout.json'))
+
+            if(receipt.containsKey('handler_exit')){receipt.handler_archive=receipt.archive;receipt.handler_archive_sha256=receipt.archive_sha256}
+
+            else if(receipt.containsKey('enum_exit')){receipt.enum_archive=receipt.archive;receipt.enum_archive_sha256=receipt.archive_sha256}
+
+            else if(receipt.containsKey('constructor_exit')){receipt.constructor_archive=receipt.archive;receipt.constructor_archive_sha256=receipt.archive_sha256}
+
+            else{receipt.raw_archive=receipt.archive;receipt.raw_archive_sha256=receipt.archive_sha256}
+
+            receipt.archive=adapted.toString();receipt.archive_sha256=fileSha(adapted);receipt.class_count=stats.output_entries
+
+            receipt.adapter_exit=0;receipt.intrinsic_plan_sha256=fileSha(plan)
+
+        }
+
+        def abiPlan=file(providers.gradleProperty('abiPlan').getOrElse('ABI_ALIAS_PLAN.json'))
+
+        if(abiPlan.isFile()) {
+
+            def output=new File(runDir,'abi-classes.jar')
+
+            def aa=[launcher.toString(),'-Xmx6g','-classpath',toolsCp,'SourceAbiAdapter',receipt.archive,abiPlan.toString(),output.toString(),new File(runDir,'ABI_RESULT.json').toString(),file('build-tools/declarations.json').toString()]
+
+            new File(runDir,'ABI_COMMAND.json').text=JsonOutput.prettyPrint(JsonOutput.toJson([argv:aa,input_archive_sha256:receipt.archive_sha256,plan_sha256:fileSha(abiPlan),tool_source_sha256:fileSha(file('build-tools/SourceAbiAdapter.java')),metadata:buildToolLock.metadata,build_only_tools:buildToolLock.tools]))
+
+            def ap=new ProcessBuilder(aa as String[]).directory(projectDir)
+
+            ['JAVA_TOOL_OPTIONS','_JAVA_OPTIONS','JDK_JAVA_OPTIONS','CLASSPATH'].each {ap.environment().remove(it)}
+
+            ap.redirectOutput(new File(runDir,'abi.stdout.json'));ap.redirectError(new File(runDir,'abi.stderr.txt'));int ac=ap.start().waitFor()
+
+            if(ac!=0){new File(runDir,'ABI_FAILURE.json').text=JsonOutput.toJson([abi_exit:ac,run:runDir.toString()]);throw new GradleException("Source ABI adapter failed (${ac}); evidence: ${runDir}")}
+
+            if(receipt.containsKey('adapter_exit')){receipt.intrinsic_archive=receipt.archive;receipt.intrinsic_archive_sha256=receipt.archive_sha256}
+
+            else if(receipt.containsKey('handler_exit')){receipt.handler_archive=receipt.archive;receipt.handler_archive_sha256=receipt.archive_sha256}
+
+            else if(receipt.containsKey('enum_exit')){receipt.enum_archive=receipt.archive;receipt.enum_archive_sha256=receipt.archive_sha256}
+
+            else if(receipt.containsKey('constructor_exit')){receipt.constructor_archive=receipt.archive;receipt.constructor_archive_sha256=receipt.archive_sha256}
+
+            else{receipt.raw_archive=receipt.archive;receipt.raw_archive_sha256=receipt.archive_sha256}
+
+            def stats=new JsonSlurper().parse(new File(runDir,'ABI_RESULT.json'))
+
+            receipt.archive=output.toString();receipt.archive_sha256=fileSha(output);receipt.class_count=stats.output_entries;receipt.abi_exit=0;receipt.abi_plan_sha256=fileSha(abiPlan)
+
+        }
+
+        def declarationOutput=new File(runDir,'declaration-restored-classes.jar')
+
+        def declarationArgs=[launcher.toString(),'-Xmx6g','-classpath',toolsCp,'SourceDeclarationAdapter',receipt.archive,file('build-tools/declarations.json').toString(),declarationOutput.toString(),new File(runDir,'DECLARATION_RESULT.json').toString(),file('build-tools/runtime-declarations.json').toString()]
+
+        new File(runDir,'DECLARATION_COMMAND.json').text=JsonOutput.prettyPrint(JsonOutput.toJson([argv:declarationArgs,input_archive_sha256:receipt.archive_sha256,compile_only_access_view_must_not_ship:true]))
+
+        def declarationProcess=new ProcessBuilder(declarationArgs as String[]).directory(projectDir)
+
+        ['JAVA_TOOL_OPTIONS','_JAVA_OPTIONS','JDK_JAVA_OPTIONS','CLASSPATH'].each {declarationProcess.environment().remove(it)}
+
+        declarationProcess.redirectOutput(new File(runDir,'declaration.stdout.json'));declarationProcess.redirectError(new File(runDir,'declaration.stderr.txt'))
+
+        if(declarationProcess.start().waitFor()!=0)throw new GradleException('Declaration flags/coverage restoration failed: '+runDir)
+
+        receipt.pre_declaration_archive=receipt.archive;receipt.archive=declarationOutput.toString();receipt.archive_sha256=fileSha(declarationOutput);receipt.declaration_restore_exit=0
+
+        def checkCp=([layout.buildDirectory.dir('build-tool-classes').get().asFile]+buildToolJars).collect {it.toString()}.join(File.pathSeparator)
+
+        def abiCheck=new ProcessBuilder([launcher.toString(),'-classpath',checkCp,'SourceAbiAdapter','--validate-final',receipt.archive] as String[]).directory(projectDir)
+
+        ['JAVA_TOOL_OPTIONS','_JAVA_OPTIONS','JDK_JAVA_OPTIONS','CLASSPATH'].each {abiCheck.environment().remove(it)}
+
+        abiCheck.redirectOutput(new File(runDir,'abi-final-check.stdout.json'));abiCheck.redirectError(new File(runDir,'abi-final-check.stderr.txt'))
+
+        if(abiCheck.start().waitFor()!=0)throw new GradleException('Unmapped source ABI initializer remains: '+runDir)
+
+        def check=new ProcessBuilder([launcher.toString(),'-classpath',checkCp,'ConstructorSourceAdapter','--validate-final',receipt.archive] as String[]).directory(projectDir)
+
+        ['JAVA_TOOL_OPTIONS','_JAVA_OPTIONS','JDK_JAVA_OPTIONS','CLASSPATH'].each {check.environment().remove(it)}
+
+        check.redirectOutput(new File(runDir,'constructor-final-check.stdout.json'));check.redirectError(new File(runDir,'constructor-final-check.stderr.txt'))
+
+        if(check.start().waitFor()!=0)throw new GradleException("Unadapted compile-only constructor intermediates remain; evidence: ${runDir}")
+
+        def enumCheck=new ProcessBuilder([launcher.toString(),'-classpath',checkCp,'EnumSourceAdapter','--validate-final',receipt.archive] as String[]).directory(projectDir)
+
+        ['JAVA_TOOL_OPTIONS','_JAVA_OPTIONS','JDK_JAVA_OPTIONS','CLASSPATH'].each {enumCheck.environment().remove(it)}
+
+        enumCheck.redirectOutput(new File(runDir,'enum-final-check.stdout.json'));enumCheck.redirectError(new File(runDir,'enum-final-check.stderr.txt'))
+
+        if(enumCheck.start().waitFor()!=0)throw new GradleException('Unadapted enum carrier/compiler symbol remains: '+runDir)
+
+        def handlerFinalArgs=[launcher.toString(),'-classpath',checkCp,'PortableHandlerAdapter','--validate-final',receipt.archive,file('ABI_ALIAS_PLAN.json').toString()]
+
+        new File(runDir,'HANDLER_FINAL_CHECK_COMMAND.json').text=JsonOutput.prettyPrint(JsonOutput.toJson([argv:handlerFinalArgs,archive_sha256:receipt.archive_sha256,tool_source_sha256:fileSha(file('build-tools/PortableHandlerAdapter.java')),build_only_tools:buildToolLock.tools]))
+
+        def handlerCheck=new ProcessBuilder(handlerFinalArgs as String[]).directory(projectDir)
+
+        ['JAVA_TOOL_OPTIONS','_JAVA_OPTIONS','JDK_JAVA_OPTIONS','CLASSPATH'].each {handlerCheck.environment().remove(it)}
+
+        handlerCheck.redirectOutput(new File(runDir,'handler-final-check.stdout.json'));handlerCheck.redirectError(new File(runDir,'handler-final-check.stderr.txt'))
+
+        if(handlerCheck.start().waitFor()!=0)throw new GradleException('Unadapted handler/native/carrier compilation intermediary remains: '+runDir)
+
+        def intrinsicCheck=new ProcessBuilder([launcher.toString(),'-classpath',checkCp,'SourceIntrinsicAdapter','--validate-final',receipt.archive] as String[]).directory(projectDir)
+
+        ['JAVA_TOOL_OPTIONS','_JAVA_OPTIONS','JDK_JAVA_OPTIONS','CLASSPATH'].each {intrinsicCheck.environment().remove(it)}
+
+        intrinsicCheck.redirectOutput(new File(runDir,'intrinsic-final-check.stdout.json'));intrinsicCheck.redirectError(new File(runDir,'intrinsic-final-check.stderr.txt'))
+
+        if(intrinsicCheck.start().waitFor()!=0)throw new GradleException('Compiler scalar helper remains: '+runDir)
+        def auditProcess=new ProcessBuilder([launcher.toString(),'-Xmx6g','-classpath',checkCp,'FinalArchiveAudit',receipt.archive,file('build-tools/declarations.json').toString(),new File(runDir,'DECLARATION_RESULT.json').toString(),new File(runDir,'FINAL_AUDIT.json').toString()] as String[]).directory(projectDir)
+        ['JAVA_TOOL_OPTIONS','_JAVA_OPTIONS','JDK_JAVA_OPTIONS','CLASSPATH'].each {auditProcess.environment().remove(it)}
+        auditProcess.redirectOutput(new File(runDir,'final-audit.stdout.txt'));auditProcess.redirectError(new File(runDir,'final-audit.stderr.txt'))
+        if(auditProcess.start().waitFor()!=0)throw new GradleException('Final owned identity/declaration/bytecode audit failed: '+runDir)
+
+        new File(runDir,'RESULT.json').text=JsonOutput.prettyPrint(JsonOutput.toJson(receipt))
+
+        file('build/LAST_SUCCESS.json').text=JsonOutput.prettyPrint(JsonOutput.toJson(receipt))
+
+    }
+
+}
+
+tasks.named('classes'){dependsOn 'compileExactSources'}
+
+tasks.named('jar'){enabled=false}
+
+tasks.register('packageClient') {
+
+    dependsOn 'compileExactSources'
+
+    doLast {
+
+        def r=new JsonSlurper().parse(file('build/LAST_SUCCESS.json'))
+
+        def target=tasks.named('jar').get().archiveFile.get().asFile;target.parentFile.mkdirs()
+
+        java.nio.file.Files.copy(file(r.archive).toPath(),target.toPath(),java.nio.file.StandardCopyOption.REPLACE_EXISTING)
+
+    }
+
+}
+
+tasks.named('assemble'){dependsOn 'packageClient'}
+
+tasks.named('startScripts'){dependsOn 'packageClient'}
+
+tasks.named('run'){doFirst {throw new GradleException('Configure run.local.json and use ./run.ps1; see RUNNING.md.')}}
+

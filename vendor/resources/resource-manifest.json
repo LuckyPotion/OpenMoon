@@ -1,0 +1,61 @@
+{
+  "chunking": {
+    "chunk_size_bytes": 52428800,
+    "maximum_allowed_bytes": 52428800,
+    "part_count": 6,
+    "part_naming": "parts/original-resources.part-NNNN.bin"
+  },
+  "parts": [
+    {
+      "index": 1,
+      "path": "parts/original-resources.part-0001.bin",
+      "sha256": "494B864023532D414835E3F0B9FDC9794A7D8ACA5A37DB19ACB0FAA997955BEE",
+      "size_bytes": 52428800
+    },
+    {
+      "index": 2,
+      "path": "parts/original-resources.part-0002.bin",
+      "sha256": "D9B66446AF74E74AB8F738DA4DB7A27EA52DB463F4E613DA7D48535CEDBCC757",
+      "size_bytes": 52428800
+    },
+    {
+      "index": 3,
+      "path": "parts/original-resources.part-0003.bin",
+      "sha256": "320E07497AE932AA9199A0CC1A39A45E38CCA3FC0064B50D0EEA2A499210EF0A",
+      "size_bytes": 52428800
+    },
+    {
+      "index": 4,
+      "path": "parts/original-resources.part-0004.bin",
+      "sha256": "D7124A4C005B3DB86C5571046D3683769B5F8E8656BA75D6F890E24F0DED3468",
+      "size_bytes": 52428800
+    },
+    {
+      "index": 5,
+      "path": "parts/original-resources.part-0005.bin",
+      "sha256": "C00CF597B5CBEF24508C77A07AF1187719DCADC4136A693282E06CA845523398",
+      "size_bytes": 52428800
+    },
+    {
+      "index": 6,
+      "path": "parts/original-resources.part-0006.bin",
+      "sha256": "7238CE30237D40708B994B7866C62FB0C04D29DDA3A36DF5C132CAD7AA74791F",
+      "size_bytes": 11195014
+    }
+  ],
+  "reassembled": {
+    "path": "original-resources.jar",
+    "sha256": "74E7864CD1AA6DC9ADCB6175439D50F5837BC381BAD4DA0EBDAA860CD396C4EA",
+    "size_bytes": 273339014
+  },
+  "schema": "moon-resource-packaging050/v1",
+  "source": {
+    "path_from_build_root": "vendor/resources/original-resources.jar",
+    "sha256": "74E7864CD1AA6DC9ADCB6175439D50F5837BC381BAD4DA0EBDAA860CD396C4EA",
+    "size_bytes": 273339014
+  },
+  "tool": {
+    "name": "ResourceAssembler.java",
+    "version": "java17-source-1"
+  }
+}

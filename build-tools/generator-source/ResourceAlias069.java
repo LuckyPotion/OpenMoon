@@ -1,0 +1,1 @@
+import org.objectweb.asm.tree.analysis.*; final class ResourceAlias069 extends SpillProof.Alias { final ExactOrigins069 exact=new ExactOrigins069(); public SourceValue merge(SourceValue a,SourceValue b){return exact.merge(a,b);} }

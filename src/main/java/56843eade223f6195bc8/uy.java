@@ -1,0 +1,246 @@
+package moom;
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
+import javax.crypto.spec.IvParameterSpec;
+
+
+import java.util.Map;
+public class uy extends moom.uc {
+
+private final net.minecraft.entity.EntityLiving c;
+
+private double d;
+
+private double e;
+
+private int f;
+
+private static final long g;
+
+private static final long[] h;
+
+private static final java.lang.Integer[] i;
+
+private static final java.util.Map j;
+
+public uy(net.minecraft.entity.EntityLiving p0) {
+super();
+    this.c = p0;
+    (this).a(3);
+}
+
+
+static {
+g = ((long)(((moom._a)(moom._c.a(((long)(4193717438912486032L)), ((long)(-6790651751223127308L)), ((java.lang.Object)(((java.lang.invoke.MethodHandles.Lookup)(java.lang.invoke.MethodHandles.lookup())).lookupClass()))))).a(((long)(34299907717236L)))));
+    j = ((java.util.Map)(new java.util.HashMap(13)));
+    long local0_life7 = (moom.uy.g ^ 43226278707157L);
+    javax.crypto.Cipher local2_life9;
+    javax.crypto.Cipher __sourceSpill1064_11 = (local2_life9 = javax.crypto.Cipher.getInstance(((java.lang.String)("DES/CBC/NoPadding"))));
+    int __sourceSpill1064_12 = 2;
+    javax.crypto.SecretKeyFactory __sourceSpill1064_13 = javax.crypto.SecretKeyFactory.getInstance(((java.lang.String)("DES")));
+    byte[] __sourceSpill1064_14 = new byte[8];
+    (__sourceSpill1064_14)[0] = ((byte) ((int) (local0_life7 >>> 56)));
+    int local3_life15 = 1;
+    while ((local3_life15 < 8)) {
+        (__sourceSpill1064_14)[local3_life15] = ((byte) ((int) ((local0_life7 << (local3_life15 * 8)) >>> 56)));
+        local3_life15 += 1;
+    }
+    byte[] __sourcePreallocation1064_16 = __sourceSpill1064_14;
+    ((javax.crypto.Cipher)(__sourceSpill1064_11)).init(((int)(__sourceSpill1064_12)), ((java.security.Key)(((javax.crypto.SecretKeyFactory)(__sourceSpill1064_13)).generateSecret(((java.security.spec.KeySpec)(new javax.crypto.spec.DESKeySpec(__sourcePreallocation1064_16)))))), ((java.security.spec.AlgorithmParameterSpec)(new javax.crypto.spec.IvParameterSpec(new byte[8]))));
+    long[] local8_life19 = new long[2];
+    int local5_life20 = 0;
+    java.lang.String local6_life21;
+    int local7_life23 = ((java.lang.String)((local6_life21 = "\005Ë4\020Q\030Ñ\n\\\byók7"))).length();
+    int local4_life24 = 0;
+    do {
+        java.lang.String __sourceSpill1064_25 = local6_life21;
+        int __sourceSpill1064_26 = local4_life24;
+        local4_life24 += 8;
+        byte[] local9_life29 = ((java.lang.String)(((java.lang.String)(__sourceSpill1064_25)).substring(((int)(__sourceSpill1064_26)), ((int)(local4_life24))))).getBytes(((java.lang.String)("ISO-8859-1")));
+        long[] __sourceSpill1064_30 = local8_life19;
+        int __sourceSpill1064_31 = local5_life20;
+        local5_life20 += 1;
+        long local10_life32 = (((((((((((long) (local9_life29)[0]) & 255L) << 56) | ((((long) (local9_life29)[1]) & 255L) << 48)) | ((((long) (local9_life29)[2]) & 255L) << 40)) | ((((long) (local9_life29)[3]) & 255L) << 32)) | ((((long) (local9_life29)[4]) & 255L) << 24)) | ((((long) (local9_life29)[5]) & 255L) << 16)) | ((((long) (local9_life29)[6]) & 255L) << 8)) | (((long) (local9_life29)[7]) & 255L));
+        byte[] __sourceSpill1064_33 = new byte[8];
+        (__sourceSpill1064_33)[0] = ((byte) ((int) (local10_life32 >>> 56)));
+        (__sourceSpill1064_33)[1] = ((byte) ((int) (local10_life32 >>> 48)));
+        (__sourceSpill1064_33)[2] = ((byte) ((int) (local10_life32 >>> 40)));
+        (__sourceSpill1064_33)[3] = ((byte) ((int) (local10_life32 >>> 32)));
+        (__sourceSpill1064_33)[4] = ((byte) ((int) (local10_life32 >>> 24)));
+        (__sourceSpill1064_33)[5] = ((byte) ((int) (local10_life32 >>> 16)));
+        (__sourceSpill1064_33)[6] = ((byte) ((int) (local10_life32 >>> 8)));
+        (__sourceSpill1064_33)[7] = ((byte) ((int) local10_life32));
+        javax.crypto.Cipher __sourceSpill1064_34 = local2_life9;
+        byte[] local12_life36 = ((javax.crypto.Cipher)(__sourceSpill1064_34)).doFinal(((byte[])(__sourceSpill1064_33)));
+        (__sourceSpill1064_30)[__sourceSpill1064_31] = (((((((((((long) (local12_life36)[0]) & 255L) << 56) | ((((long) (local12_life36)[1]) & 255L) << 48)) | ((((long) (local12_life36)[2]) & 255L) << 40)) | ((((long) (local12_life36)[3]) & 255L) << 32)) | ((((long) (local12_life36)[4]) & 255L) << 24)) | ((((long) (local12_life36)[5]) & 255L) << 16)) | ((((long) (local12_life36)[6]) & 255L) << 8)) | (((long) (local12_life36)[7]) & 255L));
+    } while ((!(local4_life24 >= local7_life23)));
+    h = ((long[])(local8_life19));
+    i = ((java.lang.Integer[])(new java.lang.Integer[2]));
+}
+
+
+public boolean b__Boolean() {
+int forwardValue4252_12_0;
+    int forwardValue4252_14_0;
+    int spill4252_0;
+    long life1_3;
+    int life3_5;
+    forward_join_14: {
+    forward_join_13: {
+    forward_join_12: {
+    life1_3 = (moom.uy.g ^ 33720294524320L);
+    life3_5 = ((moom.uc.e()) ? 1 : 0);
+    spill4252_0 = this.f;
+    if (!((life3_5 == 0))) {
+        forwardValue4252_12_0 = spill4252_0;
+        break forward_join_12;
+    }
+    if (!((spill4252_0 >= 0))) {
+        break forward_join_13;
+    }
+    forwardValue4252_12_0 = 1;
+    }
+    forwardValue4252_14_0 = forwardValue4252_12_0;
+    break forward_join_14;
+    }
+    forwardValue4252_14_0 = 0;
+    }
+    return ((forwardValue4252_14_0) != 0);
+}
+
+
+public void c() {
+this.f -= 1;
+    ((net.minecraft.entity.ai.EntityLookHelper)(((net.minecraft.entity.EntityLiving)(this.c)).a__vt())).a(((double)((((net.minecraft.entity.EntityLiving)(this.c)).n + this.d))), ((double)((((net.minecraft.entity.EntityLiving)(this.c)).o + ((double) ((net.minecraft.entity.EntityLiving)(this.c)).e__Float())))), ((double)((((net.minecraft.entity.EntityLiving)(this.c)).p + this.e))), ((float)(0x1.4p3f)), ((float)(((float) ((net.minecraft.entity.EntityLiving)(this.c)).m__Int()))));
+    return;
+}
+
+
+private static java.lang.invoke.CallSite a(java.lang.invoke.MethodHandles.Lookup p0, java.lang.String p1, java.lang.invoke.MethodType p2) {
+java.lang.invoke.MutableCallSite local3 = new java.lang.invoke.MutableCallSite(p2);
+    try {
+        ((java.lang.invoke.MutableCallSite)(local3)).setTarget(((java.lang.invoke.MethodHandle)(java.lang.invoke.MethodHandles.explicitCastArguments(((java.lang.invoke.MethodHandle)(java.lang.invoke.MethodHandles.insertArguments(((java.lang.invoke.MethodHandle)(((java.lang.invoke.MethodHandle)(__sourceIntrinsic_a027964b87ab_methodHandleLiteral9409_0())).asCollector(((java.lang.Class)(java.lang.Object[].class)), ((int)(((java.lang.invoke.MethodType)(p2)).parameterCount()))))), ((int)(0)), ((java.lang.Object[])(new java.lang.Object[] {p0, local3, p1}))))), ((java.lang.invoke.MethodType)(p2))))));
+    } catch (java.lang.Exception caught4) {
+        throw new java.lang.RuntimeException(((java.lang.StringBuilder)(((java.lang.StringBuilder)(((java.lang.StringBuilder)(((java.lang.StringBuilder)(((java.lang.StringBuilder)(((java.lang.StringBuilder)(new java.lang.StringBuilder())).append(((java.lang.String)("moom/uy"))))).append(((java.lang.String)(" : "))))).append(((java.lang.String)(p1))))).append(((java.lang.String)(" : "))))).append(((java.lang.String)(((java.lang.invoke.MethodType)(p2)).toString()))))).toString(), caught4);
+    }
+    return local3;
+}
+
+
+private static int a(java.lang.invoke.MethodHandles.Lookup p0, java.lang.invoke.MutableCallSite p1, java.lang.String p2, java.lang.Object[] p3) {
+int local4 = ((java.lang.Integer)(((java.lang.Integer)((p3)[0])))).intValue();
+    long local5 = ((java.lang.Long)(((java.lang.Long)((p3)[1])))).longValue();
+    int local7 = moom.uy.a(((int)(local4)), ((long)(local5)));
+    java.lang.invoke.MethodHandle local8 = java.lang.invoke.MethodHandles.constant(((java.lang.Class)(java.lang.Integer.TYPE)), ((java.lang.Object)(java.lang.Integer.valueOf(((int)(local7))))));
+    ((java.lang.invoke.MutableCallSite)(p1)).setTarget(((java.lang.invoke.MethodHandle)(java.lang.invoke.MethodHandles.dropArguments(((java.lang.invoke.MethodHandle)(local8)), ((int)(0)), ((java.lang.Class[])(new java.lang.Class[] {java.lang.Integer.TYPE, java.lang.Long.TYPE}))))));
+    return local7;
+}
+
+
+private static int a(int p0, long p1) {
+int var3 = p0 ^ (int)(p1 & 32767L) ^ 9830;
+      if (i[var3] == null) {
+         byte[] var4 = new byte[]{
+            (byte)(p1 >>> 56),
+            (byte)(p1 >>> 48),
+            (byte)(p1 >>> 40),
+            (byte)(p1 >>> 32),
+            (byte)(p1 >>> 24),
+            (byte)(p1 >>> 16),
+            (byte)(p1 >>> 8),
+            (byte)p1
+         };
+         long var5 = h[var3];
+         byte[] var7 = new byte[]{
+            (byte)(var5 >>> 56),
+            (byte)(var5 >>> 48),
+            (byte)(var5 >>> 40),
+            (byte)(var5 >>> 32),
+            (byte)(var5 >>> 24),
+            (byte)(var5 >>> 16),
+            (byte)(var5 >>> 8),
+            (byte)var5
+         };
+         Long var8 = Thread.currentThread().getId();
+         Object[] var9 = (Object[])j.get(var8);
+
+         byte[] var10;
+         try {
+            if (var9 == null) {
+               var9 = new Object[3];
+var9[0] = Cipher.getInstance("DES/CBC/NoPadding");
+var9[1] = SecretKeyFactory.getInstance("DES");
+var9[2] = new IvParameterSpec(new byte[8]);
+               j.put(var8, var9);
+            }
+
+            DESKeySpec var11 = new DESKeySpec(var4);
+            SecretKey var12 = ((SecretKeyFactory)var9[1]).generateSecret(var11);
+            Cipher var13 = (Cipher)var9[0];
+            var13.init(2, var12, (IvParameterSpec)var9[2]);
+            var10 = var13.doFinal(var7);
+         } catch (Exception var14) {
+            throw new RuntimeException("moom/uy", var14);
+         }
+
+         int var15 = (var10[4] & 255) << 24 | (var10[5] & 255) << 16 | (var10[6] & 255) << 8 | var10[7] & 255;
+         i[var3] = var15;
+      }
+
+      return i[var3];
+}
+
+
+private static moom.Oo a(moom.Oo p0) {
+return p0;
+}
+
+
+public boolean a__Boolean() {
+int forwardValue4251_16_0;
+    int forwardValue4251_18_0;
+    int spill4251_0;
+    long life1_3;
+    int life3_5;
+    forward_join_18: {
+    forward_join_17: {
+    forward_join_16: {
+    life1_3 = (moom.uy.g ^ 129847302270257L);
+    life3_5 = ((moom.uc.d()) ? 1 : 0);
+    spill4251_0 = recovery.source.CarrierOps.fcmpg(((float)(((java.util.Random)(((net.minecraft.entity.EntityLiving)(this.c)).a__Random())).nextFloat())), ((float)(0x1.47ae14p-6f)));
+    if (!((life3_5 != 0))) {
+        forwardValue4251_16_0 = spill4251_0;
+        break forward_join_16;
+    }
+    if (!((spill4251_0 < 0))) {
+        break forward_join_17;
+    }
+    forwardValue4251_16_0 = 1;
+    }
+    forwardValue4251_18_0 = forwardValue4251_16_0;
+    break forward_join_18;
+    }
+    forwardValue4251_18_0 = 0;
+    }
+    return ((forwardValue4251_18_0) != 0);
+}
+
+
+public void a__Void() {
+long local1 = (moom.uy.g ^ 123368936117517L);
+    double local3 = (0x1.921fb54442d18p2d * ((java.util.Random)(((net.minecraft.entity.EntityLiving)(this.c)).a__Random())).nextDouble());
+    this.d = ((double)(java.lang.Math.cos(((double)(local3)))));
+    this.e = ((double)(java.lang.Math.sin(((double)(local3)))));
+    this.f = ((int)((__sourceIntrinsic_b82a5b29b709_originalDynamicSite1682_8(1231, (8292122213432648291L ^ local1)) + ((java.util.Random)(((net.minecraft.entity.EntityLiving)(this.c)).a__Random())).nextInt(((int)(__sourceIntrinsic_b82a5b29b709_originalDynamicSite1682_11(25753, (2919061987388326452L ^ local1))))))));
+    return;
+}
+
+
+private static native <E extends Throwable> java.lang.invoke.MethodHandle __sourceIntrinsic_a027964b87ab_methodHandleLiteral9409_0() throws E;
+
+private static native <E extends Throwable> int __sourceIntrinsic_b82a5b29b709_originalDynamicSite1682_8(int a0, long a1) throws E;
+
+private static native <E extends Throwable> int __sourceIntrinsic_b82a5b29b709_originalDynamicSite1682_11(int a0, long a1) throws E;
+}

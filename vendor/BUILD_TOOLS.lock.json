@@ -1,0 +1,220 @@
+{
+  "schema": 1,
+  "tools": [
+    {
+      "path": "vendor/build-tools/04-gson-2.10.jar",
+      "sha256": "0CDD163CE3598A20FC04EEE71B140B24F6F2A3B35F0A499DBBDD9852E83FBFAF",
+      "size": 286235
+    },
+    {
+      "path": "vendor/build-tools/asm-9.9.1.jar",
+      "sha256": "6F3828A215C920059A5EFA2FB55C233D6C54EC5CADCA99CE1B1BDD10077C7DDD",
+      "size": 126252
+    },
+    {
+      "path": "vendor/build-tools/asm-analysis-9.9.1.jar",
+      "sha256": "6260BFFC8EC008DD1B713702C7994E2C94D188A3DA5BEF9E87278A16DF6A7522",
+      "size": 35170
+    },
+    {
+      "path": "vendor/build-tools/asm-tree-9.9.1.jar",
+      "sha256": "0F3555096B720B820BBACAB0B515589BEE0200BEE099BDA14C561738AE837BA1",
+      "size": 51963
+    },
+    {
+      "path": "vendor/build-tools/generation-toolkit.zip",
+      "sha256": "1D56FFB3A14E29A84ADC2D8BF50D7078A3369D7E2D47BD73B030C977D55EC0DC",
+      "size": 522375,
+      "role": "fixed_binary_build_toolchain_not_client_owned_implementation",
+      "class_entries": 149,
+      "owned_class_overlap": 0
+    }
+  ],
+  "role": "Build-only ASM/Gson and 149 fixed binary generation-toolkit classes; never client runtime classpath or output; declaration JSON contains no Code.",
+  "metadata": [
+    {
+      "path": "build-tools/declarations.json",
+      "sha256": "A0AB3724EDF3BA2BDF94A58435A8AB7CE2E4487C25B217689B714EF7B759FFF9",
+      "size": 14052917,
+      "role": "Code_free_owner_declarations_and_hierarchy_not_compilation_classpath"
+    },
+    {
+      "path": "build-tools/runtime-declarations.json",
+      "sha256": "4FCEDB0CC19C1C7CFFE15D946F302E34D6B42A76BF46CAADD08C88D308B237FF",
+      "size": 26528215,
+      "role": "Decoded declaration annotations/constants/nests only; no implementation Code or frames"
+    }
+  ],
+  "sources": [
+    {
+      "path": "build-tools/generator-source/AdaptCFG.java",
+      "sha256": "EDF271E9FD4EE227943680378B18B68BD71667F0D5D3DA4FDFD07B7235589E88",
+      "size": 49050,
+      "role": "tracked_fresh_compiled_generator_source_overrides_same_name_fixed_toolkit_class"
+    },
+    {
+      "path": "build-tools/generator-source/ExplicitNewBindingProof.java",
+      "sha256": "16CE892CDF9AD684B0C54F5D631C674CD9BFB50791656BCF5AFCB92A2A134681",
+      "size": 1947,
+      "role": "tracked_fresh_compiled_generator_source_overrides_same_name_fixed_toolkit_class"
+    },
+    {
+      "path": "build-tools/generator-source/ExplicitSourceNewDomain.java",
+      "sha256": "0DF79EF28F77C2322B5BF7B27F52E1F7C03E218CFB953C11B4A52A1D21E7765F",
+      "size": 628,
+      "role": "tracked_fresh_compiled_generator_source_overrides_same_name_fixed_toolkit_class"
+    },
+    {
+      "path": "build-tools/generator-source/InitializedSourceNewProof.java",
+      "sha256": "001956CAEA91F255300038E62F93A380EC032FB0C01F8A7E6CC087D4AE4B5470",
+      "size": 7302,
+      "role": "tracked_fresh_compiled_generator_source_overrides_same_name_fixed_toolkit_class"
+    },
+    {
+      "path": "build-tools/generator-source/InlineStackProof.java",
+      "sha256": "92F9AD0B660D5ACFCAECD1B29B67FA14BA9DA241BE65D49B01C8547093981360",
+      "size": 12786,
+      "role": "tracked_fresh_compiled_generator_source_overrides_same_name_fixed_toolkit_class"
+    },
+    {
+      "path": "build-tools/generator-source/MonitorOperationRule.java",
+      "sha256": "B359D6161D583F1738EA81A5468E957DA0FAD9E32EB359D9959AFE35E4BDAB42",
+      "size": 2888,
+      "role": "tracked_fresh_compiled_generator_source_overrides_same_name_fixed_toolkit_class"
+    },
+    {
+      "path": "build-tools/generator-source/SourceSwitchEncodingProof.java",
+      "sha256": "AF4C22CDA6DC359137CC2928B2EC0960BE2717EB9ACF26E6936F50CC07FF76A9",
+      "size": 7751,
+      "role": "tracked_fresh_compiled_generator_source_overrides_same_name_fixed_toolkit_class"
+    },
+    {
+      "path": "build-tools/generator-source/NestedHandlerCFGUnion.java",
+      "sha256": "037BBE85807EE8D6272FE16DC81E9AD0539FAC9C2FE2BDF684A179DC6AACB407",
+      "size": 9136,
+      "role": "tracked_fresh_compiled_generator_source_overrides_same_name_fixed_toolkit_class"
+    },
+    {
+      "path": "build-tools/generator-source/ScalarStackOperationProof.java",
+      "sha256": "DE1AF7BEB6BFF03DBC30DB7EF700B9F09BEF06C2EA935CDC6E000C3372D4A622",
+      "size": 8367,
+      "role": "tracked_fresh_compiled_generator_source_overrides_same_name_fixed_toolkit_class"
+    },
+    {
+      "path": "build-tools/generator-source/SourceStackTransportProof.java",
+      "role": "tracked_fresh_compiled_generator_source",
+      "sha256": "96F1BFB0F31ED06540173A5E8320E5E6626355FC5E031D7A2A2746432756FBBF",
+      "size": 13728
+    },
+    {
+      "path": "build-tools/generator-source/SourceLexicalCycleDomain.java",
+      "role": "tracked_fresh_compiled_generator_source",
+      "sha256": "30D1745D46C6C9F3C3BEDDB8B52B05ED366709596BE346C2E42E8E12D6A63547",
+      "size": 9038
+    },
+    {
+      "path": "build-tools/generator-source/SourceLexicalSwitchTrampolineProof.java",
+      "role": "tracked_fresh_compiled_generator_source",
+      "sha256": "57E86DBB6F8DF342D0238A156920BE8B24A94AECF99C8F5677665C943D56AAB7",
+      "size": 4070
+    },
+    {
+      "path": "build-tools/generator-source/InlineArrayWrite069.java",
+      "role": "tracked_fresh_compiled_generator_source",
+      "sha256": "A1836B50536319273850DB54C9DF9936B8D5F8E7F386110750534C8A0DCC800E",
+      "size": 4753
+    },
+    {
+      "path": "build-tools/generator-source/SourceIntegerCategoryProof.java",
+      "sha256": "4D13BDEEC53823AFCDED1BA5B8A8E99A0DE8FA81143B2B60B9E4A06A78439633",
+      "size": 3565,
+      "role": "tracked_fresh_compiled_generator_source"
+    },
+    {
+      "path": "build-tools/generator-source/ExactOrigins069.java",
+      "sha256": "3A7A04EE51F32315917DBB2C7EB1BCC2D16E38941065255EE10260289EDC0DE9",
+      "size": 2602,
+      "role": "tracked_fresh_compiled_generator_source"
+    },
+    {
+      "path": "build-tools/generator-source/IdentityInstructionContractionProof106.java",
+      "sha256": "9D7C1B856F10F4BC0BB8611C3A318EE11076417125047CFF38839902FAB6FDFF",
+      "size": 5942,
+      "role": "tracked_fresh_compiled_generator_source"
+    },
+    {
+      "path": "build-tools/generator-source/LifetimeLocalBinding.java",
+      "role": "tracked_fresh_compiled_generator_source",
+      "sha256": "849DC4D86AAD49BBBB49027C6B4DBF93F4410543442C088631AD6E74B5421E47",
+      "size": 9183
+    },
+    {
+      "path": "build-tools/generator-source/UnusedAssignment069.java",
+      "role": "tracked_fresh_compiled_generator_source",
+      "sha256": "CFEC24847404DCC3C1A72DDF682F74883664FC5E928C8FC182982EB8A510557F",
+      "size": 3674
+    },
+    {
+      "path": "build-tools/generator-source/SourceLifetimeRemapProof.java",
+      "role": "tracked_fresh_compiled_generator_source",
+      "sha256": "CEC51605C5343A8FC3BB19B56C30843C33CE4DFF219EB0719E070EC0DA2338D1",
+      "size": 6038
+    },
+    {
+      "path": "build-tools/generator-source/ResourceAlias069.java",
+      "role": "tracked_fresh_compiled_generator_source",
+      "sha256": "B92B631B5C5EE4D771108DF0F9356E85A8C7BD4E7D689DFDC46685484186FA12",
+      "size": 232
+    },
+    {
+      "path": "build-tools/generator-source/CombinedSourceTransportScalarProof.java",
+      "role": "tracked_fresh_compiled_generator_source",
+      "sha256": "CBE64F0A923873E3C2BC32C444D9ED3EBEE0CFF855FB2B511B5433F282BEBC1C",
+      "size": 7171
+    },
+    {
+      "path": "build-tools/generator-source/NestedHandlerCFGLowering.java",
+      "role": "tracked_fresh_compiled_generator_source",
+      "sha256": "EA021572E3B38C9FF3ADA0F9FA25006053CFA95AA71CE5A2C54146A147D65150",
+      "size": 5166
+    },
+    {
+      "path": "build-tools/generator-source/OrderedSourceAnalyzer114.java",
+      "role": "tracked_fresh_compiled_generator_source",
+      "sha256": "7F469980C6194AA9B5CF53912467D4FB036BB2E92DFC40BAC7A2FD3E2ACBFF70",
+      "size": 3625
+    }
+  ],
+  "bootstrap_sources": [
+    {
+      "path": "build-tools/ResourceAssembler.java",
+      "sha256": "79D94BF1AA70F321040C32EDA212EFC8B9F4FE5561C847DF2AED6C8DFEFDB591",
+      "size": 24172,
+      "role": "Java17-only resource chunk reconstruction before vendor validation"
+    }
+  ],
+  "bootstrap_metadata": [
+    {
+      "path": "vendor/resources/resource-manifest.json",
+      "sha256": "25DF017679E94581EDAB1F5188A3342020B4FCA4B84B02FB5693477271B30D4B",
+      "size": 1961,
+      "role": "resource chunk reconstruction input manifest"
+    }
+  ],
+  "frontend_sources": [
+    {
+      "path": "build-tools/JvmExceptionSourcePolicy.java",
+      "sha256": "246A0FE80963AFF7364F4248EB1DBCFDBB6A8D409CE1A2FF4D29FEB25923882D",
+      "size": 1900,
+      "role": "JDK17 JVM exception policy: only checked propagation and catch reachability, all diagnostics retained separately"
+    }
+  ],
+  "audit_sources": [
+    {
+      "path": "build-tools/FinalArchiveAudit.java",
+      "sha256": "DE85CC85A5E35BEA49CE64C9CF07F3B3901E44BBB4414E71274CBAF7C0682A3B",
+      "size": 22685,
+      "role": "whole fresh archive identity, declaration, forbidden-helper and ASM BasicVerifier gate without client classloading"
+    }
+  ]
+}

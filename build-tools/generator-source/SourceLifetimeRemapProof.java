@@ -1,0 +1,30 @@
+import java.util.*;import org.objectweb.asm.*;import org.objectweb.asm.tree.*;import org.objectweb.asm.tree.analysis.*;
+/** Whole actual source CFG before/after physical local coalescing. Never reads original target Code/frames. */
+public final class SourceLifetimeRemapProof implements Opcodes {
+ static void need(boolean b,String s){ExecutableVerify.need(b,"source_local_lifetime_"+s);}
+ static class Values extends SourceInterpreter {
+  final ExactOrigins069 exactOrigins069=new ExactOrigins069();public SourceValue merge(SourceValue a,SourceValue b){return exactOrigins069.merge(a,b);}
+  final Map<Integer,AbstractInsnNode> parameters=new HashMap<>();final IdentityHashMap<TryCatchBlockNode,AbstractInsnNode> exceptionOrigins=new IdentityHashMap<>();List<Object> tape=new ArrayList<>();boolean suppressAnalysisTape=false;Values(){super(ASM9);}
+  public SourceValue newParameterValue(boolean instance,int slot,Type type){return new SourceValue(type.getSize(),parameters.computeIfAbsent(slot,k->new VarInsnNode(type.getOpcode(ILOAD),slot)));}
+  public SourceValue newExceptionValue(TryCatchBlockNode handler,Frame<SourceValue> at,Type type){return new SourceValue(1,exceptionOrigins.computeIfAbsent(handler,k->new InsnNode(NOP)));}
+  void consume(String kind,SourceValue...v){if(!suppressAnalysisTape)tape.add(List.of(kind,Arrays.asList(v)));}
+  public SourceValue copyOperation(AbstractInsnNode n,SourceValue v){consume("copy",v);return v;}
+  public SourceValue unaryOperation(AbstractInsnNode n,SourceValue v){consume("unary",v);return super.unaryOperation(n,v);}
+  public SourceValue binaryOperation(AbstractInsnNode n,SourceValue a,SourceValue b){consume("binary",a,b);return super.binaryOperation(n,a,b);}
+  public SourceValue ternaryOperation(AbstractInsnNode n,SourceValue a,SourceValue b,SourceValue c){consume("ternary",a,b,c);return super.ternaryOperation(n,a,b,c);}
+  public SourceValue naryOperation(AbstractInsnNode n,List<? extends SourceValue> vs){consume("nary",vs.toArray(SourceValue[]::new));return super.naryOperation(n,vs);}
+  public void returnOperation(AbstractInsnNode n,SourceValue v,SourceValue expected){consume("return",v,expected);}
+ }
+ static boolean sameStack(Frame<SourceValue> x,Frame<SourceValue> y){if(x.getStackSize()!=y.getStackSize())return false;for(int i=0;i<x.getStackSize();i++)if(!Objects.equals(x.getStack(i),y.getStack(i)))return false;return true;}
+ final Values values=new Values();final Frame<SourceValue>[] before;final IdentityHashMap<AbstractInsnNode,Integer> indexes=new IdentityHashMap<>();final List<AbstractInsnNode> nodes=new ArrayList<>();final Object originalHandlers;final String descriptor;final int access;final Map<Integer,List<Object>> frozenConsumed=new TreeMap<>();final Map<Integer,Frame<SourceValue>> frozenOutgoing=new TreeMap<>();final Set<String> beforeEdges=new TreeSet<>();
+ Frame<SourceValue>[] analyze(MethodNode m,Set<String> edges)throws Exception{boolean prior=values.suppressAnalysisTape;values.suppressAnalysisTape=true;try{return new OrderedSourceAnalyzer114<SourceValue>(values){protected void newControlFlowEdge(int from,int to){edges.add("normal:"+from+":"+to);}protected boolean newControlFlowExceptionEdge(int from,TryCatchBlockNode h){edges.add("ordered_exception:"+from+":"+m.tryCatchBlocks.indexOf(h)+":"+m.instructions.indexOf(h.handler));return true;}}.analyze("compiler/source",m);}finally{values.suppressAnalysisTape=prior;}}
+ SourceLifetimeRemapProof(MethodNode m)throws Exception{int p=0;for(var n:m.instructions){indexes.put(n,p++);nodes.add(n);}descriptor=m.desc;access=m.access;originalHandlers=ExecutableVerify.handlers(m);before=analyze(m,beforeEdges);for(var n:nodes){int at=indexes.get(n);if(n.getOpcode()<0||before[at]==null)continue;var f=new Frame<SourceValue>(before[at]);values.tape=new ArrayList<>();f.execute(n,values);frozenConsumed.put(at,List.copyOf(values.tape));frozenOutgoing.put(at,f);}}
+ static SourceLifetimeRemapProof capture(MethodNode m)throws Exception{return new SourceLifetimeRemapProof(m);}
+ Map<String,Object> finish(MethodNode m)throws Exception{
+  need(m.desc.equals(descriptor)&&m.access==access,"same_incoming_ABI");need(originalHandlers.equals(ExecutableVerify.handlers(m)),"ordered_handler_graph_unchanged");need(nodes.size()==m.instructions.size(),"no_instruction_emission_or_deletion");int index=0;for(var n:m.instructions)need(nodes.get(index++)==n,"every_source_opcode_identity_retained");
+  var afterEdges=new TreeSet<String>();values.tape=new ArrayList<>();var after=analyze(m,afterEdges);need(beforeEdges.equals(afterEdges),"every_normal_and_ordered_exception_edge_exact");int checked=0,terminals=0;
+  for(var n:nodes){if(n.getOpcode()<0)continue;int p=indexes.get(n);var f=before[p];var g=after[p];need((f==null)==(g==null),"complete_normal_and_abrupt_reachability_equal");if(f==null)continue;need(sameStack(f,g),"every_opcode_complete_incoming_stack_equal_"+checked);var x=frozenOutgoing.get(p);var y=new Frame<SourceValue>(g);var expected=frozenConsumed.get(p);values.tape=new ArrayList<>();y.execute(n,values);need(expected.equals(values.tape),"every_opcode_consumes_same_unique_parameter_or_producer_values_"+checked);need(sameStack(x,y),"every_opcode_outgoing_stack_equal_"+checked);checked++;if(n.getOpcode()==ATHROW||n.getOpcode()>=IRETURN&&n.getOpcode()<=RETURN)terminals++;
+  }
+  return LeafSource.map("kind","whole_source_only_pre_post_physical_local_remap_symbolic_CFG_proof","actual_javac_opcodes_checked",checked,"terminals_checked",terminals,"unique_ABI_parameter_producer_tags",true,"complete_normal_and_handler_reachability_exact",true,"every_retained_opcode_input_output_stack_and_consumed_values_widths_exact",true,"stable_each_handler_exception_producer_tags",true,"normal_edge_count",beforeEdges.stream().filter(x->x.startsWith("normal:")).count(),"ordered_exception_edge_count",beforeEdges.stream().filter(x->x.startsWith("ordered_exception:")).count(),"source_graph_edges",beforeEdges,"unsafe_local_coalescing_rejected",true,"original_target_Code_or_frames_used",false);
+ }
+}
