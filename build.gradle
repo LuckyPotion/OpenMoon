@@ -134,7 +134,9 @@ tasks.register('compileExactSources') {
 
         if(!indexFile.isFile()) throw new GradleException('Missing source-units.json; complete source integration first.')
 
-        def units=new JsonSlurper().parse(indexFile).units
+        def sourceIndexDescriptor=new JsonSlurper().parse(indexFile)
+        if(sourceIndexDescriptor.reference_only) throw new GradleException('Reference-only source index cannot be used for production.')
+        def units=sourceIndexDescriptor.units
 
         if(!units) throw new GradleException('No explicit production Java units.')
 
@@ -150,9 +152,11 @@ tasks.register('compileExactSources') {
 
             if(!seen.add(entry)) throw new GradleException('Duplicate source entry: '+entry)
 
+            if(u.path ==~ /(?i)(legacy|reference)[\/].*/ || (u.owner as String) ==~ /com\/moon\/security\/.*/ || (u.owner as String) in ['com/moon/cn','com/moon/ph','com/moon/obfuscator/Loader','com/moon/obfuscator/Bootstrap','com/moon/obfuscator/NativeLoader']) throw new GradleException('Reference verifier source is excluded from production: '+u.path)
             def sourceFile=file(u.path)
 
             if(!sourceFile.canonicalFile.toPath().startsWith(projectDir.canonicalFile.toPath())) throw new GradleException('Source outside repository.')
+            if(u.source_sha256 && fileSha(sourceFile) != u.source_sha256) throw new GradleException('Source SHA mismatch: '+u.path)
 
             def ze=new ZipEntry(entry);ze.setTimeLocal(java.time.LocalDateTime.of(2000,1,1,0,0));z.putNextEntry(ze)
 

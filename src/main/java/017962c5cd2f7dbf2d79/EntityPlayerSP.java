@@ -2233,7 +2233,7 @@ int forwardValue4767_27_0;
     if (!((((com.moon.runtime.ClientContext)(com.moon.runtime.ClientContext.getInstance())).a__c() != null))) {
         break forward_join_53;
     }
-    spill4767_2 = com.moon.security.e.c;
+    spill4767_2 = com.moon.runtime.LocalClientState.c;
     if (!((life3_5 != null))) {
         forwardValue4767_62_0 = ((spill4767_2) ? 1 : 0);
         break forward_join_62;

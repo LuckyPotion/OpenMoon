@@ -128,10 +128,11 @@ try {
     $moonIndexPath=if([IO.Path]::IsPathRooted($SourceIndex)){$SourceIndex}else{Join-Path $moonRoot $SourceIndex}
 
     $moonIndex=Get-Content $moonIndexPath -Raw|ConvertFrom-Json
+    if($moonIndex.reference_only){throw "Reference-only source index cannot be used for production."}
     $moonUnits=@($moonIndex.units)
 
     if($moonUnits.Count -eq 0){throw 'Source index has no production Java units.'}
-    if($SourceOnly -and $SourceIndex -eq 'source-units.json' -and $moonUnits.Count -ne 4097){throw "Source-only source-unit count mismatch: $($moonUnits.Count) != 4097"}
+    if($SourceOnly -and $SourceIndex -eq 'source-units.json' -and $moonUnits.Count -ne 4076){throw "Source-only source-unit count mismatch: $($moonUnits.Count) != 4076"}
 
     $moonZip=Join-Path $moonRun 'sources.zip'
 
@@ -160,6 +161,7 @@ try {
         try{$moonInput.CopyTo($moonOutput)}finally{$moonInput.Dispose();$moonOutput.Dispose()}
 
         $moonSourceSha=(Get-FileHash $moonSource -Algorithm SHA256).Hash
+        if($moonUnit.path -match "^(legacy|reference)[/\\]" -or $moonUnit.owner -cmatch "^com/moon/security/|^com/moon/(cn|ph)$|^com/moon/obfuscator/(Loader|Bootstrap|NativeLoader)$"){throw "Reference verifier source is excluded from production: $($moonUnit.path)"}
         if($moonUnit.source_sha256 -and $moonSourceSha -ne $moonUnit.source_sha256){throw "Source SHA mismatch: $($moonUnit.path)"}
         if($moonUnit.owner -and $moonUnit.entry -ne ($moonUnit.owner+'.java')){throw "Source owner/entry mismatch: $($moonUnit.entry) != $($moonUnit.owner).java"}
         $moonRows += [ordered]@{path=$moonUnit.path;entry=$moonUnit.entry;owner=$moonUnit.owner;sha256=$moonSourceSha}

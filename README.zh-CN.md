@@ -1,5 +1,7 @@
 # OpenMoon
 
+
+默认构建不包含 Moon UID 验证。原实现单独保存在 `legacy/uid-verification/`，仅供研究，不要将其添加到生产源码目录。
 Moon 独立客户端源码工程，使用 JDK 17 构建。
 
 [English](README.md) · [运行配置](RUNNING.md) · [第三方材料](docs/THIRD_PARTY.md)

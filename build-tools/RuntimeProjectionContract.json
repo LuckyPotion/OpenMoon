@@ -1,36 +1,47 @@
 {
-  "schema": 1,
-  "source_S_sha256": "FC9B8E06EB3C7EA00F737CD353B30A9400FB5E02515BBE6BA635A4263FF327D4",
-  "runtime_R_sha256": "5C252A756F4CC87258064CB7D954DC816D1F6837D8AAC7B56C713917DAAD7068",
-  "coalesced_compiler_slots": 764,
-  "owned_receiver_symbolic_cases": 765,
-  "symbolic_proof_sha256": "EF60747FEAECE5BF20F62CED8F717ABEB1D42E82ADD8DA0ABCA23069C6CF7D7C",
-  "original_R_identity_audit_sha256": "01C30143D5A1E76D0BD86FA55196AF220317F1380AC789A166D5330DE45746BF",
-  "original_R_owners": 3911,
-  "generated_source_owners": 182,
-  "source_original_methods": 48329,
-  "source_extra_forwarders": 1198,
-  "runtime_extra_forwarders": 434,
-  "Code_free_ConstantValue_rows": 23,
-  "retained_original_source_pure_cycle_count": 1,
-  "retained_original_source_pure_cycle": "moom/lN.a(Vector3f,bs,int,ModelRotation,boolean):int",
-  "limits": [
-    "No raw Code/frame donor, no public widening or removed permits.",
-    "JDK17 output retains 13 class-version differences from original R.",
-    "Forwarder-slot proof covers owned receiver subtypes; caller-sensitive stack/unknown external-subclass behavior and manual feature acceptance are not inferred."
+  "schema": 2,
+  "variant": "uid-free",
+  "expected_owned_classes": 4072,
+  "expected_reference_R_classes": 3886,
+  "authored_owners": [
+    "com/moon/runtime/LocalClientProfile",
+    "com/moon/runtime/LocalClientState",
+    "com/moon/runtime/StartupScreen",
+    "com/moon/runtime/LocalBootstrap"
   ],
-  "enum_reference_fix": {
-    "enum_classes": 22,
-    "field_references": 44,
-    "method_references": 22,
-    "unrelated_structure_differences": 0,
-    "delta_audit_sha256": "E9137BC1641ED99671E910E23101DBEA7CAF23DE8A27B0774396ECCB5DE80940"
-  },
-  "static_member_closure": {
-    "method_sites": 354237,
-    "field_sites": 158393,
-    "handle_sites": 38987,
-    "failures": 0,
-    "audit_sha256": "892715246C7215D330E060B286BD700BB8B547AE21127AF31908B35638C0629C"
-  }
+  "excluded_owners": [
+    "com/moon/cn",
+    "com/moon/obfuscator/Bootstrap",
+    "com/moon/obfuscator/Loader",
+    "com/moon/obfuscator/NativeLoader",
+    "com/moon/ph",
+    "com/moon/security/API",
+    "com/moon/security/a",
+    "com/moon/security/b",
+    "com/moon/security/c",
+    "com/moon/security/d",
+    "com/moon/security/e",
+    "com/moon/security/f",
+    "com/moon/security/g",
+    "com/moon/security/h",
+    "com/moon/security/i",
+    "com/moon/security/j",
+    "com/moon/security/k",
+    "com/moon/security/l",
+    "com/moon/security/m",
+    "com/moon/security/n",
+    "com/moon/security/o",
+    "com/moon/security/p",
+    "com/moon/security/q",
+    "com/moon/security/r",
+    "com/moon/security/s"
+  ],
+  "excluded_resources": [
+    "natives/moon-native.dll",
+    "natives/moon-api-win64.dll",
+    "natives/moon-api-linux.so"
+  ],
+  "expected_resource_entries": 5149,
+  "original_behavior_equivalence_claimed": false,
+  "expected_source_units": 4076
 }

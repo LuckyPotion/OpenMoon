@@ -91,7 +91,7 @@ int lexicalValue5_30_0;
     if (!((((com.moon.runtime.ClientContext)(com.moon.runtime.ClientContext.getInstance())).a__c() != null))) {
         break lexical_join_25;
     }
-    spill5_1 = com.moon.security.e.c;
+    spill5_1 = com.moon.runtime.LocalClientState.c;
     if (!((life4_5 != null))) {
         lexicalValue5_30_0 = ((spill5_1) ? 1 : 0);
         break lexical_join_30;
@@ -99,7 +99,7 @@ int lexicalValue5_30_0;
     if (!(spill5_1)) {
         break lexical_join_25;
     }
-    spill5_2 = ((com.moon.security.c)(((com.moon.runtime.ClientContext)(com.moon.runtime.ClientContext.getInstance())).a__c())).a__Boolean();
+    spill5_2 = ((com.moon.runtime.LocalClientProfile)(((com.moon.runtime.ClientContext)(com.moon.runtime.ClientContext.getInstance())).a__c())).a__Boolean();
     if (!((life4_5 != null))) {
         lexicalValue5_30_0 = ((spill5_2) ? 1 : 0);
         break lexical_join_30;

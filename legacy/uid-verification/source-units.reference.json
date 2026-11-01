@@ -1,0 +1,157 @@
+{
+  "reference_only": true,
+  "included_in_default_build": false,
+  "baseline_commit": "e3316df56f7e178728998583b4498d69cd123890",
+  "units": [
+    {
+      "owner": "com/moon/cn",
+      "entry": "com/moon/cn.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/cn.java",
+      "sha256": "1A46F2B071D70F8D3ACA4F026CD543C77B4FA20A8AE81B4D962B76D2D6241BED"
+    },
+    {
+      "owner": "com/moon/obfuscator/Loader",
+      "entry": "com/moon/obfuscator/Loader.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/obfuscator/Loader.java",
+      "sha256": "186778C2EE4DF61EE84453ADABBBC691770E84BAEBF7A01962DF7BD4F0F1F4F0"
+    },
+    {
+      "owner": "com/moon/security/c",
+      "entry": "com/moon/security/c.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/c.java",
+      "sha256": "4C4F7B4A2B4C0B642837B193D254F9388A3BFBDF3B2396F5FBD90895CF0A1C97"
+    },
+    {
+      "owner": "com/moon/security/d",
+      "entry": "com/moon/security/d.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/d.java",
+      "sha256": "3CE11BA21586983752DAFA74F463D8FCDDD9BD7AB58D97A63032E312BE05CA02"
+    },
+    {
+      "owner": "com/moon/security/e",
+      "entry": "com/moon/security/e.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/e.java",
+      "sha256": "D769851019F5BC86E1D7BECA2D15DC9B729F785F22E1DC96712CB33D6CC08E5C"
+    },
+    {
+      "owner": "com/moon/security/f",
+      "entry": "com/moon/security/f.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/f.java",
+      "sha256": "43741FE1F818A8B583FF04EF8E1CA0FC4C506553FDE7E3BB7483F21980974076"
+    },
+    {
+      "owner": "com/moon/security/g",
+      "entry": "com/moon/security/g.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/g.java",
+      "sha256": "EFFD63DF5A1DA0B0F03F9822FB10C491C6EF1E558CDC2FABA47F01CA9DA343DE"
+    },
+    {
+      "owner": "com/moon/security/h",
+      "entry": "com/moon/security/h.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/h.java",
+      "sha256": "1F3C98FE74B4BABC9BC62FE0B9FF5B987225F8F8FF3CA70AA6C9E8E8EF46E45B"
+    },
+    {
+      "owner": "com/moon/security/i",
+      "entry": "com/moon/security/i.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/i.java",
+      "sha256": "C9FA81CCD378140272E6AB914ADE6B577EAEB49B6DF3E17C41EE46C27BDF51C4"
+    },
+    {
+      "owner": "com/moon/security/j",
+      "entry": "com/moon/security/j.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/j.java",
+      "sha256": "FC99F18E618D0B3C1744109A33C9C201E68739187D73EEA609D630D559994383"
+    },
+    {
+      "owner": "com/moon/security/k",
+      "entry": "com/moon/security/k.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/k.java",
+      "sha256": "190F3F68B221044B774AF596A461D0CEFFD058268A3B6FE21CBC09E44EBFA42F"
+    },
+    {
+      "owner": "com/moon/security/n",
+      "entry": "com/moon/security/n.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/n.java",
+      "sha256": "C71A596878A4E3D18E2AF16D3C17D6AF36A7A2151DF9F11FFFA91D40DFD3831E"
+    },
+    {
+      "owner": "com/moon/security/p",
+      "entry": "com/moon/security/p.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/p.java",
+      "sha256": "7FF45B566682670183C3841DD08512ABE4154487264D9E850CA30973884D9942"
+    },
+    {
+      "owner": "com/moon/security/q",
+      "entry": "com/moon/security/q.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/q.java",
+      "sha256": "30B83C30540C02658E050472B9EA1B7EBC25601BEE36909E4DAA0D8775E33CF5"
+    },
+    {
+      "owner": "com/moon/security/r",
+      "entry": "com/moon/security/r.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/r.java",
+      "sha256": "1CF99A8601F3CD7A70F20678AC93E344AB3C8D5B15A248249BC3C48A29488351"
+    },
+    {
+      "owner": "com/moon/security/a",
+      "entry": "com/moon/security/a.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/a.java",
+      "sha256": "F5D928D634779FF7F2628C56DBC140DB797D0DCC9F568BA7251FAF442E972FBC"
+    },
+    {
+      "owner": "com/moon/security/b",
+      "entry": "com/moon/security/b.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/b.java",
+      "sha256": "12BA1CF76E058A8B15D35300B159D40D60747D3E2D7C5DBBBBD54F7DACE9C490"
+    },
+    {
+      "owner": "com/moon/ph",
+      "entry": "com/moon/ph.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/ph.java",
+      "sha256": "94753B584A08E53F3B5E0BB6BC02B716FB1CEB01EEEF2582DE9CEE91A6FB1822"
+    },
+    {
+      "owner": "com/moon/security/API",
+      "entry": "com/moon/security/API.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/API.java",
+      "sha256": "7916FC8023925AF69DD451C5DE3FF60DEA8F9FEBD57D0F4C8384ACB405F48882"
+    },
+    {
+      "owner": "com/moon/security/l",
+      "entry": "com/moon/security/l.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/l.java",
+      "sha256": "88CD5CE7BAF556A2731023C6AB45D9A730E2211B7E118490DCD73BA7ADF88B83"
+    },
+    {
+      "owner": "com/moon/security/m",
+      "entry": "com/moon/security/m.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/m.java",
+      "sha256": "B38D47DC2FC504F3DCA8C03839AE555228880BE5F14F33EE930FD07097F2AB60"
+    },
+    {
+      "owner": "com/moon/security/o",
+      "entry": "com/moon/security/o.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/o.java",
+      "sha256": "65B5306FBEEE5266EA6A08D29DB29A54C984AACF296EF0B937CDC3BCC3C59FC0"
+    },
+    {
+      "owner": "com/moon/security/s",
+      "entry": "com/moon/security/s.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/security/s.java",
+      "sha256": "FA2A1134D747E06E07C0132B7C92A175655A7C7DA432DFA0B7EAA40A5A57A4AE"
+    },
+    {
+      "owner": "com/moon/obfuscator/Bootstrap",
+      "entry": "com/moon/obfuscator/Bootstrap.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/obfuscator/Bootstrap.java",
+      "sha256": "E5042AD0C5DC9308F4B2CE29DA2F862927DF960E9EDF2D388B0F2CA37F1E46F7"
+    },
+    {
+      "owner": "com/moon/obfuscator/NativeLoader",
+      "entry": "com/moon/obfuscator/NativeLoader.java",
+      "reference_path": "legacy/uid-verification/java/com/moon/obfuscator/NativeLoader.java",
+      "sha256": "F78C58E71A82987A10361A322B05EF9207247EC16B8AD462B002622EB8E64B78"
+    }
+  ]
+}

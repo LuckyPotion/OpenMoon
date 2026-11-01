@@ -3900,7 +3900,7 @@ private static native java.lang.String __call1693_2() throws Throwable;
 private static native boolean __call1693_3(java.lang.String a0, java.lang.String a1) throws Throwable;
 private static native int __integerCategory1693_4(boolean value) throws Throwable;
 private static native com.moon.runtime.ClientContext __call1693_5() throws Throwable;
-private static native com.moon.security.c __call1693_6(com.moon.runtime.ClientContext a0) throws Throwable;
+private static native com.moon.runtime.LocalClientProfile __call1693_6(com.moon.runtime.ClientContext a0) throws Throwable;
 private static native long __call1693_7() throws Throwable;
 private static native long __call1693_8() throws Throwable;
 private static native long __invokedynamic1693_9(int a0, long a1) throws Throwable;
@@ -4032,7 +4032,7 @@ private static native java.lang.String __call1694_2() throws Throwable;
 private static native boolean __call1694_3(java.lang.String a0, java.lang.String a1) throws Throwable;
 private static native int __integerCategory1694_4(boolean value) throws Throwable;
 private static native com.moon.runtime.ClientContext __call1694_5() throws Throwable;
-private static native com.moon.security.c __call1694_6(com.moon.runtime.ClientContext a0) throws Throwable;
+private static native com.moon.runtime.LocalClientProfile __call1694_6(com.moon.runtime.ClientContext a0) throws Throwable;
 private static native long __call1694_7() throws Throwable;
 private static native long __call1694_8() throws Throwable;
 private static native long __invokedynamic1694_9(int a0, long a1) throws Throwable;
@@ -4638,7 +4638,7 @@ private static native java.lang.String __call277_2() throws Throwable;
 private static native boolean __call277_3(java.lang.String a0, java.lang.String a1) throws Throwable;
 private static native int __integerCategory277_4(boolean value) throws Throwable;
 private static native com.moon.runtime.ClientContext __call277_5() throws Throwable;
-private static native com.moon.security.c __call277_6(com.moon.runtime.ClientContext a0) throws Throwable;
+private static native com.moon.runtime.LocalClientProfile __call277_6(com.moon.runtime.ClientContext a0) throws Throwable;
 private static native long __call277_7() throws Throwable;
 private static native long __call277_8() throws Throwable;
 private static native long __invokedynamic277_9(int a0, long a1) throws Throwable;
@@ -5564,7 +5564,7 @@ private static native java.lang.String __call1701_2() throws Throwable;
 private static native boolean __call1701_3(java.lang.String a0, java.lang.String a1) throws Throwable;
 private static native int __integerCategory1701_4(boolean value) throws Throwable;
 private static native com.moon.runtime.ClientContext __call1701_5() throws Throwable;
-private static native com.moon.security.c __call1701_6(com.moon.runtime.ClientContext a0) throws Throwable;
+private static native com.moon.runtime.LocalClientProfile __call1701_6(com.moon.runtime.ClientContext a0) throws Throwable;
 private static native long __call1701_7() throws Throwable;
 private static native long __call1701_8() throws Throwable;
 private static native long __invokedynamic1701_9(int a0, long a1) throws Throwable;
@@ -8740,7 +8740,7 @@ private static native java.lang.String __call1714_2() throws Throwable;
 private static native boolean __call1714_3(java.lang.String a0, java.lang.String a1) throws Throwable;
 private static native int __integerCategory1714_4(boolean value) throws Throwable;
 private static native com.moon.runtime.ClientContext __call1714_5() throws Throwable;
-private static native com.moon.security.c __call1714_6(com.moon.runtime.ClientContext a0) throws Throwable;
+private static native com.moon.runtime.LocalClientProfile __call1714_6(com.moon.runtime.ClientContext a0) throws Throwable;
 private static native long __call1714_7() throws Throwable;
 private static native long __call1714_8() throws Throwable;
 private static native long __invokedynamic1714_9(int a0, long a1) throws Throwable;
@@ -8869,7 +8869,7 @@ private static native java.lang.String __call1715_2() throws Throwable;
 private static native boolean __call1715_3(java.lang.String a0, java.lang.String a1) throws Throwable;
 private static native int __integerCategory1715_4(boolean value) throws Throwable;
 private static native com.moon.runtime.ClientContext __call1715_5() throws Throwable;
-private static native com.moon.security.c __call1715_6(com.moon.runtime.ClientContext a0) throws Throwable;
+private static native com.moon.runtime.LocalClientProfile __call1715_6(com.moon.runtime.ClientContext a0) throws Throwable;
 private static native long __call1715_7() throws Throwable;
 private static native long __call1715_8() throws Throwable;
 private static native long __invokedynamic1715_9(int a0, long a1) throws Throwable;
@@ -8995,7 +8995,7 @@ private static native java.lang.String __call1716_2() throws Throwable;
 private static native boolean __call1716_3(java.lang.String a0, java.lang.String a1) throws Throwable;
 private static native int __integerCategory1716_4(boolean value) throws Throwable;
 private static native com.moon.runtime.ClientContext __call1716_5() throws Throwable;
-private static native com.moon.security.c __call1716_6(com.moon.runtime.ClientContext a0) throws Throwable;
+private static native com.moon.runtime.LocalClientProfile __call1716_6(com.moon.runtime.ClientContext a0) throws Throwable;
 private static native long __call1716_7() throws Throwable;
 private static native long __call1716_8() throws Throwable;
 private static native long __invokedynamic1716_9(int a0, long a1) throws Throwable;
@@ -9202,7 +9202,7 @@ private static native java.lang.String __call1718_2() throws Throwable;
 private static native boolean __call1718_3(java.lang.String a0, java.lang.String a1) throws Throwable;
 private static native int __integerCategory1718_4(boolean value) throws Throwable;
 private static native com.moon.runtime.ClientContext __call1718_5() throws Throwable;
-private static native com.moon.security.c __call1718_6(com.moon.runtime.ClientContext a0) throws Throwable;
+private static native com.moon.runtime.LocalClientProfile __call1718_6(com.moon.runtime.ClientContext a0) throws Throwable;
 private static native long __call1718_7() throws Throwable;
 private static native long __call1718_8() throws Throwable;
 private static native long __invokedynamic1718_9(int a0, long a1) throws Throwable;
@@ -11657,7 +11657,7 @@ private static native java.lang.String __call1734_2() throws Throwable;
 private static native boolean __call1734_3(java.lang.String a0, java.lang.String a1) throws Throwable;
 private static native int __integerCategory1734_4(boolean value) throws Throwable;
 private static native com.moon.runtime.ClientContext __call1734_5() throws Throwable;
-private static native com.moon.security.c __call1734_6(com.moon.runtime.ClientContext a0) throws Throwable;
+private static native com.moon.runtime.LocalClientProfile __call1734_6(com.moon.runtime.ClientContext a0) throws Throwable;
 private static native long __call1734_7() throws Throwable;
 private static native long __call1734_8() throws Throwable;
 private static native long __invokedynamic1734_9(int a0, long a1) throws Throwable;
@@ -12032,7 +12032,7 @@ private static native java.lang.String __call1736_2() throws Throwable;
 private static native boolean __call1736_3(java.lang.String a0, java.lang.String a1) throws Throwable;
 private static native int __integerCategory1736_4(boolean value) throws Throwable;
 private static native com.moon.runtime.ClientContext __call1736_5() throws Throwable;
-private static native com.moon.security.c __call1736_6(com.moon.runtime.ClientContext a0) throws Throwable;
+private static native com.moon.runtime.LocalClientProfile __call1736_6(com.moon.runtime.ClientContext a0) throws Throwable;
 private static native long __call1736_7() throws Throwable;
 private static native long __call1736_8() throws Throwable;
 private static native long __invokedynamic1736_9(int a0, long a1) throws Throwable;
@@ -13829,7 +13829,7 @@ private static native java.lang.String __call1742_2() throws Throwable;
 private static native boolean __call1742_3(java.lang.String a0, java.lang.String a1) throws Throwable;
 private static native int __integerCategory1742_4(boolean value) throws Throwable;
 private static native com.moon.runtime.ClientContext __call1742_5() throws Throwable;
-private static native com.moon.security.c __call1742_6(com.moon.runtime.ClientContext a0) throws Throwable;
+private static native com.moon.runtime.LocalClientProfile __call1742_6(com.moon.runtime.ClientContext a0) throws Throwable;
 private static native long __call1742_7() throws Throwable;
 private static native long __call1742_8() throws Throwable;
 private static native long __invokedynamic1742_9(int a0, long a1) throws Throwable;
@@ -16425,115 +16425,7 @@ private static native java.lang.Throwable __call3115603_0(moom.Oo a0) throws Thr
 
 }
 
-private static native <E extends Throwable> boolean __sourceHandlerCall_7a32332e14d1f9927b5d(net.minecraft.world.World a0) throws E;
-private static final class __SourceHandler_7a32332e14d1f9927b5d {
 
-public static boolean f721(net.minecraft.world.World receiver) throws Throwable {
-    java.lang.String forestValue721_33_0;
-    java.lang.String forestValue721_45_0;
-    java.lang.String spill721_0;
-    long life1_3;
-    java.lang.String life3_5;
-    java.lang.StringBuilder life4_16;
-    forest_join_45: {
-    forest_join_43: {
-    forest_join_33: {
-    forest_join_31: {
-    life1_3 = (__fieldRead721_0() ^ 19158494653477L);
-    life3_5 = __call721_1();
-    spill721_0 = __fieldRead721_2(receiver);
-    if (!((life3_5 == null))) {
-        forestValue721_33_0 = spill721_0;
-        break forest_join_33;
-    }
-    if (!((spill721_0 == null))) {
-        break forest_join_31;
-    }
-    life4_16 = new java.lang.StringBuilder("gnp.8f_egap_edocinu/tnof/serutxet/tfarcenim/stessa/");
-    __fieldWrite721_11(receiver, __call721_10(new java.lang.String(__call721_9(__cast721_8(__call721_7(__call721_6(__call721_3(receiver), __call721_5(__call721_4(life4_16)))))))));
-    }
-    forestValue721_33_0 = __fieldRead721_12(receiver);
-    }
-    if (!((life3_5 == null))) {
-        forestValue721_45_0 = forestValue721_33_0;
-        break forest_join_45;
-    }
-    if (!((forestValue721_33_0 == null))) {
-        break forest_join_43;
-    }
-    __fieldWrite721_17(receiver, __call721_16(__call721_15(__call721_14(__call721_13(0)))));
-    }
-    forestValue721_45_0 = __fieldRead721_18(receiver);
-    }
-    return __call721_20(forestValue721_45_0, __fieldRead721_19(receiver));
-}
-public static boolean h721_0(java.lang.Throwable p0) throws Throwable {
-    throw __call3072100_0(p0);
-}
-public static boolean h721_1(java.lang.Throwable p0, net.minecraft.world.World p1, java.lang.String p2, java.lang.StringBuilder p3) throws Throwable {
-    java.lang.String forestValue3072101_19_0;
-    java.lang.String spill3072101_0;
-    java.lang.Throwable life3_2;
-    forest_join_19: {
-    forest_join_17: {
-    life3_2 = p0;
-    __fieldWrite3072101_0(p1, "");
-    spill3072101_0 = __fieldRead3072101_1(p1);
-    if (!((p2 == null))) {
-        forestValue3072101_19_0 = spill3072101_0;
-        break forest_join_19;
-    }
-    if (!((spill3072101_0 == null))) {
-        break forest_join_17;
-    }
-    __fieldWrite3072101_6(p1, __call3072101_5(__call3072101_4(__call3072101_3(__call3072101_2(0)))));
-    }
-    forestValue3072101_19_0 = __fieldRead3072101_7(p1);
-    }
-    return __call3072101_9(forestValue3072101_19_0, __fieldRead3072101_8(p1));
-}
-public static boolean h721_2(java.lang.Throwable p0) throws Throwable {
-    throw __call3072102_0(p0);
-}
-public static boolean h721_3(java.lang.Throwable p0) throws Throwable {
-    throw __call3072103_0(p0);
-}
-private static native long __fieldRead721_0() throws Throwable;
-private static native java.lang.String __call721_1() throws Throwable;
-private static native java.lang.String __fieldRead721_2(net.minecraft.world.World a0) throws Throwable;
-private static native java.lang.Class __call721_3(net.minecraft.world.World a0) throws Throwable;
-private static native java.lang.StringBuilder __call721_4(java.lang.StringBuilder a0) throws Throwable;
-private static native java.lang.String __call721_5(java.lang.StringBuilder a0) throws Throwable;
-private static native java.io.InputStream __call721_6(java.lang.Class a0, java.lang.String a1) throws Throwable;
-private static native java.lang.Object __call721_7(java.io.InputStream a0) throws Throwable;
-private static native java.io.InputStream __cast721_8(java.lang.Object a0) throws Throwable;
-private static native byte[] __call721_9(java.io.InputStream a0) throws Throwable;
-private static native java.lang.String __call721_10(java.lang.String a0) throws Throwable;
-private static native void __fieldWrite721_11(net.minecraft.world.World a0, java.lang.String a1) throws Throwable;
-private static native java.lang.String __fieldRead721_12(net.minecraft.world.World a0) throws Throwable;
-private static native java.lang.String __call721_13(int a0) throws Throwable;
-private static native int __call721_14(java.lang.String a0) throws Throwable;
-private static native java.lang.String __call721_15(int a0) throws Throwable;
-private static native java.lang.String __call721_16(java.lang.String a0) throws Throwable;
-private static native void __fieldWrite721_17(net.minecraft.world.World a0, java.lang.String a1) throws Throwable;
-private static native java.lang.String __fieldRead721_18(net.minecraft.world.World a0) throws Throwable;
-private static native java.lang.String __fieldRead721_19(net.minecraft.world.World a0) throws Throwable;
-private static native boolean __call721_20(java.lang.String a0, java.lang.String a1) throws Throwable;
-private static native java.lang.Throwable __call3072100_0(java.lang.Throwable a0) throws Throwable;
-private static native void __fieldWrite3072101_0(net.minecraft.world.World a0, java.lang.String a1) throws Throwable;
-private static native java.lang.String __fieldRead3072101_1(net.minecraft.world.World a0) throws Throwable;
-private static native java.lang.String __call3072101_2(int a0) throws Throwable;
-private static native int __call3072101_3(java.lang.String a0) throws Throwable;
-private static native java.lang.String __call3072101_4(int a0) throws Throwable;
-private static native java.lang.String __call3072101_5(java.lang.String a0) throws Throwable;
-private static native void __fieldWrite3072101_6(net.minecraft.world.World a0, java.lang.String a1) throws Throwable;
-private static native java.lang.String __fieldRead3072101_7(net.minecraft.world.World a0) throws Throwable;
-private static native java.lang.String __fieldRead3072101_8(net.minecraft.world.World a0) throws Throwable;
-private static native boolean __call3072101_9(java.lang.String a0, java.lang.String a1) throws Throwable;
-private static native java.lang.Throwable __call3072102_0(java.lang.Throwable a0) throws Throwable;
-private static native java.lang.Throwable __call3072103_0(java.lang.Throwable a0) throws Throwable;
-
-}
 
 private static native <E extends Throwable> boolean __sourceHandlerCall_34cb10644470300efb5f(net.minecraft.world.World a0, moom.DT a1) throws E;
 private static final class __SourceHandler_34cb10644470300efb5f {
@@ -16936,7 +16828,7 @@ return (__sourceIntrinsic_booleanComparison((((net.minecraft.world.World)(this))
 }
 
 
-public boolean i__Boolean() { return __sourceHandlerCall_7a32332e14d1f9927b5d(this); }
+public boolean i__Boolean() { return true; } // Legacy HWID/resource binding removed.
 
 
 public void b__Void() { __sourceHandlerCall_f553378c4f8320ab9a28(this); }

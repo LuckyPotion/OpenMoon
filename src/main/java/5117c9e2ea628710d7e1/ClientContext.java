@@ -33,7 +33,7 @@ private com.moon.ml n;
 
 private com.moon.hI o;
 
-private com.moon.security.c p;
+private com.moon.runtime.LocalClientProfile p;
 
 private java.io.File q;
 
@@ -213,8 +213,8 @@ this.q = ((java.io.File)(p0));
 }
 
 
-public com.moon.runtime.ClientContext a(com.moon.security.c p0) {
-this.p = ((com.moon.security.c)(p0));
+public com.moon.runtime.ClientContext a(com.moon.runtime.LocalClientProfile p0) {
+this.p = ((com.moon.runtime.LocalClientProfile)(p0));
     return this;
 }
 
@@ -507,7 +507,7 @@ return this.q;
 }
 
 
-public com.moon.security.c a__c() {
+public com.moon.runtime.LocalClientProfile a__c() {
 return this.p;
 }
 
@@ -532,20 +532,11 @@ return this.c;
 }
 
 
-public void a__Void(java.lang.String p0) throws java.lang.InterruptedException {
-long life2_3;
-life2_3 = (com.moon.runtime.ClientContext.F ^ 16338154919617L);
-try {
-java.lang.System.setProperty(((java.lang.String)(__sourceIntrinsic_e2d81269afae_invokedynamic162_1(11236, (2366055697772894011L ^ life2_3)))), ((java.lang.String)(p0)));
-this.p = ((com.moon.security.c)(new com.moon.security.c(new com.moon.cn(), __sourceIntrinsic_integerToBoolean(1), __sourceIntrinsic_integerToBoolean(1))));
-((com.moon.security.c)(this.p)).a__Void(((java.lang.String)(p0)));
+/** Compatibility entry: local initialization accepts no UID or credentials. */
+public void a__Void(java.lang.String unused) throws java.lang.InterruptedException {
+    com.moon.runtime.LocalBootstrap.initialize();
 }
-catch (java.lang.Throwable __caughtSource0) {
-java.lang.Throwable local1 = __caughtSource0;
-    throw new java.lang.RuntimeException(local1);
-}
-return;
-}
+
 
 
 public void a__Void() {
@@ -673,10 +664,8 @@ private static native <E extends Throwable> java.lang.invoke.MethodHandle __sour
 
 private static native <E extends Throwable> java.lang.String __sourceIntrinsic_b82a5b29b709_invokedynamic3011_3(int a0, long a1) throws E;
 
-private static native <E extends Throwable> java.lang.String __sourceIntrinsic_e2d81269afae_invokedynamic162_1(int a0, long a1) throws E;
 
 private static native <E extends Throwable> java.lang.String __sourceIntrinsic_9bf881b104f5_invokedynamic452_21(int a0, long a1) throws E;
 
-private static native boolean __sourceIntrinsic_integerToBoolean(int value);
 
 }

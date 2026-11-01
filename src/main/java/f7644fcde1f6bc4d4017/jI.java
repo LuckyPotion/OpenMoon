@@ -234,7 +234,7 @@ int forwardValue3673_28_0;
     if (!((((com.moon.runtime.ClientContext)(com.moon.runtime.ClientContext.getInstance())).a__c() != null))) {
         break forward_join_19;
     }
-    spill3673_1 = com.moon.security.e.c;
+    spill3673_1 = com.moon.runtime.LocalClientState.c;
     if (!((life5_5 == null))) {
         forwardValue3673_28_0 = ((spill3673_1) ? 1 : 0);
         break forward_join_28;
@@ -700,7 +700,7 @@ int forwardValue3675_28_0;
     if (!((((com.moon.runtime.ClientContext)(com.moon.runtime.ClientContext.getInstance())).a__c() != null))) {
         break forward_join_19;
     }
-    spill3675_1 = com.moon.security.e.c;
+    spill3675_1 = com.moon.runtime.LocalClientState.c;
     if (!((life5_5 == null))) {
         forwardValue3675_28_0 = ((spill3675_1) ? 1 : 0);
         break forward_join_28;
@@ -1425,7 +1425,7 @@ int forwardValue3663_28_0;
     if (!((((com.moon.runtime.ClientContext)(com.moon.runtime.ClientContext.getInstance())).a__c() != null))) {
         break forward_join_19;
     }
-    spill3663_1 = com.moon.security.e.c;
+    spill3663_1 = com.moon.runtime.LocalClientState.c;
     if (!((life4_5 == null))) {
         forwardValue3663_28_0 = ((spill3663_1) ? 1 : 0);
         break forward_join_28;
@@ -1689,7 +1689,7 @@ int forwardValue3664_24_0;
     if (!((spill3664_1 != 0))) {
         break forward_join_43;
     }
-    spill3664_2 = ((com.moon.security.c)(((com.moon.runtime.ClientContext)(com.moon.runtime.ClientContext.getInstance())).a__c())).a__Boolean();
+    spill3664_2 = ((com.moon.runtime.LocalClientProfile)(((com.moon.runtime.ClientContext)(com.moon.runtime.ClientContext.getInstance())).a__c())).a__Boolean();
     if (!((life5_5 == null))) {
         forwardValue3664_46_0 = ((spill3664_2) ? 1 : 0);
         break forward_join_46;

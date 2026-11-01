@@ -1,5 +1,7 @@
 # OpenMoon
 
+
+The default build excludes Moon UID verification. The original implementation is retained under `legacy/uid-verification/` for reference and must not be added to production source roots.
 Standalone Moon client source project, built with JDK 17.
 
 [中文](README.zh-CN.md) · [Run configuration](RUNNING.md) · [Third-party notices](docs/THIRD_PARTY.md)

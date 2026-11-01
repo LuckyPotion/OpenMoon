@@ -1,0 +1,275 @@
+[
+  {
+    "owner": "com/moon/cn",
+    "constructors": [
+      {
+        "descriptor": "()V",
+        "query_method": "__sourceConstructorBody_7151503e033331e5",
+        "query_descriptor": "(Lcom/moon/cn;)V",
+        "placeholder_descriptor": "()V",
+        "access": 1,
+        "exceptions": [],
+        "initializers": [
+          {
+            "name": "__sourceConstructorInit_7151503e033331e5_0",
+            "query_descriptor": "(Lcom/moon/cn;)V",
+            "operation": {
+              "opcode": 183,
+              "owner": "java/lang/Object",
+              "name": "<init>",
+              "descriptor": "()V",
+              "interface": false
+            },
+            "kind": "directSuperInit",
+            "original_instruction_ordinal": 5,
+            "explicit_direct_super_event": true
+          }
+        ]
+      }
+    ],
+    "restore_field_access": [
+      {
+        "name": "a",
+        "descriptor": "Lorg/tinylog/TaggedLogger;",
+        "access": 18
+      },
+      {
+        "name": "b",
+        "descriptor": "J",
+        "access": 26
+      },
+      {
+        "name": "c",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "d",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "e",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      },
+      {
+        "name": "f",
+        "descriptor": "[J",
+        "access": 26
+      },
+      {
+        "name": "g",
+        "descriptor": "[Ljava/lang/Integer;",
+        "access": 26
+      },
+      {
+        "name": "h",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      },
+      {
+        "name": "i",
+        "descriptor": "[J",
+        "access": 26
+      },
+      {
+        "name": "j",
+        "descriptor": "[Ljava/lang/Long;",
+        "access": 26
+      },
+      {
+        "name": "k",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      }
+    ],
+    "remove_methods": []
+  },
+  {
+    "owner": "com/moon/security/c",
+    "constructors": [
+      {
+        "descriptor": "(Lcom/moon/security/d;ZZ)V",
+        "query_method": "__sourceConstructorBody_bc9d8335dec10fb8",
+        "query_descriptor": "(Lcom/moon/security/c;Lcom/moon/security/d;ZZ)V",
+        "placeholder_descriptor": "(Lcom/moon/security/d;ZZ)V",
+        "access": 1,
+        "exceptions": [
+          "com/moon/security/s"
+        ],
+        "initializers": [
+          {
+            "name": "__sourceConstructorInit_bc9d8335dec10fb8_0",
+            "query_descriptor": "(Lcom/moon/security/c;)V",
+            "operation": {
+              "opcode": 183,
+              "owner": "java/lang/Object",
+              "name": "<init>",
+              "descriptor": "()V",
+              "interface": false
+            },
+            "kind": "directSuperInit",
+            "original_instruction_ordinal": 6,
+            "explicit_direct_this_or_super_event": true
+          }
+        ]
+      }
+    ],
+    "restore_field_access": [
+      {
+        "name": "A",
+        "descriptor": "Lorg/apache/logging/log4j/Logger;",
+        "access": 18
+      },
+      {
+        "name": "B",
+        "descriptor": "J",
+        "access": 26
+      },
+      {
+        "name": "C",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "D",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "E",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      },
+      {
+        "name": "F",
+        "descriptor": "[J",
+        "access": 26
+      },
+      {
+        "name": "G",
+        "descriptor": "[Ljava/lang/Integer;",
+        "access": 26
+      },
+      {
+        "name": "H",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      },
+      {
+        "name": "I",
+        "descriptor": "[J",
+        "access": 26
+      },
+      {
+        "name": "J",
+        "descriptor": "[Ljava/lang/Long;",
+        "access": 26
+      },
+      {
+        "name": "K",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      }
+    ],
+    "remove_methods": []
+  },
+  {
+    "owner": "com/moon/security/l",
+    "constructors": [
+      {
+        "descriptor": "()V",
+        "query_method": "__sourceConstructorBody_2540d4b6d12f8632",
+        "query_descriptor": "(Lcom/moon/security/l;)V",
+        "placeholder_descriptor": "()V",
+        "access": 1,
+        "exceptions": [],
+        "initializers": [
+          {
+            "name": "__sourceConstructorInit_2540d4b6d12f8632_0",
+            "query_descriptor": "(Lcom/moon/security/l;I)V",
+            "operation": {
+              "opcode": 183,
+              "owner": "com/moon/security/l",
+              "name": "<init>",
+              "descriptor": "(I)V",
+              "interface": false
+            },
+            "kind": "directThisInit",
+            "original_instruction_ordinal": 10,
+            "explicit_direct_this_or_super_event": true
+          }
+        ]
+      }
+    ],
+    "restore_field_access": [
+      {
+        "name": "a",
+        "descriptor": "[I",
+        "access": 26
+      },
+      {
+        "name": "b",
+        "descriptor": "[B",
+        "access": 28
+      },
+      {
+        "name": "c",
+        "descriptor": "[B",
+        "access": 28
+      },
+      {
+        "name": "m",
+        "descriptor": "J",
+        "access": 26
+      },
+      {
+        "name": "n",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "o",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "p",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      },
+      {
+        "name": "q",
+        "descriptor": "[J",
+        "access": 26
+      },
+      {
+        "name": "r",
+        "descriptor": "[Ljava/lang/Integer;",
+        "access": 26
+      },
+      {
+        "name": "s",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      },
+      {
+        "name": "t",
+        "descriptor": "[J",
+        "access": 26
+      },
+      {
+        "name": "u",
+        "descriptor": "[Ljava/lang/Long;",
+        "access": 26
+      },
+      {
+        "name": "v",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      }
+    ],
+    "remove_methods": []
+  }
+]

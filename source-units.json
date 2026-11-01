@@ -230,7 +230,7 @@
       "entry": "com/moon/cY.java",
       "owner": "com/moon/cY",
       "origin": "current-source-candidates001+applied_generic_patch+084-interface-name-query",
-      "source_sha256": "4601A70E0FF00AE8A9D7ACA56DD1E2205E25E1B1B19E5C80079C6B04FDC56516"
+      "source_sha256": "9472B76726CF7FE43EC366AAE340639653EF4E5B090BA7AF3693CB8059EDCBD7"
     },
     {
       "path": "src/main/java/2e316be3fa6c1ebf5f81/cZ.java",
@@ -252,13 +252,6 @@
       "owner": "com/moon/cm",
       "origin": "literal",
       "source_sha256": "E7BDABCA60022635FF56DB2BA12820013B0D834BD772D72A6B96E45AC80D81BB"
-    },
-    {
-      "path": "src/main/java/944a145861333e6f0180/cn.java",
-      "entry": "com/moon/cn.java",
-      "owner": "com/moon/cn",
-      "origin": "current-source-candidates001",
-      "source_sha256": "1A46F2B071D70F8D3ACA4F026CD543C77B4FA20A8AE81B4D962B76D2D6241BED"
     },
     {
       "path": "src/main/java/d91054376fb964762315/co.java",
@@ -4902,20 +4895,6 @@
       "source_sha256": "F8618475883728B2D603A9EF2626D62AC9540A4C03DF1DD2D883934B33932D71"
     },
     {
-      "path": "src/main/java/52a542673fab0509cd89/Bootstrap.java",
-      "entry": "com/moon/obfuscator/Bootstrap.java",
-      "owner": "com/moon/obfuscator/Bootstrap",
-      "origin": "current-source-candidates001+100-default-package-call",
-      "source_sha256": "E5042AD0C5DC9308F4B2CE29DA2F862927DF960E9EDF2D388B0F2CA37F1E46F7"
-    },
-    {
-      "path": "src/main/java/19d04183b1d229a81a78/Loader.java",
-      "entry": "com/moon/obfuscator/Loader.java",
-      "owner": "com/moon/obfuscator/Loader",
-      "origin": "source-candidates-additions002",
-      "source_sha256": "186778C2EE4DF61EE84453ADABBBC691770E84BAEBF7A01962DF7BD4F0F1F4F0"
-    },
-    {
       "path": "src/main/java/0c10136aa9b1b87cab67/NativeObfuscation.java",
       "entry": "com/moon/obfuscator/api/NativeObfuscation.java",
       "owner": "com/moon/obfuscator/api/NativeObfuscation",
@@ -6019,7 +5998,7 @@
       "entry": "com/moon/runtime/ClientContext.java",
       "owner": "com/moon/runtime/ClientContext",
       "origin": "source-candidates-additions002+047-integer-category+068-integer-category-tail",
-      "source_sha256": "ED6A8A4AE540E9438ED6F6D105121F49B93640C99490225DAE347C77430923CE"
+      "source_sha256": "05C6168CDEE10CE181C4499978621FA54C8520FA501E79323F02B2260378738B"
     },
     {
       "path": "src/main/java/2afb82cb1e61d2d0fd0e/rv.java",
@@ -6405,97 +6384,6 @@
       "owner": "com/moon/se",
       "origin": "current-source-candidates001",
       "source_sha256": "278194F67475A3C6530F1EA9E420AF89D4B0A6AC3DBA0EEE7F4D81F57876A04F"
-    },
-    {
-      "path": "src/main/java/0c6fc4169efc7a5a398a/c.java",
-      "entry": "com/moon/security/c.java",
-      "owner": "com/moon/security/c",
-      "origin": "current-source-candidates001+boolean_literal_0_1",
-      "source_sha256": "4C4F7B4A2B4C0B642837B193D254F9388A3BFBDF3B2396F5FBD90895CF0A1C97"
-    },
-    {
-      "path": "src/main/java/3e09a04c1b2c1c05e6ce/d.java",
-      "entry": "com/moon/security/d.java",
-      "owner": "com/moon/security/d",
-      "origin": "literal",
-      "source_sha256": "3CE11BA21586983752DAFA74F463D8FCDDD9BD7AB58D97A63032E312BE05CA02"
-    },
-    {
-      "path": "src/main/java/5e0d6a9e0195d0d7ab87/e.java",
-      "entry": "com/moon/security/e.java",
-      "owner": "com/moon/security/e",
-      "origin": "current-source-candidates001+applied_generic_patch",
-      "source_sha256": "D769851019F5BC86E1D7BECA2D15DC9B729F785F22E1DC96712CB33D6CC08E5C"
-    },
-    {
-      "path": "src/main/java/afb43ddf154a7b120199/f.java",
-      "entry": "com/moon/security/f.java",
-      "owner": "com/moon/security/f",
-      "origin": "current-source-candidates001",
-      "source_sha256": "43741FE1F818A8B583FF04EF8E1CA0FC4C506553FDE7E3BB7483F21980974076"
-    },
-    {
-      "path": "src/main/java/df37fb6fa5325b7f5bdb/g.java",
-      "entry": "com/moon/security/g.java",
-      "owner": "com/moon/security/g",
-      "origin": "current-source-candidates001",
-      "source_sha256": "EFFD63DF5A1DA0B0F03F9822FB10C491C6EF1E558CDC2FABA47F01CA9DA343DE"
-    },
-    {
-      "path": "src/main/java/445926c16e919d84a898/h.java",
-      "entry": "com/moon/security/h.java",
-      "owner": "com/moon/security/h",
-      "origin": "current-source-candidates001",
-      "source_sha256": "1F3C98FE74B4BABC9BC62FE0B9FF5B987225F8F8FF3CA70AA6C9E8E8EF46E45B"
-    },
-    {
-      "path": "src/main/java/e92d2e11491b2c3fa188/i.java",
-      "entry": "com/moon/security/i.java",
-      "owner": "com/moon/security/i",
-      "origin": "current-source-candidates001+056-jvm-return-aliases",
-      "source_sha256": "C9FA81CCD378140272E6AB914ADE6B577EAEB49B6DF3E17C41EE46C27BDF51C4"
-    },
-    {
-      "path": "src/main/java/10fd2105e1f7a10b3ad0/j.java",
-      "entry": "com/moon/security/j.java",
-      "owner": "com/moon/security/j",
-      "origin": "current-source-candidates001",
-      "source_sha256": "FC99F18E618D0B3C1744109A33C9C201E68739187D73EEA609D630D559994383"
-    },
-    {
-      "path": "src/main/java/19f5e730f9c0bcc3f052/k.java",
-      "entry": "com/moon/security/k.java",
-      "owner": "com/moon/security/k",
-      "origin": "current-source-candidates001",
-      "source_sha256": "190F3F68B221044B774AF596A461D0CEFFD058268A3B6FE21CBC09E44EBFA42F"
-    },
-    {
-      "path": "src/main/java/313086c2eb22ec4eb46c/n.java",
-      "entry": "com/moon/security/n.java",
-      "owner": "com/moon/security/n",
-      "origin": "literal",
-      "source_sha256": "C71A596878A4E3D18E2AF16D3C17D6AF36A7A2151DF9F11FFFA91D40DFD3831E"
-    },
-    {
-      "path": "src/main/java/5a98c7dc01a1da09d249/p.java",
-      "entry": "com/moon/security/p.java",
-      "owner": "com/moon/security/p",
-      "origin": "current-source-candidates001",
-      "source_sha256": "7FF45B566682670183C3841DD08512ABE4154487264D9E850CA30973884D9942"
-    },
-    {
-      "path": "src/main/java/399d185e2daa8cd29c24/q.java",
-      "entry": "com/moon/security/q.java",
-      "owner": "com/moon/security/q",
-      "origin": "current-source-candidates001",
-      "source_sha256": "30B83C30540C02658E050472B9EA1B7EBC25601BEE36909E4DAA0D8775E33CF5"
-    },
-    {
-      "path": "src/main/java/f9cc73f35b6dbbd76666/r.java",
-      "entry": "com/moon/security/r.java",
-      "owner": "com/moon/security/r",
-      "origin": "literal",
-      "source_sha256": "1CF99A8601F3CD7A70F20678AC93E344AB3C8D5B15A248249BC3C48A29488351"
     },
     {
       "path": "src/main/java/a6476bbb5bb47b36af2d/BezierSetting.java",
@@ -15119,7 +15007,7 @@
       "entry": "moom/jI.java",
       "owner": "moom/jI",
       "origin": "current-source-candidates001+applied_generic_patch+type_merge003+boolean_literal_0_1+037-platform-imports+056-jvm-return-aliases+058-boolean-comparisons",
-      "source_sha256": "F69F6417257BAAB2E19DFF8412D6AF7073AE4C24874A5E7FD9A4456EED273822"
+      "source_sha256": "072B2F5529C6D9B9A71AD9AB5CAAD2E2C183B3A9E72F6704345130BC2363DA4D"
     },
     {
       "path": "src/main/java/75a35b728d99ca86f1b3/jJ.java",
@@ -20327,7 +20215,7 @@
       "entry": "net/minecraft/client/entity/EntityPlayerSP.java",
       "owner": "net/minecraft/client/entity/EntityPlayerSP",
       "origin": "source-candidates-additions002+type_merge003+boolean_literal_0_1+037-platform-imports+047-integer-category+054-parent-call-aliases+056-jvm-return-aliases+066-static-instance-aliases",
-      "source_sha256": "39F0A41F9AB3906B8AEAD14E4EB48B255E7D6A95DF5E93516B5B51D43286ED29"
+      "source_sha256": "E640F7B1C02D18C5FFA2FE0BF4353BB3D49FAB18591FA40AF9A176A122A4E1A2"
     },
     {
       "path": "src/main/java/8bf5f58bd70ebc62a44c/Gui.java",
@@ -23242,20 +23130,6 @@
       "origin": "converter\\nonhandler-additions003\\pass002+type_merge003+057-enum-query-generics"
     },
     {
-      "owner": "com/moon/security/a",
-      "entry": "com/moon/security/a.java",
-      "path": "src/main/java/eb809df04b1bf4e2211a/a.java",
-      "source_sha256": "F5D928D634779FF7F2628C56DBC140DB797D0DCC9F568BA7251FAF442E972FBC",
-      "origin": "converter\\nonhandler-additions003\\pass002+type_merge003+enum_hidden_parameters_restored+057-enum-query-generics"
-    },
-    {
-      "owner": "com/moon/security/b",
-      "entry": "com/moon/security/b.java",
-      "path": "src/main/java/184c44b65b18ee547e24/b.java",
-      "source_sha256": "12BA1CF76E058A8B15D35300B159D40D60747D3E2D7C5DBBBBD54F7DACE9C490",
-      "origin": "converter\\nonhandler-additions003\\pass002+type_merge003+057-enum-query-generics"
-    },
-    {
       "owner": "moom/I",
       "entry": "moom/I.java",
       "path": "src/main/java/056ba28ba989028a310f/I.java",
@@ -24239,7 +24113,7 @@
       "owner": "com/moon/ct",
       "entry": "com/moon/ct.java",
       "path": "src/main/java/9de51aa4b0eec5e20888/ct.java",
-      "source_sha256": "E1D9197F15EF31776C773E0F5C1C68487FC1A65E017F87F1F5B4854725B60A66",
+      "source_sha256": "B6B0BB3BC17CE38F30E2D9E666FF3638FF4C2D7ACCECD6762F0108B9B5D13F73",
       "origin": "handler-converter\\portable-owners002"
     },
     {
@@ -24288,7 +24162,7 @@
       "owner": "com/moon/fW",
       "entry": "com/moon/fW.java",
       "path": "src/main/java/ef06adab40824159016a/fW.java",
-      "source_sha256": "556874FDF804E0168A19790751F1BA5AD3136D98654ECA9DF723DAA99C719F50",
+      "source_sha256": "C2E07E62133EEE56CE22E858D04758F577A7F15D76DA1555DF2E960D23FD6444",
       "origin": "handler-converter\\portable-owners002"
     },
     {
@@ -24449,7 +24323,7 @@
       "owner": "com/moon/n0",
       "entry": "com/moon/n0.java",
       "path": "src/main/java/1361ffc7641b86f43563/n0.java",
-      "source_sha256": "BB14C53D1DD0F0693C4667D8894D18E41023ABC088E63424A7DB1BBFCB8FF147",
+      "source_sha256": "CB5ED88048826B5686A83E40AC1116155395531725F48AC599120DBE0ADBA9D0",
       "origin": "handler-converter\\portable-owners002+boolean_literal_0_1+037-platform-imports"
     },
     {
@@ -24537,13 +24411,6 @@
       "origin": "handler-converter\\portable-owners002+type_merge003+074-external-bridges+081-generic-inference"
     },
     {
-      "owner": "com/moon/obfuscator/NativeLoader",
-      "entry": "com/moon/obfuscator/NativeLoader.java",
-      "path": "src/main/java/d8bd4e22a5072bd987f1/NativeLoader.java",
-      "source_sha256": "F78C58E71A82987A10361A322B05EF9207247EC16B8AD462B002622EB8E64B78",
-      "origin": "handler-converter\\portable-owners002+047-integer-category+139-original-assert-guard"
-    },
-    {
       "owner": "com/moon/od",
       "entry": "com/moon/od.java",
       "path": "src/main/java/af60a890cd4c2bf9eed4/od.java",
@@ -24583,13 +24450,6 @@
       "entry": "com/moon/pg.java",
       "path": "src/main/java/03d1eab1b76517afb218/pg.java",
       "source_sha256": "E389F6ADE1D0EB9627650D08A7C7EA15DF495B55145E9AF0230E11467078035F",
-      "origin": "handler-converter\\portable-owners002+boolean_literal_0_1+037-platform-imports"
-    },
-    {
-      "owner": "com/moon/ph",
-      "entry": "com/moon/ph.java",
-      "path": "src/main/java/d6c8ccf9f66e7dab4ef2/ph.java",
-      "source_sha256": "94753B584A08E53F3B5E0BB6BC02B716FB1CEB01EEEF2582DE9CEE91A6FB1822",
       "origin": "handler-converter\\portable-owners002+boolean_literal_0_1+037-platform-imports"
     },
     {
@@ -24884,34 +24744,6 @@
       "entry": "com/moon/rp.java",
       "path": "src/main/java/ee52a36b8ae39509df99/rp.java",
       "source_sha256": "C8343177E19D1A3215E3AA47BC9141DC570E263A510E2EB055F8D36C9D162B8C",
-      "origin": "handler-converter\\portable-owners002"
-    },
-    {
-      "owner": "com/moon/security/API",
-      "entry": "com/moon/security/API.java",
-      "path": "src/main/java/68b72e8945749eb1f30b/API.java",
-      "source_sha256": "7916FC8023925AF69DD451C5DE3FF60DEA8F9FEBD57D0F4C8384ACB405F48882",
-      "origin": "handler-converter\\portable-owners002"
-    },
-    {
-      "owner": "com/moon/security/l",
-      "entry": "com/moon/security/l.java",
-      "path": "src/main/java/1cbc7941126b40cdeabf/l.java",
-      "source_sha256": "88CD5CE7BAF556A2731023C6AB45D9A730E2211B7E118490DCD73BA7ADF88B83",
-      "origin": "handler-converter\\portable-owners002"
-    },
-    {
-      "owner": "com/moon/security/m",
-      "entry": "com/moon/security/m.java",
-      "path": "src/main/java/66d75e2225ed54689ce9/m.java",
-      "source_sha256": "B38D47DC2FC504F3DCA8C03839AE555228880BE5F14F33EE930FD07097F2AB60",
-      "origin": "handler-converter\\portable-owners002"
-    },
-    {
-      "owner": "com/moon/security/o",
-      "entry": "com/moon/security/o.java",
-      "path": "src/main/java/a76b22fcf3ae93dab3f1/o.java",
-      "source_sha256": "65B5306FBEEE5266EA6A08D29DB29A54C984AACF296EF0B937CDC3BCC3C59FC0",
       "origin": "handler-converter\\portable-owners002"
     },
     {
@@ -27123,7 +26955,7 @@
       "owner": "net/minecraft/world/World",
       "entry": "net/minecraft/world/World.java",
       "path": "src/main/java/88e87642f8a1df285ea7/World.java",
-      "source_sha256": "130E88D88FABBF5672AEAE8A3C001BBA16A9D7A1FE28545868F936DC00A32F1D",
+      "source_sha256": "DDFD4A8BD4AF93745BC36EC2C05CD1ED48B1C52613536805A6B720F919A5C304",
       "origin": "handler-converter\\portable-owners002+boolean_literal_0_1+037-platform-imports+054-parent-call-aliases+058-boolean-comparisons+072-exact-calls+081-generic-inference"
     },
     {
@@ -27939,13 +27771,6 @@
       "origin": "handler-converter\\portable-normal002+037-platform-imports"
     },
     {
-      "owner": "com/moon/security/s",
-      "entry": "com/moon/security/s.java",
-      "path": "src/main/java/9618a69dccd9c7eecf65/s.java",
-      "source_sha256": "FA2A1134D747E06E07C0132B7C92A175655A7C7DA432DFA0B7EAA40A5A57A4AE",
-      "origin": "handler-converter\\portable-normal002"
-    },
-    {
       "owner": "moom/AP",
       "entry": "moom/AP.java",
       "path": "src/main/java/a9cee9211afe5b9d1660/AP.java",
@@ -28285,7 +28110,7 @@
       "owner": "net/minecraft/client/Minecraft",
       "entry": "net/minecraft/client/Minecraft.java",
       "path": "src/main/java/c7f76ee0b4ac027c595b/Minecraft.java",
-      "source_sha256": "22B0F10ACB37D53D9A89FB28437E16444941CF4BC948DDABB8C8BC5A06130797",
+      "source_sha256": "3DF5F2C5905065DDC7A369A1176D558AC9252045F7180F2ABC04CD65888BB29C",
       "origin": "converter\\minecraft-guarded-compact006+external_final004+owned_top_level_binary_spelling+boolean_literal_0_1+037-platform-imports+072-exact-calls+079-generic-projections+125-throwable-source-projection"
     },
     {
@@ -28679,9 +28504,37 @@
       "path": "src/main/java/d1112a8449a42cc51acc/aj.java",
       "source_sha256": "3D882E4559357A0DA10959D6301F0C7506FE4A65C315E574B95FE6C33E176A7A",
       "origin": "converter\\formal-enum-subclasses019"
+    },
+    {
+      "owner": "com/moon/runtime/LocalClientProfile",
+      "entry": "com/moon/runtime/LocalClientProfile.java",
+      "path": "src/main/java/com/moon/runtime/LocalClientProfile.java",
+      "source_sha256": "95E8169D9AC7392CF3D9910AD1C52F79EC904EC7ECF94AA86D40AC6E5B2A427A",
+      "origin": "authored-local-startup-without-uid-validation"
+    },
+    {
+      "owner": "com/moon/runtime/LocalClientState",
+      "entry": "com/moon/runtime/LocalClientState.java",
+      "path": "src/main/java/com/moon/runtime/LocalClientState.java",
+      "source_sha256": "C2FC5A8CA8C88649BAAFBAD9A59027120CBD02157B1A75BA068F586AA31450C3",
+      "origin": "authored-local-startup-without-uid-validation"
+    },
+    {
+      "owner": "com/moon/runtime/StartupScreen",
+      "entry": "com/moon/runtime/StartupScreen.java",
+      "path": "src/main/java/com/moon/runtime/StartupScreen.java",
+      "source_sha256": "86463B04815325A274B35A5D2127745BC076A5E2CB6523635605D1AE832B910D",
+      "origin": "authored-local-startup-without-uid-validation"
+    },
+    {
+      "owner": "com/moon/runtime/LocalBootstrap",
+      "entry": "com/moon/runtime/LocalBootstrap.java",
+      "path": "src/main/java/com/moon/runtime/LocalBootstrap.java",
+      "source_sha256": "370013B14F88F6D5A788A33154D111358C65E0AC0D240654E4CD46CB7F99C01B",
+      "origin": "authored-local-startup-without-uid-validation"
     }
   ],
-  "owned_total": 4093,
+  "owned_total": 4072,
   "implementation_bytecode_fallback": false,
   "nested_owner_coverage": [
     {
@@ -28709,7 +28562,8 @@
       "extra_source_emitted": false
     }
   ],
-  "owned_identity_coverage": 4093,
-  "explicit_owned_source_units": 4091,
-  "full_compile_passed": false
+  "owned_identity_coverage": 4072,
+  "explicit_owned_source_units": 4070,
+  "uid_verification_included": false,
+  "legacy_reference_directory": "legacy/uid-verification"
 }

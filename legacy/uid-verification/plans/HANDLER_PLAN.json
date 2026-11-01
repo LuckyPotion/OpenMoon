@@ -1,0 +1,993 @@
+[
+  {
+    "owner": "com/moon/ph",
+    "carrier": "com/moon/ph$__SourceHandler_46572f8ca53fb2ffa13c",
+    "target": {
+      "access": 1,
+      "name": "<init>",
+      "descriptor": "()V",
+      "attributes": {},
+      "exceptions": [],
+      "owner_is_interface": false
+    },
+    "query_method": "f129",
+    "compile_bridge": {
+      "name": "__sourceHandlerCall_46572f8ca53fb2ffa13c",
+      "descriptor": "(Lcom/moon/ph;)V"
+    },
+    "source_input_sha256": "4D9EAF273D85FA81627638BF20EF1FFEA3F631FD0499D932A884F89129F9EB35",
+    "restore_field_access": [
+      {
+        "name": "w",
+        "descriptor": "Lmoom/DD;",
+        "access": 18
+      },
+      {
+        "name": "x",
+        "descriptor": "Lcom/v;",
+        "access": 18
+      },
+      {
+        "name": "A",
+        "descriptor": "Z",
+        "access": 18
+      },
+      {
+        "name": "C",
+        "descriptor": "J",
+        "access": 26
+      },
+      {
+        "name": "D",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "E",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "F",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      },
+      {
+        "name": "G",
+        "descriptor": "[J",
+        "access": 26
+      },
+      {
+        "name": "H",
+        "descriptor": "[Ljava/lang/Integer;",
+        "access": 26
+      },
+      {
+        "name": "I",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      }
+    ],
+    "recipe_path": "build-tools/handler-recipes/80e9679e854a45e2e67dbd71.json",
+    "recipe_sha256": "5D411372D401678F356FC54EAFD65BEFCFCB828D7A78B8309315DD18180C271F"
+  },
+  {
+    "owner": "com/moon/ph",
+    "carrier": "com/moon/ph$__SourceHandler_0295a1a89b42b92ef9af",
+    "target": {
+      "access": 4,
+      "name": "a",
+      "descriptor": "(CI)V",
+      "attributes": {
+        "Exceptions": [
+          "java/io/IOException"
+        ]
+      },
+      "exceptions": [
+        "java/io/IOException"
+      ],
+      "owner_is_interface": false
+    },
+    "query_method": "f55",
+    "compile_bridge": {
+      "name": "__sourceHandlerCall_0295a1a89b42b92ef9af",
+      "descriptor": "(Lcom/moon/ph;CI)V"
+    },
+    "source_input_sha256": "B390580328A3D3EF3DBB0B3D5E58EB0B02C7CD4FC5F04935C240F9779D4FAB4C",
+    "restore_field_access": [
+      {
+        "name": "w",
+        "descriptor": "Lmoom/DD;",
+        "access": 18
+      },
+      {
+        "name": "x",
+        "descriptor": "Lcom/v;",
+        "access": 18
+      },
+      {
+        "name": "A",
+        "descriptor": "Z",
+        "access": 18
+      },
+      {
+        "name": "C",
+        "descriptor": "J",
+        "access": 26
+      },
+      {
+        "name": "D",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "E",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "F",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      },
+      {
+        "name": "G",
+        "descriptor": "[J",
+        "access": 26
+      },
+      {
+        "name": "H",
+        "descriptor": "[Ljava/lang/Integer;",
+        "access": 26
+      },
+      {
+        "name": "I",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      }
+    ],
+    "recipe_path": "build-tools/handler-recipes/4c6b9621bb61372adc0391df.json",
+    "recipe_sha256": "21EC770D5DF0649D3ABD63A6A75F5082A19725FDE7C9A065C8BCF6A7C30518EA"
+  },
+  {
+    "owner": "com/moon/ph",
+    "carrier": "com/moon/ph$__SourceHandler_45c0f6adf306a5022f50",
+    "target": {
+      "access": 4,
+      "name": "a",
+      "descriptor": "(III)V",
+      "attributes": {
+        "Exceptions": [
+          "java/io/IOException"
+        ]
+      },
+      "exceptions": [
+        "java/io/IOException"
+      ],
+      "owner_is_interface": false
+    },
+    "query_method": "f551",
+    "compile_bridge": {
+      "name": "__sourceHandlerCall_45c0f6adf306a5022f50",
+      "descriptor": "(Lcom/moon/ph;III)V"
+    },
+    "source_input_sha256": "F7BD63FCCA7DC084DAD8CE2256257DB50F210567028BDBD6FFEBE06C5A8E6414",
+    "restore_field_access": [
+      {
+        "name": "w",
+        "descriptor": "Lmoom/DD;",
+        "access": 18
+      },
+      {
+        "name": "x",
+        "descriptor": "Lcom/v;",
+        "access": 18
+      },
+      {
+        "name": "A",
+        "descriptor": "Z",
+        "access": 18
+      },
+      {
+        "name": "C",
+        "descriptor": "J",
+        "access": 26
+      },
+      {
+        "name": "D",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "E",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "F",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      },
+      {
+        "name": "G",
+        "descriptor": "[J",
+        "access": 26
+      },
+      {
+        "name": "H",
+        "descriptor": "[Ljava/lang/Integer;",
+        "access": 26
+      },
+      {
+        "name": "I",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      }
+    ],
+    "recipe_path": "build-tools/handler-recipes/45c447021a5e6e98543fe0be.json",
+    "recipe_sha256": "58DAB5074939088B2599D41364DEE4C6E50E3A8972ED70F722226F3E3F14A831"
+  },
+  {
+    "owner": "com/moon/ph",
+    "carrier": "com/moon/ph$__SourceHandler_d952f66abdda273fd7d6",
+    "target": {
+      "access": 1,
+      "name": "b",
+      "descriptor": "()V",
+      "attributes": {},
+      "exceptions": [],
+      "owner_is_interface": false
+    },
+    "query_method": "f100042",
+    "compile_bridge": {
+      "name": "__sourceHandlerCall_d952f66abdda273fd7d6",
+      "descriptor": "(Lcom/moon/ph;)V"
+    },
+    "source_input_sha256": "ACC0A6906246A68AE0EE66689C433FBBA1D5988C5AC0C298BEBBB7B3BB13CC91",
+    "restore_field_access": [
+      {
+        "name": "w",
+        "descriptor": "Lmoom/DD;",
+        "access": 18
+      },
+      {
+        "name": "x",
+        "descriptor": "Lcom/v;",
+        "access": 18
+      },
+      {
+        "name": "A",
+        "descriptor": "Z",
+        "access": 18
+      },
+      {
+        "name": "C",
+        "descriptor": "J",
+        "access": 26
+      },
+      {
+        "name": "D",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "E",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "F",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      },
+      {
+        "name": "G",
+        "descriptor": "[J",
+        "access": 26
+      },
+      {
+        "name": "H",
+        "descriptor": "[Ljava/lang/Integer;",
+        "access": 26
+      },
+      {
+        "name": "I",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      }
+    ],
+    "recipe_path": "build-tools/handler-recipes/5ea97ee358f57c880e674776.json",
+    "recipe_sha256": "8D0F2A476FE3F3329413DBC6BE199827282E1ACAD9B1168F074C23CE3872654E"
+  },
+  {
+    "owner": "com/moon/ph",
+    "carrier": "com/moon/ph$__SourceHandler_33d1cccd38e9c433cb7b",
+    "target": {
+      "access": 1,
+      "name": "c__Void",
+      "descriptor": "()V",
+      "attributes": {},
+      "exceptions": [],
+      "owner_is_interface": false
+    },
+    "query_method": "f552",
+    "compile_bridge": {
+      "name": "__sourceHandlerCall_33d1cccd38e9c433cb7b",
+      "descriptor": "(Lcom/moon/ph;)V"
+    },
+    "source_input_sha256": "DB23C7A10BA1F0409A4866FA1B5EDF8995B1C68640CDC2A61578FEFACF3DA27A",
+    "restore_field_access": [
+      {
+        "name": "w",
+        "descriptor": "Lmoom/DD;",
+        "access": 18
+      },
+      {
+        "name": "x",
+        "descriptor": "Lcom/v;",
+        "access": 18
+      },
+      {
+        "name": "A",
+        "descriptor": "Z",
+        "access": 18
+      },
+      {
+        "name": "C",
+        "descriptor": "J",
+        "access": 26
+      },
+      {
+        "name": "D",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "E",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "F",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      },
+      {
+        "name": "G",
+        "descriptor": "[J",
+        "access": 26
+      },
+      {
+        "name": "H",
+        "descriptor": "[Ljava/lang/Integer;",
+        "access": 26
+      },
+      {
+        "name": "I",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      }
+    ],
+    "recipe_path": "build-tools/handler-recipes/3863e92f50fb4c8c0bbc6d82.json",
+    "recipe_sha256": "93FC5F780D6BA866ECD9FB4F570A92BD1AA67B5E227279FA96F536A7E877B2DB"
+  },
+  {
+    "owner": "com/moon/ph",
+    "carrier": "com/moon/ph$__SourceHandler_d735f574a5f7670ad90b",
+    "target": {
+      "access": 2,
+      "name": "j",
+      "descriptor": "()V",
+      "attributes": {},
+      "exceptions": [],
+      "owner_is_interface": false
+    },
+    "query_method": "f553",
+    "compile_bridge": {
+      "name": "__sourceHandlerCall_d735f574a5f7670ad90b",
+      "descriptor": "(Lcom/moon/ph;)V"
+    },
+    "source_input_sha256": "65A58482E93BE5DD413EA3E970F0D32DEBB22352254A59CE45F72F3DB130C6A8",
+    "restore_field_access": [
+      {
+        "name": "w",
+        "descriptor": "Lmoom/DD;",
+        "access": 18
+      },
+      {
+        "name": "x",
+        "descriptor": "Lcom/v;",
+        "access": 18
+      },
+      {
+        "name": "A",
+        "descriptor": "Z",
+        "access": 18
+      },
+      {
+        "name": "C",
+        "descriptor": "J",
+        "access": 26
+      },
+      {
+        "name": "D",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "E",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "F",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      },
+      {
+        "name": "G",
+        "descriptor": "[J",
+        "access": 26
+      },
+      {
+        "name": "H",
+        "descriptor": "[Ljava/lang/Integer;",
+        "access": 26
+      },
+      {
+        "name": "I",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      }
+    ],
+    "recipe_path": "build-tools/handler-recipes/94060f9f25c4d75fdb936749.json",
+    "recipe_sha256": "31D718C9AA357A7A202B806C0A2B11A677279006B305FBC53EFD1304F58C8A20"
+  },
+  {
+    "owner": "com/moon/security/API",
+    "carrier": "com/moon/security/API$__SourceHandler_c3240243c3980aaeff26",
+    "target": {
+      "access": 8,
+      "name": "<clinit>",
+      "descriptor": "()V",
+      "attributes": {},
+      "exceptions": [],
+      "owner_is_interface": false
+    },
+    "query_method": "f340",
+    "compile_bridge": {
+      "name": "__sourceHandlerCall_c3240243c3980aaeff26",
+      "descriptor": "()V"
+    },
+    "source_input_sha256": "D42771026AF314E1574DF90307DF392F795EAA81B25942C40AE704BF7DDBF389",
+    "restore_field_access": [],
+    "recipe_path": "build-tools/handler-recipes/21ea66af46eab26be29cd266.json",
+    "recipe_sha256": "A099FB18E6CE9646DFD6B73ED3044AEEAAB18A872653D1EFEB261FFC75CCC0CB"
+  },
+  {
+    "owner": "com/moon/security/l",
+    "carrier": "com/moon/security/l$__SourceHandler_cc1b5002d82771e42f96",
+    "target": {
+      "access": 1,
+      "name": "<init>",
+      "descriptor": "(I)V",
+      "attributes": {},
+      "exceptions": [],
+      "owner_is_interface": false
+    },
+    "query_method": "f350",
+    "compile_bridge": {
+      "name": "__sourceHandlerCall_cc1b5002d82771e42f96",
+      "descriptor": "(Lcom/moon/security/l;I)V"
+    },
+    "source_input_sha256": "07FA60F4B6C464B5C1F9400FC1058D86F16C2FD7E9DFC4F21E9BA70AC6346A6F",
+    "restore_field_access": [
+      {
+        "name": "a",
+        "descriptor": "[I",
+        "access": 26
+      },
+      {
+        "name": "b",
+        "descriptor": "[B",
+        "access": 28
+      },
+      {
+        "name": "c",
+        "descriptor": "[B",
+        "access": 28
+      },
+      {
+        "name": "m",
+        "descriptor": "J",
+        "access": 26
+      },
+      {
+        "name": "n",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "o",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "p",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      },
+      {
+        "name": "q",
+        "descriptor": "[J",
+        "access": 26
+      },
+      {
+        "name": "r",
+        "descriptor": "[Ljava/lang/Integer;",
+        "access": 26
+      },
+      {
+        "name": "s",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      },
+      {
+        "name": "t",
+        "descriptor": "[J",
+        "access": 26
+      },
+      {
+        "name": "u",
+        "descriptor": "[Ljava/lang/Long;",
+        "access": 26
+      },
+      {
+        "name": "v",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      }
+    ],
+    "recipe_path": "build-tools/handler-recipes/82a389145f18a53c4a1797ce.json",
+    "recipe_sha256": "17234EF38F5641FAAE29F059EA2E6A1E9B39F0FBE341524DB180B77327BCA29B"
+  },
+  {
+    "owner": "com/moon/security/m",
+    "carrier": "com/moon/security/m$__SourceHandler_53cd18fb261d6363b71e",
+    "target": {
+      "access": 9,
+      "name": "a__String",
+      "descriptor": "(Ljava/nio/file/Path;)Ljava/lang/String;",
+      "attributes": {},
+      "exceptions": [],
+      "owner_is_interface": false
+    },
+    "query_method": "f83",
+    "compile_bridge": {
+      "name": "__sourceHandlerCall_53cd18fb261d6363b71e",
+      "descriptor": "(Ljava/nio/file/Path;)Ljava/lang/String;"
+    },
+    "source_input_sha256": "8D05E7486F47F01237959C5B0125026C7A42A3BD6669CDBF0A9F49F78724FD13",
+    "restore_field_access": [
+      {
+        "name": "a",
+        "descriptor": "J",
+        "access": 26
+      },
+      {
+        "name": "c",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "d",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "e",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      },
+      {
+        "name": "f",
+        "descriptor": "J",
+        "access": 26
+      }
+    ],
+    "recipe_path": "build-tools/handler-recipes/3f09c10768c85355c91aa540.json",
+    "recipe_sha256": "5033CFF54E80DACDFD55AD5DF39F5BB36E8C926437355420A513AF79E88C2DD8"
+  },
+  {
+    "owner": "com/moon/security/o",
+    "carrier": "com/moon/security/o$__SourceHandler_d33b44356c8760357aa2",
+    "target": {
+      "access": 8,
+      "name": "<clinit>",
+      "descriptor": "()V",
+      "attributes": {},
+      "exceptions": [],
+      "owner_is_interface": false
+    },
+    "query_method": "f351",
+    "compile_bridge": {
+      "name": "__sourceHandlerCall_d33b44356c8760357aa2",
+      "descriptor": "()V"
+    },
+    "source_input_sha256": "75CA81B4EBEB109AB5431DA4BB1DBAE8CB2D71F809D2F1611FB78066DBD8F266",
+    "restore_field_access": [
+      {
+        "name": "c",
+        "descriptor": "Z",
+        "access": 24
+      },
+      {
+        "name": "e",
+        "descriptor": "J",
+        "access": 26
+      },
+      {
+        "name": "f",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "g",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "h",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      }
+    ],
+    "recipe_path": "build-tools/handler-recipes/333fe0bfc8486b809c34a28c.json",
+    "recipe_sha256": "3A93F0190C94B427545E7F865F18478A64B6B26EA90E7EFDBC8FD83A547F810C"
+  },
+  {
+    "owner": "com/moon/security/o",
+    "carrier": "com/moon/security/o$__SourceHandler_18c44ba81e8da1ec1c7e",
+    "target": {
+      "access": 10,
+      "name": "a",
+      "descriptor": "()Z",
+      "attributes": {},
+      "exceptions": [],
+      "owner_is_interface": false
+    },
+    "query_method": "f84",
+    "compile_bridge": {
+      "name": "__sourceHandlerCall_18c44ba81e8da1ec1c7e",
+      "descriptor": "()Z"
+    },
+    "source_input_sha256": "07CB8D14373C32C5B19FF637884A712C0FF5AA7B3FAF0E7ACE794F837816757E",
+    "restore_field_access": [
+      {
+        "name": "c",
+        "descriptor": "Z",
+        "access": 24
+      },
+      {
+        "name": "e",
+        "descriptor": "J",
+        "access": 26
+      },
+      {
+        "name": "f",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "g",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "h",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      }
+    ],
+    "recipe_path": "build-tools/handler-recipes/861afa03011f925a777d858a.json",
+    "recipe_sha256": "1281AA861C2EFC6B592DC4085F37766CDA031754C08EE344001C6FA8E4308A0D"
+  },
+  {
+    "owner": "com/moon/security/o",
+    "carrier": "com/moon/security/o$__SourceHandler_9390bfd0ca72c948899d",
+    "target": {
+      "access": 9,
+      "name": "a__Void",
+      "descriptor": "(Ljava/lang/String;)V",
+      "attributes": {
+        "Exceptions": [
+          "java/io/IOException"
+        ]
+      },
+      "exceptions": [
+        "java/io/IOException"
+      ],
+      "owner_is_interface": false
+    },
+    "query_method": "f201",
+    "compile_bridge": {
+      "name": "__sourceHandlerCall_9390bfd0ca72c948899d",
+      "descriptor": "(Ljava/lang/String;)V"
+    },
+    "source_input_sha256": "E431EA0723C5BE064A813E4C45A523D68BA120BD89668C0A20EF89A65604DFF9",
+    "restore_field_access": [
+      {
+        "name": "c",
+        "descriptor": "Z",
+        "access": 24
+      },
+      {
+        "name": "e",
+        "descriptor": "J",
+        "access": 26
+      },
+      {
+        "name": "f",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "g",
+        "descriptor": "[Ljava/lang/String;",
+        "access": 26
+      },
+      {
+        "name": "h",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      }
+    ],
+    "recipe_path": "build-tools/handler-recipes/843e1106eebc7700d3c579e3.json",
+    "recipe_sha256": "156ADCE52F4FE9810951608D17796287B0AB0797E52E56CE756806292EF940C7"
+  },
+  {
+    "owner": "net/minecraft/world/World",
+    "carrier": "net/minecraft/world/World$__SourceHandler_7a32332e14d1f9927b5d",
+    "target": {
+      "access": 1,
+      "name": "i__Boolean",
+      "descriptor": "()Z",
+      "attributes": {},
+      "exceptions": [],
+      "owner_is_interface": false
+    },
+    "query_method": "f721",
+    "compile_bridge": {
+      "name": "__sourceHandlerCall_7a32332e14d1f9927b5d",
+      "descriptor": "(Lnet/minecraft/world/World;)Z"
+    },
+    "source_input_sha256": "B54D94311F36A2EB39086FB573C9CFD50A78FAF00CF7FA4EFB104B8744CE6187",
+    "restore_field_access": [
+      {
+        "name": "c",
+        "descriptor": "Ljava/util/List;",
+        "access": 17
+      },
+      {
+        "name": "d",
+        "descriptor": "Ljava/util/List;",
+        "access": 20
+      },
+      {
+        "name": "e",
+        "descriptor": "Ljava/util/List;",
+        "access": 17
+      },
+      {
+        "name": "f",
+        "descriptor": "Ljava/util/List;",
+        "access": 17
+      },
+      {
+        "name": "g",
+        "descriptor": "Ljava/util/List;",
+        "access": 18
+      },
+      {
+        "name": "h",
+        "descriptor": "Ljava/util/List;",
+        "access": 18
+      },
+      {
+        "name": "i",
+        "descriptor": "Ljava/util/List;",
+        "access": 17
+      },
+      {
+        "name": "j",
+        "descriptor": "Ljava/util/List;",
+        "access": 17
+      },
+      {
+        "name": "k",
+        "descriptor": "Lmoom/Dd;",
+        "access": 20
+      },
+      {
+        "name": "l",
+        "descriptor": "J",
+        "access": 18
+      },
+      {
+        "name": "o",
+        "descriptor": "I",
+        "access": 20
+      },
+      {
+        "name": "u",
+        "descriptor": "Ljava/util/Random;",
+        "access": 17
+      },
+      {
+        "name": "v",
+        "descriptor": "Lmoom/EA;",
+        "access": 17
+      },
+      {
+        "name": "y",
+        "descriptor": "Lnet/minecraft/world/storage/ISaveHandler;",
+        "access": 20
+      },
+      {
+        "name": "D",
+        "descriptor": "Lmoom/A9;",
+        "access": 17
+      },
+      {
+        "name": "E",
+        "descriptor": "Ljava/util/Calendar;",
+        "access": 18
+      },
+      {
+        "name": "G",
+        "descriptor": "Z",
+        "access": 17
+      },
+      {
+        "name": "M",
+        "descriptor": "Lnet/minecraft/world/border/WorldBorder;",
+        "access": 18
+      },
+      {
+        "name": "O",
+        "descriptor": "Lcom/moon/nW;",
+        "access": 18
+      },
+      {
+        "name": "bb",
+        "descriptor": "J",
+        "access": 26
+      },
+      {
+        "name": "eb",
+        "descriptor": "[J",
+        "access": 26
+      },
+      {
+        "name": "fb",
+        "descriptor": "[Ljava/lang/Integer;",
+        "access": 26
+      },
+      {
+        "name": "gb",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      },
+      {
+        "name": "kb",
+        "descriptor": "[J",
+        "access": 26
+      },
+      {
+        "name": "lb",
+        "descriptor": "[Ljava/lang/Long;",
+        "access": 26
+      },
+      {
+        "name": "mb",
+        "descriptor": "Ljava/util/Map;",
+        "access": 26
+      }
+    ],
+    "recipe_path": "build-tools/handler-recipes/e50b8fa80c5a648438015efb.json",
+    "recipe_sha256": "3B8F8E873611A0C517FF5CB950CA678B433BF912B5921B3CF87D129F6AE780D6"
+  },
+  {
+    "owner": "com/moon/security/s",
+    "carrier": "com/moon/security/s$__SourceHandler_2e2083c10f0d9d8cfc92",
+    "target": {
+      "access": 1,
+      "name": "<init>",
+      "descriptor": "(Ljava/lang/String;)V",
+      "attributes": {},
+      "exceptions": [],
+      "owner_is_interface": false
+    },
+    "query_method": "f482",
+    "adaptation_kind": "normal_source_CFG",
+    "compile_bridge": {
+      "name": "__sourceHandlerCall_2e2083c10f0d9d8cfc92",
+      "descriptor": "(Lcom/moon/security/s;Ljava/lang/String;)V"
+    },
+    "source_input_sha256": "9D8C4E913F2A5161785752DC4E48AD168737874EF69B1D7EA1FECDFC96AA6B2A",
+    "restore_field_access": [
+      {
+        "name": "a",
+        "descriptor": "J",
+        "access": 26
+      }
+    ],
+    "recipe_path": "build-tools/handler-recipes/f4b79d87394fcb52d8a28bb4.json",
+    "recipe_sha256": "F4DCD7FEE00061ACB213C6EC55233AB74E743CFBC6A59455B04A1A1C5DF97930"
+  },
+  {
+    "owner": "com/moon/security/s",
+    "carrier": "com/moon/security/s$__SourceHandler_e6393c1a79014020599b",
+    "target": {
+      "access": 1,
+      "name": "<init>",
+      "descriptor": "(Ljava/lang/Throwable;)V",
+      "attributes": {},
+      "exceptions": [],
+      "owner_is_interface": false
+    },
+    "query_method": "f483",
+    "adaptation_kind": "normal_source_CFG",
+    "compile_bridge": {
+      "name": "__sourceHandlerCall_e6393c1a79014020599b",
+      "descriptor": "(Lcom/moon/security/s;Ljava/lang/Throwable;)V"
+    },
+    "source_input_sha256": "6D4BBD12EA4316B2C1819A726B7D05E5F95088BA51654586E2DE8C2E524BA6F3",
+    "restore_field_access": [
+      {
+        "name": "a",
+        "descriptor": "J",
+        "access": 26
+      }
+    ],
+    "recipe_path": "build-tools/handler-recipes/996b50d4138248475b05296b.json",
+    "recipe_sha256": "DE3DFE0DD0D519DFD15A61566602537FDF54284570774919A6A08BFA7D10BAA7"
+  },
+  {
+    "owner": "com/moon/obfuscator/NativeLoader",
+    "carrier": "com/moon/obfuscator/NativeLoader$__SourceHandler_b9486f4f01b5b883ee49",
+    "target": {
+      "access": 10,
+      "name": "isPosixCompliant",
+      "descriptor": "()Z",
+      "attributes": {},
+      "exceptions": [],
+      "owner_is_interface": false
+    },
+    "query_method": "f152",
+    "compile_bridge": {
+      "name": "__sourceHandlerCall_b9486f4f01b5b883ee49",
+      "descriptor": "()Z"
+    },
+    "source_input_sha256": "B890B2E9F4E73D612D5BB92F0A7BE158B236257DDB202085A8A457E5C3B08FEA",
+    "restore_field_access": [
+      {
+        "name": "MIN_PREFIX_LENGTH",
+        "descriptor": "I",
+        "access": 26
+      },
+      {
+        "name": "NATIVE_FOLDER_PATH_PREFIX",
+        "descriptor": "Ljava/lang/String;",
+        "access": 25
+      },
+      {
+        "name": "$assertionsDisabled",
+        "descriptor": "Z",
+        "access": 4120
+      }
+    ],
+    "recipe_path": "build-tools/handler-recipes/033e5ea372ca2fb9e04d9caa.json",
+    "recipe_sha256": "867C0452948B393972A1F8CAEB10D6248085E27A2AC1697C98D83996A2B3D5EF"
+  }
+]

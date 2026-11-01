@@ -1442,22 +1442,6 @@
     "defer_member_coverage_to_declaration_adapter": true
   },
   {
-    "owner": "com/moon/security/i",
-    "method_aliases": [
-      {
-        "owner": "com/moon/security/i",
-        "source_name": "a__sourceReturn_e45a9973e5",
-        "target_name": "a",
-        "descriptor": "(J)V",
-        "target_access": 257,
-        "target_exceptions": []
-      }
-    ],
-    "restore_field_access": [],
-    "restore_method_access": [],
-    "defer_member_coverage_to_declaration_adapter": true
-  },
-  {
     "owner": "moom/B1",
     "method_aliases": [
       {

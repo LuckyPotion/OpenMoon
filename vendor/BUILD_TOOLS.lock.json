@@ -24,7 +24,8 @@
     {
       "path": "vendor/build-tools/asm-commons-9.9.1.jar",
       "sha256": "C2319E014CE7199F2B7F7D56D6BB991863168C3F4B6CD6C9F542A4937EF7EF88",
-      "role": "ASM runtime namespace transport tool"
+      "role": "ASM runtime namespace transport tool",
+      "size": 75010
     },
     {
       "path": "vendor/build-tools/generation-toolkit.zip",
@@ -39,40 +40,45 @@
   "metadata": [
     {
       "path": "build-tools/declarations.json",
-      "sha256": "A0AB3724EDF3BA2BDF94A58435A8AB7CE2E4487C25B217689B714EF7B759FFF9",
-      "size": 14052917,
+      "sha256": "4584A82035383FE5795B358C9D1FA8B77E5FD9536CEF8DACF5A69A7DB84929A7",
+      "size": 13355565,
       "role": "Code_free_owner_declarations_and_hierarchy_not_compilation_classpath"
     },
     {
       "path": "build-tools/runtime-declarations.json",
-      "sha256": "4FCEDB0CC19C1C7CFFE15D946F302E34D6B42A76BF46CAADD08C88D308B237FF",
-      "size": 26528215,
+      "sha256": "DC13FF3F5043FBB77481469754F3D8BFA339FBB37604DB8143231A213DE49313",
+      "size": 24847814,
       "role": "Decoded declaration annotations/constants/nests only; no implementation Code or frames"
     },
     {
       "path": "build-tools/RUNTIME_S_TO_R.tsv",
-      "sha256": "A3BF5AF904CF648733F773C285D77C8F8503A209F50477EDA7820669B49AB91B",
-      "role": "Code-free runtime declaration/namespace/delivery contract input"
+      "sha256": "8673E597FF30DA9C4A3837DA2F42D2CE1AC6910C379D205C60CB5F87B5830065",
+      "role": "Code-free runtime declaration/namespace/delivery contract input",
+      "size": 4171952
     },
     {
       "path": "build-tools/RuntimeRDeclarations.json",
-      "sha256": "474E415FC85CA5AF1A0D983D1A1C1526F8481A52CC95403BD1DACD0C14CF9F41",
-      "role": "Code-free runtime declaration/namespace/delivery contract input"
+      "sha256": "0B2DF37206E658BDC1248A8B05B780785BDF15F623335CD05DBDDB3E6A4E4D7B",
+      "role": "Code-free runtime declaration/namespace/delivery contract input",
+      "size": 10143388
     },
     {
       "path": "build-tools/RuntimeOriginalMetadata.json",
       "sha256": "E859EC61B47A6CB27A5A66809153676F6A21AB1DE221D87BF60E11E54FCFDB71",
-      "role": "Code-free runtime declaration/namespace/delivery contract input"
+      "role": "Code-free runtime declaration/namespace/delivery contract input",
+      "size": 5241
     },
     {
       "path": "build-tools/RuntimeProjectionContract.json",
-      "sha256": "7D86DBAD45CEA4432EF334AE158860F551F85C614F58781B4F7D30B6E20AF74C",
-      "role": "Code-free runtime declaration/namespace/delivery contract input"
+      "sha256": "DC3AB0E4FAC7D1ABB914E7C366007B0D5255D451B752931FDF6F9F4B4AC51DD0",
+      "role": "Code-free runtime declaration/namespace/delivery contract input",
+      "size": 1318
     },
     {
       "path": "vendor/RUNTIME_DEPENDENCIES.lock.json",
       "sha256": "E0F894C1BE64FADA7C3221A7869A636D802BD72E178E12F5A0A707D6DD8C0729",
-      "role": "Code-free runtime declaration/namespace/delivery contract input"
+      "role": "Code-free runtime declaration/namespace/delivery contract input",
+      "size": 14389
     }
   ],
   "sources": [
@@ -222,33 +228,45 @@
     },
     {
       "path": "build-tools/generator-source/SourceRuntimeImageAdapter.java",
-      "sha256": "FD3E9118F55BE3E317F1EBFC91D0368530A6C64DD94723F1E78DA9AAF3E4E7DB",
-      "role": "Fresh runtime delivery tool source; build-only and excluded from client owned implementation"
+      "sha256": "FBFF735F520BE9C172446BF3351F098544489305ED2A5E2157FCEF5ABCB19692",
+      "role": "Fresh runtime delivery tool source; build-only and excluded from client owned implementation",
+      "size": 11230
     },
     {
       "path": "build-tools/generator-source/RuntimeArchiveAudit.java",
-      "sha256": "96A15708ADB5E640DA0A6FDA533CBC0F92A84A453A9BBFAD612B66F1C7DE0F8C",
-      "role": "Fresh runtime delivery tool source; build-only and excluded from client owned implementation"
+      "sha256": "06F9762D8AC376A97165495E63F3847754F4BFC8A9F2944D6F85B515DD804E17",
+      "role": "Fresh runtime delivery tool source; build-only and excluded from client owned implementation",
+      "size": 5100
     },
     {
       "path": "build-tools/generator-source/ClientJarPackager.java",
-      "sha256": "2A63E44126D5438DD9DC153BC58402E703E860DBDE06732DCCB1AECE7DE4DFC0",
-      "role": "Fresh runtime delivery tool source; build-only and excluded from client owned implementation"
+      "sha256": "DFFFF9C17A833B589B25BC951D827080BFA980DA94C912FDD573DB278026F913",
+      "role": "Fresh runtime delivery tool source; build-only and excluded from client owned implementation",
+      "size": 5415
     },
     {
       "path": "build-tools/generator-source/ClientDelivery.java",
-      "sha256": "918588F58BE6D09804EC32F35A3E7FE0C29F430374166359316D2792674654F7",
-      "role": "Fresh runtime delivery tool source; build-only and excluded from client owned implementation"
+      "sha256": "4F98F985AF9FA37020AC1BCABD188A626229B7093194638A655DA8345D69A5EA",
+      "role": "Fresh runtime delivery tool source; build-only and excluded from client owned implementation",
+      "size": 5582
     },
     {
       "path": "build-tools/generator-source/NonInitializingJarVerifier.java",
       "sha256": "0A76294612D34CB09B61EA39013CFEB33026ABEB37CCF917D3E41120F5BCA170",
-      "role": "Fresh runtime delivery tool source; build-only and excluded from client owned implementation"
+      "role": "Fresh runtime delivery tool source; build-only and excluded from client owned implementation",
+      "size": 4225
     },
     {
       "path": "build-tools/generator-source/RuntimeMemberClosure.java",
       "sha256": "F420DE5157981BA85E287FF3C9FCA1661B936983C3B0EBACAE2531F697B43B4D",
-      "role": "Fresh static member reference closure gate; build-only, no client class definition or initialization"
+      "role": "Fresh static member reference closure gate; build-only, no client class definition or initialization",
+      "size": 8970
+    },
+    {
+      "path": "build-tools/generator-source/UidFreeBuildPolicy.java",
+      "role": "Freshly compiled production/reference isolation gate; build only",
+      "sha256": "834ABE20DA15A8B41B6B3DE1126135DDCAD1B0AF1D5D0B6D93F64E3090A2856E",
+      "size": 9762
     }
   ],
   "bootstrap_sources": [
@@ -311,7 +329,7 @@
     {
       "path": "build-tools/SourceDeclarationAdapter.java",
       "sha256": "687619D67431400B1C25ADFFE5BA80CBF044BBF625CA6B4F4D35792A0240C8CF",
-      "size": 14541,
+      "size": 16973,
       "role": "fresh_compiled_main_source_adapter_direct_input_lock"
     },
     {
@@ -330,32 +348,32 @@
   "plans": [
     {
       "path": "CONSTRUCTOR_PLAN.json",
-      "sha256": "DC8B6B25BBE338C2DDF1182E15313BBD1D4200F97FA3FA52172B80E9563FA900",
-      "size": 1581711,
+      "sha256": "4B760843DAEB779158FB42BA16FCD11693291E93C9540BED7277F4E7A6408E2E",
+      "size": 1575138,
       "role": "Code_free_saved_source_operation_and_declaration_plan"
     },
     {
       "path": "ENUM_PLAN.json",
-      "sha256": "4B6866615C198841A5412F96C9178050CFEC1CC6857A924F8DD795AD0A603C23",
-      "size": 876376,
+      "sha256": "17B4C3F62C8006D9CAB20552F4B064EDED3A75EDB25BAC03B9C74B11BBF4CD52",
+      "size": 870729,
       "role": "Code_free_saved_source_operation_and_declaration_plan"
     },
     {
       "path": "HANDLER_PLAN.json",
-      "sha256": "884F06A6AA674B00784F036B45B741A7B54C9707E3C05EC5B15FAD651D992D87",
-      "size": 7648475,
+      "sha256": "3CC0EAB768B531FBA4E942721D631C14FA069F68471C36BA139732C2EE31D5B5",
+      "size": 7622973,
       "role": "Code_free_saved_source_operation_and_declaration_plan"
     },
     {
       "path": "INTRINSIC_PLAN.json",
-      "sha256": "C2AB78E445DE06B713ABC5014B98252D94762F90A616A4274B960A71FB1FB540",
-      "size": 19443954,
+      "sha256": "00ADB9369988227A037071E614A742EEAE2F79065ACD2416B9729CE9CBCEA8D2",
+      "size": 17367285,
       "role": "Code_free_saved_source_operation_and_declaration_plan"
     },
     {
       "path": "ABI_ALIAS_PLAN.json",
-      "sha256": "6A6BECD820A64E349F28817D464F365084B014E04F8974FF64B33DAA86B501C6",
-      "size": 993985,
+      "sha256": "AE312EC2C0785A1ACA7BC6FBDE3C09F5ED4C0BDAA273FA660AB1F1D4B511A7DC",
+      "size": 993542,
       "role": "Code_free_saved_source_operation_and_declaration_plan"
     }
   ]

@@ -5369,7 +5369,7 @@ public static void f536(net.minecraft.client.Minecraft receiver) throws Throwabl
     net.minecraft.client.Minecraft spill536_77;
     net.minecraft.client.gui.GuiIngame spill536_78;
     net.minecraft.client.Minecraft spill536_79;
-    com.moon.ph spill536_80;
+    com.moon.runtime.StartupScreen spill536_80;
     net.minecraft.client.Minecraft spill536_81;
     moom.fL spill536_82;
     boolean spill536_83;
@@ -5653,7 +5653,7 @@ public static void f536(net.minecraft.client.Minecraft receiver) throws Throwabl
     __explicitNewInit536_273(__stackOp536_272_0, receiver);
     __fieldWrite536_274(spill536_77, spill536_78);
     spill536_79 = receiver;
-    com.moon.ph __stackOp536_276_0 = __sourceUninitializedNEW536_275();
+    com.moon.runtime.StartupScreen __stackOp536_276_0 = __sourceUninitializedNEW536_275();
     spill536_80 = __stackOp536_276_0;
     __explicitNewInit536_277(__stackOp536_276_0);
     __call536_278(spill536_79, spill536_80);
@@ -5973,9 +5973,9 @@ private static native void __call536_270(net.minecraft.client.Minecraft a0, java
 private static native net.minecraft.client.gui.GuiIngame __sourceUninitializedNEW536_271() throws Throwable;
 private static native void __explicitNewInit536_273(net.minecraft.client.gui.GuiIngame a0, net.minecraft.client.Minecraft a1) throws Throwable;
 private static native void __fieldWrite536_274(net.minecraft.client.Minecraft a0, net.minecraft.client.gui.GuiIngame a1) throws Throwable;
-private static native com.moon.ph __sourceUninitializedNEW536_275() throws Throwable;
-private static native void __explicitNewInit536_277(com.moon.ph a0) throws Throwable;
-private static native void __call536_278(net.minecraft.client.Minecraft a0, com.moon.ph a1) throws Throwable;
+private static native com.moon.runtime.StartupScreen __sourceUninitializedNEW536_275() throws Throwable;
+private static native void __explicitNewInit536_277(com.moon.runtime.StartupScreen a0) throws Throwable;
+private static native void __call536_278(net.minecraft.client.Minecraft a0, com.moon.runtime.StartupScreen a1) throws Throwable;
 private static native net.minecraft.client.renderer.texture.TextureManager __fieldRead536_279(net.minecraft.client.Minecraft a0) throws Throwable;
 private static native moom.DD __fieldRead536_280(net.minecraft.client.Minecraft a0) throws Throwable;
 private static native void __call536_281(net.minecraft.client.renderer.texture.TextureManager a0, moom.DD a1) throws Throwable;
@@ -8242,7 +8242,7 @@ private static native void __call541_44(moom.A9 a0, java.lang.String a1) throws 
 private static native moom.DM __fieldRead541_45(net.minecraft.client.Minecraft a0) throws Throwable;
 private static native int __fieldRead541_46(moom.DM a0) throws Throwable;
 private static native com.moon.runtime.ClientContext __call541_47() throws Throwable;
-private static native com.moon.security.c __call541_48(com.moon.runtime.ClientContext a0) throws Throwable;
+private static native com.moon.runtime.LocalClientProfile __call541_48(com.moon.runtime.ClientContext a0) throws Throwable;
 private static native long __call541_49() throws Throwable;
 private static native long __call541_50() throws Throwable;
 private static native long __invokedynamic541_51(int a0, long a1) throws Throwable;
@@ -8250,8 +8250,8 @@ private static native int __numericCompare541_52(long a0, long a1) throws Throwa
 private static native net.minecraft.client.gui.GuiScreen __fieldRead541_53(net.minecraft.client.Minecraft a0) throws Throwable;
 private static native int __instanceOf541_54(net.minecraft.client.gui.GuiScreen a0) throws Throwable;
 private static native com.moon.runtime.ClientContext __call541_55() throws Throwable;
-private static native com.moon.security.c __call541_56(com.moon.runtime.ClientContext a0) throws Throwable;
-private static native boolean __call541_57(com.moon.security.c a0) throws Throwable;
+private static native com.moon.runtime.LocalClientProfile __call541_56(com.moon.runtime.ClientContext a0) throws Throwable;
+private static native boolean __call541_57(com.moon.runtime.LocalClientProfile a0) throws Throwable;
 private static native int __integerCategory541_58(boolean value) throws Throwable;
 private static native void __call541_59(net.minecraft.client.Minecraft a0) throws Throwable;
 private static native moom.A9 __fieldRead541_60(net.minecraft.client.Minecraft a0) throws Throwable;
